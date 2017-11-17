@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en-US">
+	
+<!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>G A M E S  D O I</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link rel="shortcut icon" href="img/favicon.png">
+		<!-- CSS -->
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="css/layerslider.css">
+		        <!-- picker styles -->
+        <link rel="stylesheet" href="colorstyles/picker.css" type="text/css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background1" href="colorstyles/background1.css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background2" href="colorstyles/background2.css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background3" href="colorstyles/background3.css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background4" href="colorstyles/background4.css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background5" href="colorstyles/background5.css" />
+        <link rel="alternate stylesheet" type="text/css" media="screen" title="background6" href="colorstyles/background6.css" />
+          <!-- end picker styles -->
+		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
+	</head>
+	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
+		
+<!--end picker -->
+		<div class="container logo">
+			<!-- Logo -->
+			
+			
+			<!-- End Logo -->
+			<!-- Social logos -->
+			<div class="social">
+				<h3 class="normal"><a href="#myModalL" data-toggle="modal">LOGIN</a> |<a href="#myModalR" data-toggle="modal">REGISTER</a></h3>
+			</div>
+			<!-- End Social logos -->
+			<div class="clear"></div>
+		</div>
+		<!-- NAVBAR -->
+		<div id="myModalL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Login Account</h3>
+			</div>
+			<div class="modal-body">
+				<div id="LoginWithAjax" class="default">
+					<span id="LoginWithAjax_Status"></span>
+					<form name="LoginWithAjax_Form" id="LoginWithAjax_Form" action="http://skywarriorthemes.com/gameaddict/wp-login.php?callback=?&amp;template=" method="post">
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+								<tr id="LoginWithAjax_Username">
+									<td class="username_input">
+										<h4>Username</h4>
+										<input name="log" placeholder="Username" id="lwa_user_login" class="input" value="" type="text">
+									</td>
+								</tr>
+								<tr id="LoginWithAjax_Password">
+									<td class="password_input">
+										<h4>Password</h4>
+										<input placeholder="Password" name="pwd" id="lwa_user_pass" class="input" value="" type="password">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"></td>
+								</tr>
+								<tr id="LoginWithAjax_Submit">
+									<td align="center">
+									<br>
+									<label><input name="rememberme" id="lwa_rememberme" value="forever" type="checkbox"> Remember Me</label>
+									</td>
+								</tr>
+								<tr id="LoginWithAjax_Submit">
+									<td id="LoginWithAjax_SubmitButton" align="center">
+										<input class="button-small"value="Log In" type="submit">
+										<input name="lwa_profile_link" value="" type="hidden">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- Register Modal-->
+		<div id="myModalR" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Register Account</h3>
+			</div>
+			<div class="modal-body">
+				<div id="RegisterWithAjax" class="default">
+					<span id="RegisterWithAjax_Status"></span>
+					<form name="RegisterWithAjax_Form" id="RegisterWithAjax_Form" action="http://skywarriorthemes.com/gameaddict/wp-login.php?callback=?&amp;template=" method="post">
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+								<tr id="RegisterWithAjax_Username">
+									<td class="username_input">
+										<h4>Username</h4>
+										<input name="log" placeholder="Username" id="lwa_user_login" class="input" value="" type="text">
+									</td>
+								</tr>
+								<tr id="RegisterWithAjax_Email">
+									
+									<td class="email_input">
+										<h4>Email</h4>
+										<input placeholder="sample_email@email.com" name="email" id="lwa_user_email" class="input" value="" type="text">
+									</td>
+								</tr>
+								<tr id="RegisterWithAjax_Password">
+									<td class="password_input">
+									<h4>Password</h4>
+										<input placeholder="Password" name="pwd" id="lwa_user_pass" class="input" value="" type="password">
+									</td>
+								</tr>
+								<tr id="RegisterWithAjax_CPassword">
+									<td class="password_input">
+									<h4>Confirm Password</h4>
+										<input placeholder="Confirm Password" name="cpwd" id="lwa_user_con_pass" class="input" value="" type="password">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"></td>
+								</tr>
+								<tr id="RegisterWithAjax_Submit">
+									<td id="RegisterWithAjax_SubmitButton" align="center">
+										<br>
+										<label id="updatesReg"><input name="rememberme" id="lwa_rememberme" value="forever" type="checkbox"> Send me updates through my email</label>
+										<br>
+										<a id="submitReg" class="button-small" href="#">Register</a>
+										<input name="redirect_to" value="#" type="hidden">
+										<input name="testcookie" value="1" type="hidden">
+										<input name="lwa_profile_link" value="" type="hidden">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="page normal-page container">
+			<div class="block span13 first cf">
+
+				<div class="wcontainer block">
+
+					<table cellpadding="0" cellspacing="0" width="100%">
+
+						<tbody>
+
+							<tr>
+
+								<td align="center">
+
+									<img src="img/logo.png" alt="logo"  />
+
+								</td>
+
+							</tr>
+
+							<tr>
+
+								<td align="center">
+
+									<h2>Find your next game to play from gamers alike </h2>
+									<p><p>
+
+								</td>
+
+							</tr>
+
+							<tr>
+
+								<td align="center">
+
+									<form>
+
+										<label>
+										<i class="icon-search"></i>&nbsp;&nbsp;
+										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gamesearch" class="input" type="text">
+										&nbsp;<a class="button-small" href="WEBTECH_viewResults.html">Search</a>
+										</label>
+
+									</form>
+
+								</td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				
+
+				<!-- BREAK top is search, bottom is genres !-->
+
+				
+
+					<table cellpadding="0" cellspacing="0" width="100%">
+
+						<tbody>
+
+							<tr>
+
+								<td align="center">
+
+									<h2>Search by popular genres</h2>
+									<br>
+
+								</td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				
+
+					<ul class="newsbh">
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+						<li class="newsch-item">
+							<div class="newsb-thumbnail">
+								<a rel="bookmark" href="WEBTECH_viewResults.html">
+								<img src="../wp-content/uploads/2013/08/11-287x222.jpg">
+								<span class="overlay-link"></span>
+								</a>
+							</div>
+						</li>
+
+					</ul>
+
+					<div class="clear"></div>
+				</div>
+
+				<!-- break !-->
+
+				<div class="wcontainer block">
+
+					<table cellpadding="0" cellspacing="0" width="100%">
+
+						<tbody>
+
+							<tr>
+
+								<td align="center">
+
+									<h2>Browse Categories</h2>
+									<br>
+
+								</td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+					<table cellpadding="0" cellspacing="0" width="100%">
+
+						<thead>
+
+							<tr>
+
+								<td align="center" width="33.3%"><h3>Most Viewed<h3></td>
+								<td align="center" width="33.3%"><h3>Highest Rated<h3></td>
+								<td align="center" width="33.3%"><h3>New & Popular<h3></td>
+
+							<tr>
+
+						</thead>
+
+						<tbody>
+
+							<tr>
+
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/pubg.png"></div><div class="gamedesccat"><h4>PLAYERUNKNOWN'S BATTLEGROUNDS</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/cuphead.jpg"></div><div class="gamedesccat"><h4>CUPHEAD</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/cuphead.jpg"></div><div class="gamedesccat"><h4>CUPHEAD</h4></div></a></td>
+
+							</tr>
+
+							<tr>
+
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/cuphead.jpg"></div><div class="gamedesccat"><h4>CUPHEAD</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/warframe.png"></div><div class="gamedesccat"><h4>WARFRAME</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/2k18.png"></div><div class="gamedesccat"><h4>NBA 2K18</h4></div></a></td>
+
+							</tr>
+
+							<tr>
+
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/csgo.png"></div><div class="gamedesccat"><h4>COUNTER STRIKE: <br>GLOBAL OFFENSIVE</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/fortnite.png"></div><div class="gamedesccat"><h4>FORTNITE</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/d2.png"></div><div class="gamedesccat"><h4>DESTINY 2</h4></div></a></td>
+
+							</tr>
+
+							<tr>
+
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/2k18.png"></div><div class="gamedesccat"><h4>NBA 2K18</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/rocketleague.png"></div><div class="gamedesccat"><h4>ROCKET LEAGUE</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/warhammer.png"></div><div class="gamedesccat"><h4>WARHAMMER 2</h4></div></a></td>
+
+							</tr>
+
+							<tr>
+
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/fortnite.png"></div><div class="gamedesccat"><h4>FORTNITE</h4></div></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/csgo.png"></div><div class="gamedesccat"><h4>COUNTER STRIKE: <br>GLOBAL OFFENSIVE</h4></div></a></td>
+								<td><a href="WEBTECH_viewGame.html"><div class="categorythumb"><img src="../wp-content/uploads/f7.jpg"></div><div class="gamedesccat"><h4>FORZA MOTORSPORT 7</h4></div></a></td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+				<!-- BREAK !-->
+
+				<div class="title-wrapper">
+					<h3 class="widget-title">top critics</h3>
+					<div class="clear"></div>
+				</div>
+
+				<div class="wcontainer block">
+					
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Lumilipad nanaman ang isip ko, na para bang akoy nasa kalangitan.</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Sa twing' si Goyo ay aking matitikman, ang simoy ng hangin saakin ay lumalamig na.</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Gusto mo bang tikman, nang maranasan mo ang sinasabi ko sayo.</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+					<div class="clear"></div>
+
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Na para kang nandun sa alapaap, at ang sarap ng usok parang ulap.</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Diko mapigilan mapangiti, parang kinikiliti. Sindihan na natin at muli nating lasapin, ang kakaibang dulot nya</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+					<a class="normal" href="WEBTECH_userProfile.html">
+					<div class="block block-four_block span4  cf">
+						<div class="text-container centered bgpattern charblock maxed">
+							<span class="top-critic"><img class="img-circles" src="../wp-content/uploads/greg.jpg"></span>
+							<h2 class="normalh2">GREGORY PETROLA</h2>
+							<i>@G0YO6969</i>
+							<br>
+							<p>Mahiwagang, Gregory, Goyo Petrola.</p>
+							<p></p>
+						</div>
+					</div>
+					</a>
+
+				<div class="clear"></div>
+				</div>
+			</div>
+					<!-- End Latest News -->
+					<!-- Adventure News -->
+					
+					
+					
+					<!-- End Tabs -->
+				</div>
+				</div>
+			</div>
+		</div>
+		<footer class="container">
+			<div class="span12">
+					<div class="first footer_widget span3">
+						<div class="title-wrapper">
+							<a href="WEBTECH_aboutUs.html">
+							<h3 class="widget-title">About Us</h3>
+							</a>
+							<div class="clear"></div>
+						</div>
+						<div class="latest-twitter-tweet"></div>
+						
+					</div>
+
+				
+			</div>
+			<div class="copyright span12">
+				<p>© &nbsp;Made by Skywarrior Themes.&nbsp;</p>
+			</div>
+		</footer>
+		<!-- JavaScript -->
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.pack.js"></script>
+        <script src="../../../code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="js/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="js/jquery.elastic.source.js"></script>
+		<script type="text/javascript" src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.totop.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/login-with-ajax.js"></script>
+		<script type="text/javascript" src="js/bootstrap-button.js"></script>
+		<script type="text/javascript" src="js/bootstrap-carousel.js"></script>
+		<script type="text/javascript" src="js/bootstrap-collapse.js"></script>
+		<script type="text/javascript" src="js/bootstrap-modal.js"></script>
+		<script type="text/javascript" src="js/bootstrap-tab.js"></script>
+		<script type="text/javascript" src="js/bootstrap-tooltip.js"></script>
+		<script type="text/javascript" src="js/bootstrap-transition.js"></script>
+		<script type="text/javascript" src="js/bootstrap-popover.js"></script>
+		<script type="text/javascript" src="js/easing.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/imagescale.js"></script>
+		<script type="text/javascript" src="js/login-with-ajax.source.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	 	<script type="text/javascript" src="js/theme.min.js"></script>
+		<script type="text/javascript" src="js/tinymce.min.js"></script>
+		<script type="text/javascript" src="js/transit.js"></script>
+		<script type="text/javascript" src="js/admin.js"></script>
+		<script type="text/javascript" src="js/greensock.js"></script>
+		<script type="text/javascript" src="js/layerslider.transitions.js"></script>
+		<script type="text/javascript" src="js/layerslider.kreaturamedia.jquery.js"></script>
+		<script type="text/javascript" src="js/tabs.js"></script>
+		<script type="text/javascript" src="js/ticker.js"></script>
+		<script>
+			jQuery("#layerslider").layerSlider({
+				pauseOnHover: false,
+				autoPlayVideos: false,
+				skinsPath: './layerslider/skins/',
+				responsive : true,
+				responsiveUnder : 1200,
+				layersContainer : 1200,
+				skin_name: 'fullwidth',
+				navStartStop: false
+			});
+		</script>
+        <script type="text/javascript" src="js/styleswitch.js"></script>
+        <script type="text/javascript" src="js/jquery.tabSlideOut.v1.3.js"></script>
+        <script type="text/javascript" src="js/styleswitchcustom.js"></script>
+	    <script type="text/javascript">
+            jQuery(function () {
+                jQuery('#js-news').ticker();
+            });
+        </script>
+        <!-- End JavaScript -->
+
+	</body>
+
+<!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:37:00 GMT -->
+</html>

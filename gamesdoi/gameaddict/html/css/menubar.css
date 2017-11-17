@@ -1,0 +1,39 @@
+#profileNav ul{
+	margin: 0px;
+	border: 0px;
+	padding-top: : 0px;
+	list-style: none;
+	font-size: 20px;
+
+	
+
+}
+
+#profileNav ul li{
+	background-color: none;
+	float: right;
+	opacity: .9;
+	text-align: center;
+	width: 70px;
+}
+
+#profileNav ul li a{
+	text-decoration: none;
+	color : #FF5B5B;
+	display: block;
+	
+
+}
+
+#profileNav ul li a:hover {
+	background-color: #666;
+}
+
+#profileNav ul li ul li{
+	display: none;
+	font-size: 12px;
+}
+
+#profileNav ul li:hover ul li{
+	display: block;
+}
