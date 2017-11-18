@@ -150,7 +150,25 @@
 	// for checking if 
 	function validEmail($Pemail){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
-		
+		$getEmail = $dbc->query("SELECT * 
+								FROM user
+								WHERE  email = '$Pemail'");
+		$fetchEmail = mysqli_fetch_array($getEmail);
+
+		$tempEmail = null;
+
+		foreach($getEmail as $fetchEmail){
+			$tempEmail = $fetchEmail['email'];
+			//$temppass = $fetchUser['passWord'];
+		}
+
+		$checker = 'true';
+		if($tempEmail != null){
+			$checker = 'false' ;
+		}
+
+		//echo  $checker;
+		return $checker;
 	}
 
 	// inserts newly registered user into DB; by default, userStatusID = 1;
