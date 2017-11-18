@@ -77,7 +77,7 @@
 						<li>
 							<input type="submit" class="button-green button-small" name="login" value="Login">
 
-							<a type="button" class="button-small"  style="position: relative; top: 1px; left: 40%">Go Back</a>
+							<a href="WEBTECH_index.php" type="button" class="button-small"  style="position: relative; top: 1px; left: 40%">Go Back</a>
 						</li>
 						
 
