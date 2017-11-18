@@ -6,11 +6,11 @@ $url = $_POST['gameURL'];
 
 if($name == '' || $description == '' || $url == ''){
     echo("PLS INPUT ALL FIELDS");
-    header("Location:addGameTest.php");
+    header("Location:addGame.php");
 }
 
 else{
-    $conn = new mysqli("localhost", "root", "marvin", "reviewschema");
+    $conn = new mysqli("localhost", "webtech", "", "reviewschema");
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -23,7 +23,7 @@ else{
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
-        header("Location:addGameTest.php");
+        header("Location:addGame.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
