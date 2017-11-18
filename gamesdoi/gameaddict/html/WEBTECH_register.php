@@ -117,32 +117,96 @@
 
 	//href="WEBTECH_index.html"
 
+	// for checking if entered username is valid
+	function validUserName($Pusername){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$getUser = $dbc->query("SELECT * 
+								FROM user
+								WHERE  userName = '$Pusername'");
+		$fetchUser = mysqli_fetch_array($getUser);
+
+		$tempuserID = null;
+
+		foreach($getUser as $fetchUser){
+			$tempuserID = $fetchUser['userID'];
+			$temppass = $fetchUser['passWord'];
+		}
+
+		$checker = 'true';
+		if($tempuserID != null){
+			$checker = 'false' ;
+		}
+
+		//echo  $checker;
+		return $checker;
+	}
+
+
+	// for checking if 
+	function validEmail($Pemail){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		
+	}
+
+	// inserts newly registered user into DB; by default, userStatusID = 1;
+	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail, $Ptype, $Pstatus){
+
+	}
+
 
 	if (isset($_POST['register'])){
-		echo "<script type='text/javascript'>alert('T R I A L');</script>";
+		//echo "<script type='text/javascript'>alert('T R I A L');</script>";
+		// variables for each line
 
+
+		// if 'usernmame' field is empty
 		if(empty($_POST["username"])){
 			echo "<script type='text/javascript'>alert('Username is empty');</script>";
+			// $usernmame_msg here
 		}
 
+		// if 'password' field is empty
 		if(empty($_POST["pass"])){
 			echo "<script type='text/javascript'>alert('Password is empty');</script>";
+			// $_msg here
 		}
 
+		// if 'confirm password' field is empty
 		if(empty($_POST["repass"])){
 			echo "<script type='text/javascript'>alert('Please confirm password');</script>";
+			// $_msg here
 		}
 
+		// if 'e-mail' field is empty
 		if(empty($_POST["email"])){
 			echo "<script type='text/javascript'>alert('E-mail is empty');</script>";
+			// $_msg here
 		}
 
+
+		// if 'First Name' field is empty
 		if(empty($_POST["fname"])){
 			echo "<script type='text/javascript'>alert('First Name is empty');</script>";
+			// $_msg here
 		}
 
+		//if 'Last Name' field is empty
 		if(empty($_POST["lname"])){
 			echo "<script type='text/javascript'>alert('Last Name is empty');</script>";
+			// $_msg here
+		}
+
+
+		// if entered 'username' is still valid
+		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'true'){
+			echo "<script type='text/javascript'>alert('Entered username is VALIDD');</script>";
+			// $_msg here
+		}
+
+		// if entered 'username' is already taken
+		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'false'){
+			echo "<script type='text/javascript'>alert('Username is already TAKEN!!');</script>";
+			// $_msg here
 		}
 	}
 
