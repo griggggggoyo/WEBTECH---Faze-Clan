@@ -66,12 +66,12 @@
 
                        	<li class="input-prepend">
 							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Username</label></span>
-							<input type="text" placeholder="Username" name="subject" value="" class="reg_fields">
+							<input type="text" placeholder="Username" name="username" value="" class="reg_fields">
                         </li><p>
 
                         <li class="input-prepend">
 							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Password</label></span>
-							<input type="password" placeholder="Password" name="subject" value="" class="reg_fields">
+							<input type="password" placeholder="Password" name="pass" value="" class="reg_fields">
                         </li><p>
 
 						<li>
@@ -98,9 +98,50 @@
 	// echo "<script type='text/javascript'>alert('$msg');</script>";
 	// echo "<script type='text/javascript'>alert('Oy');</script>";
 
-	
+	function getUserID($PuserName){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+
+		$getUser = $dbc->query("SELECT * 
+								FROM user
+								WHERE  userName = '$PuserName'");
+		$fetchUser = mysqli_fetch_array($getUser);
+
+
+		$tempuserID = null;
+
+
+		foreach($getUser as $fetchUser){
+			$tempuserID = $fetchUser['userID'];
+			$temppass = $fetchUser['passWord'];
+		}
+		return $tempuserID;
+	}
+		
 
 	if (isset($_POST['login'])){
 		
+		// if 'Username' field is empty
+		if(empty($_POST["username"])){
+			echo "<script type='text/javascript'>alert('Please enter a username.');</script>";
+		}
+
+		// if 'Password' field is empty
+		if(empty($_POST["pass"])){
+			echo "<script type='text/javascript'>alert('Please enter your password.');</script>";
+		}
+
+
+		$userID = getUserID($_POST["username"]);		
+
+		// 'Username' field username was NOT found!!!
+		if(!empty($_POST["username"]) && $userID == null){
+			echo "<script type='text/javascript'>alert('User account does not exist!!');</script>";
+		}
+
+		// 'Username' field username exists in the DB!!!
+		if(!empty($_POST["username"]) && $userID != null){
+			echo "<script type='text/javascript'>alert('account does  exist!! --> $userID');</script>";
+		}
+
 	}
 ?>
