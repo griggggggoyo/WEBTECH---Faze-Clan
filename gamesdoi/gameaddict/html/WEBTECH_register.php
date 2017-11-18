@@ -154,11 +154,13 @@
 	}
 
 	// inserts newly registered user into DB; by default, userStatusID = 1;
-	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail, $Ptype, $Pstatus){
+	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
+		// $Ptype, $Pstatus; default -> 1, 1;
 
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
 		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
-									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', )";
+									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', 1, 1)";
+		$insert_user = mysqli_query($dbc, $addUser_query);
 	}
 
 
@@ -201,6 +203,12 @@
 		//if 'Last Name' field is empty
 		if(empty($_POST["lname"])){
 			echo "<script type='text/javascript'>alert('Last Name is empty');</script>";
+			// $_msg here
+		}
+
+		//if 'Birth Date' field is empty
+		if(empty($_POST["bdate"])){
+			echo "<script type='text/javascript'>alert('Birth Date is empty');</script>";
 			// $_msg here
 		}
 
