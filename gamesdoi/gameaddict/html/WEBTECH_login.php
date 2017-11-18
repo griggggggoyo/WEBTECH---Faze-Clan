@@ -118,6 +118,22 @@
 	}
 		
 
+	function getPassword($PuserID){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+
+		$getPass =  $dbc->query("SELECT *
+								 FROM user
+								 WHERE userID=$PuserID");
+		$fetchPass = mysqli_fetch_array($getPass);
+
+		$tempPass = null;
+		foreach($getPass as $fetchPass){
+			$tempPass = $fetchPass['passWord'];
+		}
+		return $tempPass;
+	}
+
+
 	if (isset($_POST['login'])){
 		
 		// if 'Username' field is empty
@@ -131,16 +147,34 @@
 		}
 
 
-		$userID = getUserID($_POST["username"]);		
+
+		// variable for attempting to find the userID of inputted 'Username';
+		$testUserID = getUserID($_POST["username"]);		
+		
 
 		// 'Username' field username was NOT found!!!
-		if(!empty($_POST["username"]) && $userID == null){
+		if(!empty($_POST["username"]) && $testUserID == null){
 			echo "<script type='text/javascript'>alert('User account does not exist!!');</script>";
 		}
 
 		// 'Username' field username exists in the DB!!!
-		if(!empty($_POST["username"]) && $userID != null){
-			echo "<script type='text/javascript'>alert('account does  exist!! --> $userID');</script>";
+		if(!empty($_POST["username"]) && $testUserID != null){
+			echo "<script type='text/javascript'>alert('account exists!! --> $testUserID');</script>";
+
+			$testUserPass = $_POST["pass"];
+
+			// if password is CORRECT
+			if(!empty($_POST["pass"]) && $testUserPass != getPassword($testUserID)){
+				echo "<script type='text/javascript'>alert('Not a  match!!');</script>";
+			}
+
+
+			// if password is NOT correct
+			if(!empty($_POST["pass"]) && $testUserPass == getPassword($testUserID)){
+				echo "<script type='text/javascript'>alert('Password matches!!');</script>";
+			}
+
+
 		}
 
 	}
