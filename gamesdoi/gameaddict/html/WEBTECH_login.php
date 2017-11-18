@@ -95,9 +95,9 @@
 
 <?php
 	// href="WEBTECH_index.html"
-	// echo "<script type='text/javascript'>alert('$msg');</script>";
-	// echo "<script type='text/javascript'>alert('Oy');</script>";
-
+	
+	
+	// returns User ID (can return null if '$PuserName' was not found in DB)
 	function getUserID($PuserName){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
 
@@ -118,6 +118,7 @@
 	}
 		
 
+	// retruns password based on User ID
 	function getPassword($PuserID){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
 
@@ -171,7 +172,12 @@
 
 			// if password is NOT correct
 			if(!empty($_POST["pass"]) && $testUserPass == getPassword($testUserID)){
+
 				echo "<script type='text/javascript'>alert('Password matches!!');</script>";
+
+				$_SESSION["userID"] = $testUserID ;
+				$param = $_SESSION["userID"];
+				echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
 			}
 
 
