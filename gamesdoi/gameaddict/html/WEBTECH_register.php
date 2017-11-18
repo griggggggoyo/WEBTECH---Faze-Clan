@@ -156,6 +156,9 @@
 	// inserts newly registered user into DB; by default, userStatusID = 1;
 	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail, $Ptype, $Pstatus){
 
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
+									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', )";
 	}
 
 
