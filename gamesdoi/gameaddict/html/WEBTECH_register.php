@@ -94,6 +94,11 @@
 							<input type="text" placeholder="Last Name" name="lname" value="" class="reg_fields">
                         </li><p>
 
+                        <li class="input-prepend">
+							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Birth Date</label></span>
+							<input type="text" placeholder="YYYY-MM-DD" name="bdate" value="" class="reg_fields">
+                        </li><p>
+
 						<li>
 							<input type="submit" class="button-green button-small" name="register" value="Create an Account">
 							<a type="button" class="button-small"  style="position: relative; top: 1px; left: 31.5%">Go Back</a>
