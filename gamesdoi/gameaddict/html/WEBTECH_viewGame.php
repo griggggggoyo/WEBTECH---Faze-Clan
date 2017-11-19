@@ -1,3 +1,13 @@
+<?php
+session_start();
+require 'database.php';
+#$_SESSION['gameID'] =1 ;
+$_SESSION['gameID'] = $_GET['value'];
+$game = $_SESSION['gameID'];
+?>
+
+
+
 <!doctype html>
 <html lang="en-US">
 
@@ -6,7 +16,7 @@
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>GAMESDOI | Bioshock</title>
+		<title>GAMESDOI</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="keywords" content="">
@@ -74,19 +84,23 @@
 		<div class="page normal-page container">
 		<div >
 		<div class="span12" style=" border-bottom: 1px solid black; margin-bottom: 20px;">
-			<div class="span6" style="margin-bottom: 20px;">
-				<img src="bioshockView.jpg">
+			<div  style="margin-bottom: 20px;">
+				<img src="">
 			</div>
-			<div style="font-weight: bold; font-size: 28px; float: right; padding-right: 40px; padding-top: 20px; font-family: Open Sans;">Rating: 3.7</div>
-			<div class="span4">
-			<h1 style="margin: 0;">Bioshock</h1>
-			<b>by 2K Games</b> <br>
-			Category: FPS <br>
-			Cost: $99,999 <br>
-			Platform: PS3, XBOX 360, PC <br>
-			Date Released: XXX,99,9999 <br>
-			<br>
-			</div>
+			<?php
+
+			$displayGames= "SELECT *
+											FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
+											WHERE gameID = $game";
+
+			$result=mysqli_query($db,$displayGames);
+			$row = mysqli_fetch_row($result); ?>
+			<h1><?php echo $row[1]; ?></h1>
+			<p style="padding-left:20px;"><b>by <?php echo $row[6];?></b></p>
+			<p style="padding-left:20px;">Category <?php echo $row[10];?></p>
+			<p style="padding-left:20px;">Cost <?php echo $row[3];?></p>
+			<p style="padding-left:20px;">Platform <?php echo $row[4];?></p>
+			<p style="padding-left:20px;">Date Released <?php echo $row[5];?></p>
 		</div>
 
 			<br>
@@ -95,25 +109,18 @@
 
 			<div class="span12">
 				<div class="block span12">
-
+					<?php  echo $_SESSION['gameID']; ?>
 				</div>
 				<div style="padding-top: 20px;">
-
-					<p>BioShock is a first-person shooter video game developed by 2K Boston (later Irrational Games) and 2K Australia, and published by 2K Games.The game was released for Microsoft Windows and Xbox 360 platforms in August 2007; a PlayStation 3 port by Irrational, 2K Marin, 2K Australia and Digital Extremes was released in October 2008, and an OS X port by Feral Interactive in October 2009. A mobile version was developed by IG Fun. The game's concept was developed by Irrational's creative lead, Ken Levine, and was based on the ideas of Objectivism as promulgated by Ayn Rand, while incorporating influences from other authors such as George Orwell. The game is considered a spiritual successor to the System Shock series, on which many of Irrational's team including Levine had worked previously.</p>
-				</div>
-				<div style="padding-left: 250px;"><iframe width="560" height="315" src="https://www.youtube.com/embed/Lmw78t8NgIE" frameborder="0" allowfullscreen></iframe></div>
+						<p style="padding-left:20px;"><?php echo $row[8];?></p>
+					</div>
 
 				<div style="padding-top: 20px;">
 					<br>
 					<br>
-					<p>BioShock is a first-person shooter video game developed by 2K Boston (later Irrational Games) and 2K Australia, and published by 2K Games.The game was released for Microsoft Windows and Xbox 360 platforms in August 2007; a PlayStation 3 port by Irrational, 2K Marin, 2K Australia and Digital Extremes was released in October 2008, and an OS X port by Feral Interactive in October 2009. A mobile version was developed by IG Fun. The game's concept was developed by Irrational's creative lead, Ken Levine, and was based on the ideas of Objectivism as promulgated by Ayn Rand, while incorporating influences from other authors such as George Orwell. The game is considered a spiritual successor to the System Shock series, on which many of Irrational's team including Levine had worked previously.</p>
-				</div>
-				<div>
-					<img src="bioshockGameplay.jpg">
-				</div>
-				<div style="padding-top: 20px;">
-					<p>BioShock is set in 1960. The player guides the protagonist, Jack, after his airplane crashes in the ocean near the bathysphere terminus that leads to the underwater city of Rapture. Built by the business magnate Andrew Ryan, the city was intended to be an isolated utopia, but the discovery of ADAM, a genetic material which can be used to grant superhuman powers, initiated the city's turbulent decline. Jack tries to find a way to escape, fighting through hordes of ADAM-obsessed enemies, and the iconic, deadly Big Daddies, while engaging with the few sane humans that remain and eventually learning of Rapture's past. The player, as Jack, is able to defeat foes in a number of ways by using weapons, utilizing plasmids that give unique powers, and by turning Rapture's own defenses against them. BioShock includes elements of role-playing games, giving the player different approaches in engaging enemies such as by stealth, as well as moral choices of saving or killing characters; additionally, the game and biopunk theme borrow concepts from the survival horror genre.</p>
-				</div>
+
+
+
 
 			</div>
 
