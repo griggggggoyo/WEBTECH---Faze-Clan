@@ -272,8 +272,9 @@
 			echo "<script type='text/javascript'>alert('SPACES in your username are NOT allowed!!');</script>";
 		}
 
-
+		// checks if 'username' has any special characters  --> (/[\^£$%&*()}{@#~?<>,|=_+¬-]/) <--
 		if(!empty($_POST["username"]) && checkSpecial($_POST["username"]) == 'true'){
+			//(/[\^£$%&*()}{@#~?<>,|=_+¬-]/)
 			echo "<script type='text/javascript'>alert('Special characters (/[\^£$%&*()}{@#~?><>,|=_+¬-]/) are not allowed!!');</script>";
 		}
 // < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
@@ -349,8 +350,8 @@
 		$tempr_username = null; // working
 		$tempr_pass = null;
 		$tempr_email = null;	// working
-		$tempr_fname = null;
-		$tempr_lname = null;
+		$tempr_fname = null;	// working
+		$tempr_lname = null;	// working
 		$temp_bdate = null;
 
 
@@ -376,10 +377,18 @@
 		}
 
 
-
+		// working
+		// saves 'fname' input to tempr_email, IF all valid conditions were met
 		if(!empty($_POST["fname"])  || containsWord($_POST["fname"]) == 'true'){
 			$tempr_fname = $_POST["fname"];
 			echo "<script type='text/javascript'>alert('VALID First Name: $tempr_fname');</script>";
+		}
+
+		// working
+		// saves 'lname' input to tempr_email, IF all valid conditions were met
+		if(!empty($_POST["lname"])  || containsWord($_POST["lname"]) == 'true'){
+			$tempr_lname = $_POST["lname"];
+			echo "<script type='text/javascript'>alert('VALID Last Name: $tempr_lname');</script>";
 		}
 
 		
