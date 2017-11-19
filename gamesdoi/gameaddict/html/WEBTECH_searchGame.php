@@ -1,8 +1,8 @@
 <?php
 session_start();
 require 'database.php';
-$_SESSION['SEARCHEDGAME'] ="counter";
-$search = $_SESSION['SEARCHEDGAME'];
+$_SESSION['search'];
+$search = $_SESSION['search'];
 if(isset($x)){
 
 
@@ -14,7 +14,10 @@ if(isset($x)){
 
 }
 if(isset($_POST['searchBtn'])){
-	echo 'HEY';
+	if(!empty($_POST['search'])){
+		  $_SESSION['search'] =$_POST['search'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
 }
 
 
@@ -66,10 +69,10 @@ if(isset($_POST['searchBtn'])){
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-			<form <?php echo $SERVER['PHP_SELF'];?> method="POST">
+			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="search" style="height: 15px;"><input type="submit" name="searchBtn" value="search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
+					<input type="input" name="search" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn"  style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
 				</div>
 				<div class="span1">
 					<div id="profileNav">
@@ -107,7 +110,7 @@ if(isset($_POST['searchBtn'])){
 
 
 						<div>
-							<form action="<?php echo $SERVER['PHP_SELF'];?>"method ="POST">
+							<form action="<?php echo $SERVER['PHP_SELF'];?>" method ="POST">
 								<?php
 												$displayGames= "SELECT *
 																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
@@ -135,16 +138,9 @@ if(isset($_POST['searchBtn'])){
 														</li>
 														<li>
 															<h5><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">Game Review for {$row['gameName']}</a></h5>
+
 															<p>
 															</p>
-														</li>
-														<li>" ?>
-															<?php $gID = $row['gameID'];
-															$_POST['gID'] = $gID;
-															$x = $_POST['gID'];
-															?>
-															<?php echo
-															"<input type=\"submit\" name=\"$x\" value=\"View Reviews \" style=\"width: 100%;\"></input>
 														</li>
 
 
