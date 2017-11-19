@@ -1,24 +1,14 @@
 <?php
 session_start();
 require 'database.php';
-$_SESSION['SEARCHEDGAME'] ="counter";
-$search = $_SESSION['SEARCHEDGAME'];
-if(isset($x)){
-
-
-	#header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_viewGame.php");
-	#$_SESSION['gameID']= $row['gameID'];
-	echo 'GAME ID:  '.$x;
-	#$x = $row['gameID'];
-	#print_r($_POST[$x]);
-
-}
-
-
+$_SESSION['gameID'] =1 ;
+$game = $_SESSION['gameID'];
 
 ?>
 
-<!DOCTYPE HTML>
+
+
+<!doctype html>
 <html lang="en-US">
 
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
@@ -26,7 +16,7 @@ if(isset($x)){
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>Game addict | Unleash your passion</title>
+		<title>GAMESDOI</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="keywords" content="">
@@ -34,6 +24,7 @@ if(isset($x)){
 		<!-- CSS -->
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="css/layerslider.css">
+		<link href="css/menubar.css" rel="stylesheet">
 		        <!-- picker styles -->
         <link rel="stylesheet" href="colorstyles/picker.css" type="text/css" />
         <link rel="alternate stylesheet" type="text/css" media="screen" title="background1" href="colorstyles/background1.css" />
@@ -43,9 +34,7 @@ if(isset($x)){
         <link rel="alternate stylesheet" type="text/css" media="screen" title="background5" href="colorstyles/background5.css" />
         <link rel="alternate stylesheet" type="text/css" media="screen" title="background6" href="colorstyles/background6.css" />
           <!-- end picker styles -->
-		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italc,700italic,700,800,800italic" type="text/css" media="all" />
-		<!-- IMPORT MO TONG NASA BABA! V -->
-		<link href="css/menubar.css" rel="stylesheet">
+		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
 		<!--
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		-->
@@ -70,16 +59,16 @@ if(isset($x)){
 				</div>
 				<div class="span1">
 					<div id="profileNav">
-					<ul >
+					<ul>
 						<li ><a>Profile</a>
 							<ul>
 								<li><a href="WEBTECH_userProfile.html">Profile</a></li>
-								<li><a>Log-out</a></li>
-								<li><a>About Us</a></li>
+								<li><a href="WEBTECH_index.html">Log-out</a></li>
+								<li><a href="WEBTECH_aboutUs.html">About Us</a></li>
 							</ul>
 						</li>
 					</ul>
-			</div>
+					</div>
 				</div>
 
 
@@ -92,105 +81,131 @@ if(isset($x)){
 		</div>
 		<!-- NAVBAR -->
 
-
 		<div class="page normal-page container">
-		<div style="padding-left:260px;"> <h1>Results for <?php echo $search; ?></h1></div>
+		<div >
+		<div class="span12" style=" border-bottom: 1px solid black; margin-bottom: 20px;">
+			<div  style="margin-bottom: 20px;">
+				<img src="">
+			</div>
+			<?php
 
+			$displayGames= "SELECT *
+											FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
+											WHERE gameID = $game";
 
- 				<div class="span8">
+			$result=mysqli_query($db,$displayGames);
+			$row = mysqli_fetch_row($result); ?>
+			<h1><?php echo $row[1]; ?></h1>
+			<p style="padding-left:20px;"><b>by <?php echo $row[6];?></b></p>
+			<p style="padding-left:20px;">Category <?php echo $row[10];?></p>
+			<p style="padding-left:20px;">Cost <?php echo $row[3];?></p>
+			<p style="padding-left:20px;">Platform <?php echo $row[4];?></p>
+			<p style="padding-left:20px;">Date Released <?php echo $row[5];?></p>
+		</div>
 
- 					<div class="block span12 ">
+			<br>
 
+		</div>
 
-						<div>
-							<form action="<?php echo $SERVER['PHP_SELF'];?>"method ="POST">
-								<?php
-												$displayGames= "SELECT *
-																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
-																				WHERE gameName LIKE '$search%'";
-
-												$result=mysqli_query($db,$displayGames);
-								?>
-								<?php
-											while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-											echo "<div class=\"widget\">
-												<div class=\"wcontainer\">
-													<ul class=\"clanwar-list\">
-														<li>
-
-
-														<h4><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">{$row['gameName']}</a></h4>
-														Developed by {$row['gameDeveloper']} <br><br>
-														</li>
-														<li>
-															<br>Category: {$row['genreName']}
-															<br>Cost: P{$row['gamePrice']}
-															<br>Platform:c{$row['gamePlatform']}
-															<br>Date Released: {$row['dateReleased']}
-
-														</li>
-														<li>
-															<h5><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">Game Review for {$row['gameName']}</a></h5>
-															<p>
-															</p>
-														</li>
-														<li>" ?>
-															<?php $gID = $row['gameID'];
-															$_POST['gID'] = $gID;
-															$x = $_POST['gID'];
-															?>
-															<?php echo
-															"<input type=\"submit\" name=\"$x\" value=\"View Reviews \" style=\"width: 100%;\"></input>
-														</li>
-
-
-													</ul>
-												</div>
-											</div>
-											";
-										}
-										?>
-
-							</form>
-						</div>
-
-
- 					</div>
- 				</div>
-
- 				<div class="span4">
- 					<div class="title-wrapper">
-					<h3 class="widget-title">Related Games</h3>
-					<div class="clear"></div>
+			<div class="span12">
+				<div class="block span12">
+					<?php  echo $_SESSION['gameID']; ?>
 				</div>
-					<div class="block span12 first sidebar">
-
-						<div class="widget">
-
-							<div class="wcontainer">
-								<ul class="clanwar-list">
-
-									<li >
-										Counter-Strike: Global Offensive
-										<img src="CSGO.jpg">
-									</li>
-									<li >
-										Fortnite
-										<img src="fortnite.jpg">
-									</li>
-									<li >
-										Call of Duty: Black Ops
-										<img src="COD.jpg">
-									</li>
-									<li >
-										Player Unknown's Battleground
-										<img src="PUBG.jpg">
-									</li>
-								</ul>
-							</div>
-						</div>
-
+				<div style="padding-top: 20px;">
+						<p style="padding-left:20px;"><?php echo $row[8];?></p>
 					</div>
+				
+				<div style="padding-top: 20px;">
+					<br>
+					<br>
+
+
+
+
+			</div>
+
+			<div class="block span12 first cf">
+					<div class="title-wrapper">
+							<h3 class="widget-title">Reviews </h3>
+							<div class="clear"></div>
+					</div>
+
+					<div id="makereviewbutton">
+						<a class="button-small" href="WEBTECH_addReview.html"> CREATE REVIEW </a>
+					</div>
+
+					<div id="reviewfilter">
+						<button class="button-small">VIEW ALL REVIEWS</button> &nbsp;&nbsp;&nbsp;
+						<button class="button-small">VIEW MOST UPVOTED</button>
+					</div>
+
+ 							<div class="wcontainer">
+ 								<img src="icon.png">
+ 								<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
+
+
+
+ 								<div class="ratereview">
+
+ 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+ 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 									<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+ 								</div>
+
+ 								<div style="padding-left: 50px;">
+ 									<p class="comment">NICE GAME!!!!</p>
+ 								</div><p>
+
+ 								<div class="reviewscore">
+
+ 									<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+
+ 								</div>
+
+ 							</div>
+ 							<div class="wcontainer">
+ 								<img src="icon.png">
+ 								<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;P4t4R</b></a>&nbsp; <i> rated it 2 out of 5 </i> <br>
+ 								<div class="ratereview">
+
+ 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+ 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 									<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+ 								</div>
+ 								<div  style="padding-left: 50px;"><p class="comment">2/10 lmao</p></div><p>
+
+ 								<div class="reviewscore">
+
+ 									<p><i>Review Score:&nbsp; <b class="posi">+3</b>&nbsp; | &nbsp;<b class="nega">-16</b></i></p>
+
+ 								</div>
+
+ 							</div>
+
+ 							<div class="wcontainer">
+ 								<img src="icon.png">
+ 								<a href="WEBTECH_userProfile.html"><b class="namereview">&nbsp;&nbsp;&nbsp;Gregory Petrola</b></a>&nbsp; <i> rated it 4 out of 5 </i> <br>
+ 								<div class="ratereview">
+
+ 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+ 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 									<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+ 								</div>
+ 								<div  style="padding-left: 50px; width: 80%"><p class="comment">In spite of some technical issues, BioShock creates an amazing world that you'll want to explore and a compelling mystery that slowly comes together as you play.</p></div><p>
+
+ 								<div class="reviewscore">
+
+ 									<p><i>Review Score:&nbsp; <b class="posi">+43</b>&nbsp; | &nbsp;<b class="nega">-12</b></i></p>
+
+ 								</div>
+
+ 							</div>
+
+
+ 			</div>
 
 
 		</div>
