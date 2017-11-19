@@ -44,7 +44,7 @@
 			<!-- Social logos -->
 			
 			<div class="social">
-				<h3 class="normal"><a href="WEBTECH_login.html">LOGIN</a> |<a href="WEBTECH_register.html">REGISTER</a></h3>
+				<h3 class="normal"><a href="WEBTECH_login.php">LOGIN</a> |<a href="WEBTECH_register.php">REGISTER</a></h3>
 			</div>
 
 			<!-- End Social logos -->
@@ -81,7 +81,7 @@
 
                         <li class="input-prepend">
 							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">E-mail</label></span>
-							<input type="text" placeholder="example@example.com" name="email" value="" class="reg_fields">
+							<input type="text" placeholder="example@example.com" name="email" value="" class="reg_fields"> 
                         </li><p>
 
                         <li class="input-prepend">
@@ -181,58 +181,72 @@
 		$insert_user = mysqli_query($dbc, $addUser_query);
 	}
 
+	// checks if string from fields has contains at least one non-space
+	function containsWord($input_string) {
+	  // return false when letters/characters are absen
+	  // return true when a character/letter is found
+ 
+	  foreach (explode(' ', $input_string) as $word) {
+	    if (!empty($word)) {
+	      return 'true';
+	    }
+	  }
+	  return 'false';
+	}
+
 
 	if (isset($_POST['register'])){
 		//echo "<script type='text/javascript'>alert('T R I A L');</script>";
 		// variables for each line
 
 
-		// if 'usernmame' field is empty
-		if(empty($_POST["username"])){
-			echo "<script type='text/javascript'>alert('Username is empty');</script>";
+		// if 'usernmame' is empty OR contains only spaces
+		if(empty($_POST["username"]) || containsWord($_POST["username"]) == 'false'){
+			echo "<script type='text/javascript'>alert('USERNAME is empty');</script>";
 			// $usernmame_msg here
 		}
 
-		// if 'password' field is empty
-		if(empty($_POST["pass"])){
-			echo "<script type='text/javascript'>alert('Password is empty');</script>";
+		// if 'pass' is empty OR contains only spaces
+		if(empty($_POST["pass"]) || containsWord($_POST["pass"]) == 'false'){
+			echo "<script type='text/javascript'>alert('PASSWORD is empty');</script>";
 			// $_msg here
 		}
 
-		// if 'confirm password' field is empty
-		if(empty($_POST["repass"])){
-			echo "<script type='text/javascript'>alert('Please confirm password');</script>";
+		// if 'repass' is empty OR contains only spaces
+		if(empty($_POST["repass"])  || containsWord($_POST["repass"]) == 'false'){
+			echo "<script type='text/javascript'>alert('Please CONFIRM password');</script>";
 			// $_msg here
 		}
 
-		// if 'e-mail' field is empty
-		if(empty($_POST["email"])){
-			echo "<script type='text/javascript'>alert('E-mail is empty');</script>";
+		// if 'email' is empty OR contains only spaces
+		if(empty($_POST["email"])  || containsWord($_POST["email"]) == 'false'){
+			echo "<script type='text/javascript'>alert('E-MAIL is empty');</script>";
 			// $_msg here
 		}
 
 
-		// if 'First Name' field is empty
-		if(empty($_POST["fname"])){
-			echo "<script type='text/javascript'>alert('First Name is empty');</script>";
+		// if 'fname' is empty OR contains only spaces
+		if(empty($_POST["fname"])  || containsWord($_POST["fname"]) == 'false'){
+			echo "<script type='text/javascript'>alert('FIRST NAME is empty');</script>";
 			// $_msg here
 		}
 
-		//if 'Last Name' field is empty
-		if(empty($_POST["lname"])){
-			echo "<script type='text/javascript'>alert('Last Name is empty');</script>";
+		//if 'lname' is empty OR contains only spaces
+		if(empty($_POST["lname"])  || containsWord($_POST["lname"]) == 'false'){
+			echo "<script type='text/javascript'>alert('LAST NAME is empty');</script>";
 			// $_msg here
 		}
 
-		//if 'Birth Date' field is empty
-		if(empty($_POST["bdate"])){
-			echo "<script type='text/javascript'>alert('Birth Date is empty');</script>";
+		//if 'bdate' is empty OR contains only spaces
+		if(empty($_POST["bdate"])  || containsWord($_POST["bdate"]) == 'false'){
+			echo "<script type='text/javascript'>alert('BIRTH DATE is empty');</script>";
 			// $_msg here
 		}
 
 
 		// if entered 'username' is still valid
-		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'true'){
+		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'true' && containsWord($_POST["username"])=='true'
+			){
 			echo "<script type='text/javascript'>alert('Entered username is VALIDD');</script>";
 			// $_msg here
 		}
