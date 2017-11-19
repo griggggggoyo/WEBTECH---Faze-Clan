@@ -95,7 +95,7 @@
 
 <?php
 	// href="WEBTECH_index.html"
-	
+	session_start();
 	
 	// returns User ID (can return null if '$PuserName' was not found in DB)
 	function getUserID($PuserName){

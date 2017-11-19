@@ -76,12 +76,13 @@
 
 								<td align="center">
 
-									<form>
+									<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactForm" class="contact" method="POST">
 
 										<label>
 										<i class="icon-search"></i>&nbsp;&nbsp;
 										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gamesearch" class="input" type="text">
-										&nbsp;<a class="button-small" href="WEBTECH_viewResults.html">Search</a>
+										&nbsp;
+										<input type="submit" class="button-small" name="search" value="Search">
 										</label>
 
 									</form>
@@ -502,3 +503,46 @@
 
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:37:00 GMT -->
 </html>
+
+<?php
+	// gamesearch
+	// search
+	// echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
+	// <a class="button-small" href="WEBTECH_viewResults.html">Search</a>
+
+
+	// checks if string from fields has contains at least one non-space
+	function containsWord($input_string) {
+	  // return false when letters/characters are absen
+	  // return true when a character/letter is found
+ 
+	  foreach (explode(' ', $input_string) as $word) {
+	    if (!empty($word)) {
+	      return 'true';
+	    }
+
+	  }
+
+	  return 'false';
+	}
+	
+
+	if (isset($_POST['search'])){
+		//echo "<script type='text/javascript'>alert('Please put something in hte textbox!!!');</script>";
+
+		if(empty($_POST["gamesearch"]) || containsWord($_POST["gamesearch"]) == 'false'){
+			echo "<script type='text/javascript'>alert('Please put something in hte textbox!!!');</script>";
+		}
+
+		if(!empty($_POST["gamesearch"]) && containsWord($_POST["gamesearch"]) == 'true'){
+			echo "<script type='text/javascript'>alert('You re making progress,Goyo!!!');</script>";
+
+			// SESSION variable that serves as user input for search
+			$_SESSION["searchName"] = $_POST["gamesearch"];
+
+
+			$temp = $_SESSION["searchName"];
+			echo "<script type='text/javascript'>alert('You are now searching for:  $temp');</script>";
+		}
+	}
+?>
