@@ -209,7 +209,7 @@
 
 	// checks if string has special characters
 	function checkSpecial($Pstring){
-		$cmpr = preg_match('/[\^£$%&*()}""{@#~?><>,|=_+¬-]/', $Pstring);
+		$cmpr = preg_match('/[\^£$%&*()}{@#~?><>,|=_+¬-]/', $Pstring);
 		// 1 -> 'true' if contains
 		// 0 -> 'false' if NOT contains
 
@@ -267,8 +267,14 @@
 			echo "<script type='text/javascript'>alert('Username must not have more than 16 characters!!');</script>";
 		}
 
+		// checks if 'username' has a SPACE
 		if(!empty($_POST["username"]) && hasSpace($_POST["username"]) == 'true'){
 			echo "<script type='text/javascript'>alert('SPACES in your username are NOT allowed!!');</script>";
+		}
+
+
+		if(!empty($_POST["username"]) && checkSpecial($_POST["username"]) == 'true'){
+			echo "<script type='text/javascript'>alert('Special characters (/[\^£$%&*()}{@#~?><>,|=_+¬-]/) are not allowed!!');</script>";
 		}
 // < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
 
