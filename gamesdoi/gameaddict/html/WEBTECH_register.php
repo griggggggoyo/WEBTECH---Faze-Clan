@@ -256,6 +256,18 @@
 			echo "<script type='text/javascript'>alert('Username is already TAKEN!!');</script>";
 			// $_msg here
 		}
+
+
+		// if 'pass' and 'repass' (confirm pass) do not match
+		if(!empty($_POST["pass"]) && !empty($_POST["repass"]) && $_POST["pass"]!=$_POST["repass"]){
+			echo "<script type='text/javascript'>alert('Passwords do not match!!');</script>";
+		}
+
+		// if 'email' is already being used by another user
+		if(!empty($_POST["email"])  && validEmail($_POST["email"])=='false'){
+			echo "<script type='text/javascript'>alert('Another user account already owns this e-mail!!');</script>";
+		}
+
 	}
 
 ?>
