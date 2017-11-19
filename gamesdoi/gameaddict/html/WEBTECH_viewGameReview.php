@@ -73,54 +73,66 @@
 
 		<div class="page normal-page container">
 		<div >
-			<div class="title-wrapper">
-				<h3 class="widget-title">Add Game</h3>
-					<div class="clear"></div>
-			</div>
 		<div class="span12" style=" border-bottom: 1px solid black; margin-bottom: 20px;">
-		</div>
-		<div class=span2></div>
-		<div style="padding-left:50px;" class="span8">
-			<form method ="POST">
-				<fieldset>
-		      <table >
-		      <tr>
-		      	<td><p><b>Name of Game</b><br><input type= "text" name="name" size="20" maxlength="20" style="width: 500px;"/>
-					</tr>
-					<tr>
-		      	<td><p><b>Genre </b><br>
-							<select style="width: 500px;">
-						  	<option value="">*query list of games*</option>
-							</select>
-					</tr>
-					<tr>
-		      <td><p><b>Developer</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td><p><b>Cost</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td><p><b>Platform</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td><p><b>Date Released</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td ><p><b>Game Description</b><br><textarea style="width: 500px;" name="comments" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
-		      </tr>
-					<tr>
-		      <td><p><b>Game Video URL</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-				</table>
-
-				</fieldset>
-			</form>
-			<div align = "center"><input type="submit" name="submit" value="Add Game">
-			<input type="submit" name="submit" value="Cancel"></div>
+			<div class="span6" style="margin-bottom: 20px;">
+				<img src="bioshockView.jpg">
+			</div>
+			<div style="font-weight: bold; font-size: 28px; float: right; padding-right: 40px; padding-top: 20px; font-family: Open Sans;">Rating: 3.7</div>
+			<div class="span4">
+				<h1>Bioshock</h1>
+			<b>by 2K Games</b> <br>
+			Category: FPS <br>
+			Cost: $99,999 <br>
+			Platform: PS3, XBOX 360, PC <br>
+			Date Released: XXX,99,9999 <br>
+			<br>
+			</div>
 		</div>
 
 
 
 			<br>
 
+		</div>
+
+		<div class="block block-contactform_block span12 first cf">
+			<div class="title-wrapper">
+				<h3 class="widget-title">YOUR REVIEW</h3>
+					<div class="clear"></div>
+				</div>
+					<div class="mcontainer">
+				<form action="WEBTECH_viewGame.html" id="contactForm" class="contact" method="post" novalidate="novalidate">
+
+					<ul class="contactform controls">
+
+						<i style="position: relative; bottom: 10px; font-family: Open Sans; font-size: 15px;">Your Rating:</i>
+
+						<li class="input-prepend">
+
+							<fieldset class="rating">
+    						<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+    						<input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+    						<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+    						<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+   							<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+							</fieldset>
+
+						</li>
+
+                       	<li class="input-prepend">
+							<span class="add-on"><i class="icon-align-justify"></i></span>
+							<textarea name="comments" placeholder="Write your review..." id="commentsText" rows="7" cols="30" class="required requiredField"></textarea>
+						</li>
+
+						<li>
+							<input type="submit" class="button-green button-small" value="Submit Review">
+							<a type="button" class="button-small" href="WEBTECH_viewGame.html" style="position: relative; top: 1px; left: 73%">Go Back</a>
+						</li>
+
+					</ul>
+
+					<input type="hidden" name="submitted" id="submitted" value="true">
+
+				</form>
+			</div>
 		</div>
