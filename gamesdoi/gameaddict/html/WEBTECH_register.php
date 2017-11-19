@@ -238,12 +238,12 @@
 		}
 
 		// if 'username' has less than 8 characters
-		if(strlen($_POST["username"]) < 8){
+		if(!empty($_POST["username"]) && strlen($_POST["username"]) < 8){
 			echo "<script type='text/javascript'>alert('Username must have at least 8 characters!!');</script>";
 		}
 
 		// if 'username' has more than 16 characters
-		if(strlen($_POST["username"]) > 16){
+		if(!empty($_POST["username"]) && strlen($_POST["username"]) > 16){
 			echo "<script type='text/javascript'>alert('Username must not have more than 16 characters!!');</script>";
 		}
 // < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
@@ -328,7 +328,7 @@
 		
 
 		else{
-			echo "<script type='text/javascript'>alert('Kilroy was here');</script>";
+			echo "<script type='text/javascript'>alert('------- Kilroy was here -------');</script>";
 		}
 	}
 
