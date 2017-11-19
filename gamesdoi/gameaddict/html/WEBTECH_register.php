@@ -171,15 +171,25 @@
 		return $checker;
 	}
 
-	// inserts newly registered user into DB; by default, userStatusID = 1;
-	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
-		// $Ptype, $Pstatus; default -> 1, 1;
 
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
-		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
-									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', 1, 1)";
-		$insert_user = mysqli_query($dbc, $addUser_query);
+	// checks if entered password has a SPACE
+	function hasSpace($Ppass){
+		$cmpr = preg_match('/\s/',$Ppass);
+		// 1 == HAS space;
+		// 0 == NO space
+
+		if($cmpr == 1){
+			$checker = 'true';
+		}
+
+
+		if($cmpr == 0){
+			$checker = 'false';
+		}
+
+		return $checker;
 	}
+
 
 	// checks if string from fields has contains at least one non-space
 	function containsWord($input_string) {
@@ -190,11 +200,25 @@
 	    if (!empty($word)) {
 	      return 'true';
 	    }
+	    
 	  }
+
 	  return 'false';
 	}
 
 
+
+	// inserts newly registered user into DB; by default, userStatusID = 1;
+	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
+		// $Ptype, $Pstatus; default -> 1, 1;
+
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
+									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', 1, 1)";
+		$insert_user = mysqli_query($dbc, $addUser_query);
+	}
+
+	
 	if (isset($_POST['register'])){
 		//echo "<script type='text/javascript'>alert('T R I A L');</script>";
 		// variables for each line
