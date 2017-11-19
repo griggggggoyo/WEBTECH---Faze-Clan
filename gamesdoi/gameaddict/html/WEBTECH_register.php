@@ -436,9 +436,9 @@
 				$temp_session = $fetchUserID['userID'];
 			}
 
-
-			echo "<script type='text/javascript'>alert('New CURRENT User ID: $tre ');</script>";
 			$_SESSION["userID"] = $temp_session;
+			echo "<script type='text/javascript'>alert('New CURRENT User ID: $temp_session ');</script>";
+			
 
 		}
 
