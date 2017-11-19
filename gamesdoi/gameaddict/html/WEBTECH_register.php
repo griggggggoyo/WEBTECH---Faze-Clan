@@ -419,6 +419,27 @@
 			echo "<script type='text/javascript'>alert('New user was inserted into DB');</script>";
 
 			insertUser($tempr_username, $tempr_pass, $tempr_lname,  $tempr_fname, $temp_bdate, $tempr_email);
+
+			/*
+			$_SESSION["userID"] = $testUserID ;
+			$param = $_SESSION["userID"];
+			echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
+			*/
+
+			$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+			$getUserID = $dbc->query("	SELECT *
+										FROM user
+										WHERE userName='$tempr_username'");
+			$fetchUserID = mysqli_fetch_array($getUserID);
+			$temp_session = null;
+			foreach($getUserID as $fetchUserID){
+				$temp_session = $fetchUserID['userID'];
+			}
+
+
+			echo "<script type='text/javascript'>alert('New CURRENT User ID: $tre ');</script>";
+			$_SESSION["userID"] = $temp_session;
+
 		}
 
 		//function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail)
