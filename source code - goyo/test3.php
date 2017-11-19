@@ -1,7 +1,7 @@
 <?php
 	//echo "<script type='text/javascript'>alert('$msg');</script>";
 
-	$PUser = "sandamn";
+	$PUser = "	";
 	$PPass = " ---";
 
 	function containsWord($input_string) {
@@ -47,9 +47,13 @@
 		echo 'User Account does not exist!!<br>';	
 	}
 
-	validUserName($PUser);
+	//validUserName($PUser);
 
-	echo 'String contains word: '. containsWord($PPass);
+	echo '<br>String contains word: '. containsWord($PUser). '<br>';
+
+	// echo strlen("Hello");
+	$tst = 'Hello ';
+	echo 'String length of '.$tst. ' is: '. strlen($tst);
 
 
 ?>
