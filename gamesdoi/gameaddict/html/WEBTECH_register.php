@@ -37,7 +37,7 @@
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
@@ -175,8 +175,8 @@
 	// checks if entered password has a SPACE
 	function hasSpace($Ppass){
 		$cmpr = preg_match('/\s/',$Ppass);
-		// 1 == HAS space;
-		// 0 == NO space
+		// 1 == HAS space -- > 'true';
+		// 0 == NO space -- > 'false';
 
 		if($cmpr == 1){
 			$checker = 'true';
@@ -200,7 +200,7 @@
 	    if (!empty($word)) {
 	      return 'true';
 	    }
-	    
+
 	  }
 
 	  return 'false';
@@ -224,11 +224,29 @@
 		// variables for each line
 
 
+// < ------- ------- ------- USERNAME ------- ------- ------- ------- >
 		// if 'usernmame' is empty OR contains only spaces
 		if(empty($_POST["username"]) || containsWord($_POST["username"]) == 'false'){
 			echo "<script type='text/javascript'>alert('USERNAME is empty');</script>";
 			// $usernmame_msg here
 		}
+
+		// if entered 'username' is already taken
+		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'false'){
+			echo "<script type='text/javascript'>alert('Username is already TAKEN!!');</script>";
+			// $_msg here
+		}
+
+		// if 'username' has less than 8 characters
+		if(strlen($_POST["username"]) < 8){
+			echo "<script type='text/javascript'>alert('Username must have at least 8 characters!!');</script>";
+		}
+
+		// if 'username' has more than 16 characters
+		if(strlen($_POST["username"]) > 16){
+			echo "<script type='text/javascript'>alert('Username must not have more than 16 characters!!');</script>";
+		}
+// < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
 
 		// if 'pass' is empty OR contains only spaces
 		if(empty($_POST["pass"]) || containsWord($_POST["pass"]) == 'false'){
@@ -236,36 +254,63 @@
 			// $_msg here
 		}
 
+		// if there are spaces in 'pass'
+		if(!empty($_POST["pass"]) && hasSpace($_POST["pass"]) == 'true'){
+			echo "<script type='text/javascript'>alert('There must be no spaces in your password!!');</script>";
+		}
+
+// < ------- ------- ------- CONFIRM PASSWORD------- ------- ------- ------- >
+
 		// if 'repass' is empty OR contains only spaces
 		if(empty($_POST["repass"])  || containsWord($_POST["repass"]) == 'false'){
 			echo "<script type='text/javascript'>alert('Please CONFIRM password');</script>";
 			// $_msg here
 		}
 
+		// if 'pass' and 'repass' (confirm pass) do not match
+		if(!empty($_POST["pass"]) && !empty($_POST["repass"]) && $_POST["pass"]!=$_POST["repass"]){
+			echo "<script type='text/javascript'>alert('Passwords do not match!!');</script>";
+		}
+
+
+// < ------- ------- ------- E-MAIL  ------- ------- ------- ------- >
 		// if 'email' is empty OR contains only spaces
 		if(empty($_POST["email"])  || containsWord($_POST["email"]) == 'false'){
 			echo "<script type='text/javascript'>alert('E-MAIL is empty');</script>";
 			// $_msg here
 		}
 
+		// if 'email' is already being used by another user
+		if(!empty($_POST["email"])  && validEmail($_POST["email"])=='false'){
+			echo "<script type='text/javascript'>alert('Another user account already owns this e-mail!!');</script>";
+		}
 
+// < ------- ------- ------- FIRST NAME ------- ------- ------- ------- >
 		// if 'fname' is empty OR contains only spaces
 		if(empty($_POST["fname"])  || containsWord($_POST["fname"]) == 'false'){
 			echo "<script type='text/javascript'>alert('FIRST NAME is empty');</script>";
 			// $_msg here
 		}
 
+// < ------- ------- ------- LAST NAME------- ------- ------- ------- >
 		//if 'lname' is empty OR contains only spaces
 		if(empty($_POST["lname"])  || containsWord($_POST["lname"]) == 'false'){
 			echo "<script type='text/javascript'>alert('LAST NAME is empty');</script>";
 			// $_msg here
 		}
 
+// < ------- ------- ------- BIRTH DATE------- ------- ------- ------- >
 		//if 'bdate' is empty OR contains only spaces
 		if(empty($_POST["bdate"])  || containsWord($_POST["bdate"]) == 'false'){
 			echo "<script type='text/javascript'>alert('BIRTH DATE is empty');</script>";
 			// $_msg here
 		}
+
+
+
+
+		// < ------- ------- ------- ------- ------- ------- ------- >
+
 
 
 		// if entered 'username' is still valid
@@ -275,23 +320,16 @@
 			// $_msg here
 		}
 
-		// if entered 'username' is already taken
-		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'false'){
-			echo "<script type='text/javascript'>alert('Username is already TAKEN!!');</script>";
-			// $_msg here
+		
+
+		
+
+
+		
+
+		else{
+			echo "<script type='text/javascript'>alert('Kilroy was here');</script>";
 		}
-
-
-		// if 'pass' and 'repass' (confirm pass) do not match
-		if(!empty($_POST["pass"]) && !empty($_POST["repass"]) && $_POST["pass"]!=$_POST["repass"]){
-			echo "<script type='text/javascript'>alert('Passwords do not match!!');</script>";
-		}
-
-		// if 'email' is already being used by another user
-		if(!empty($_POST["email"])  && validEmail($_POST["email"])=='false'){
-			echo "<script type='text/javascript'>alert('Another user account already owns this e-mail!!');</script>";
-		}
-
 	}
 
 ?>

@@ -37,14 +37,14 @@
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
 			
 			<div class="social">
-				<h3 class="normal"><a href="WEBTECH_login.html">LOGIN</a> |<a href="WEBTECH_register.html">REGISTER</a></h3>
+				<h3 class="normal"><a href="WEBTECH_login.php">LOGIN</a> |<a href="WEBTECH_register.php">REGISTER</a></h3>
 			</div>
 
 			<!-- End Social logos -->
