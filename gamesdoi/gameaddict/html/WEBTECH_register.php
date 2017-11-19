@@ -438,6 +438,7 @@
 			$_SESSION["userID"] = $temp_session;
 			echo "<script type='text/javascript'>alert('New CURRENT User ID: $temp_session ');</script>";
 			
+			header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
 
 		}
 

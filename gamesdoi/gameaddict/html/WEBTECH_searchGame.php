@@ -1,7 +1,16 @@
 <?php
 session_start();
+/*
 require 'database.php';
 $_SESSION['SEARCHEDGAME'] ="tukan";
+*/
+
+
+// $_SESSION["searchName"] 
+	$_SESSION["searchName"] = 'Crashing Cars'; 
+	$tempo = $_SESSION["searchName"];
+
+	echo "<script type='text/javascript'>alert('You are now searching for:  $tempo');</script>";
 ?>
 
 <!DOCTYPE HTML>
@@ -80,8 +89,13 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 		<div class="page normal-page container">
-		<div style="padding-left:260px;"> <h1>Results for Bioshock</h1></div>
+		<div style="padding-left:260px;"> <h1>Results for <?php echo $tempo;?></h1></div>
+		<?php
 
+			function showSearchResults(){
+
+			}
+		?>
 
 				<!-- Sidebar -->
 				<div class="span3">
@@ -365,3 +379,8 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:37:00 GMT -->
 </html>
+
+
+<?php
+	
+?>
