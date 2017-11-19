@@ -207,6 +207,23 @@
 	}
 
 
+	// checks if string has special characters
+	function checkSpecial($Pstring){
+		$cmpr = preg_match('/[\^£$%&*()}""{@#~?><>,|=_+¬-]/', $Pstring);
+		// 1 -> 'true' if contains
+		// 0 -> 'false' if NOT contains
+
+
+		if($cmpr == 1){
+			$checker = 'true';
+		}
+
+		if($cmpr == 0){
+			$checker = 'false';
+		}
+
+		return $checker;
+	}
 
 	// inserts newly registered user into DB; by default, userStatusID = 1;
 	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
