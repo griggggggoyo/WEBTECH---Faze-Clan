@@ -275,7 +275,7 @@
 		// checks if 'username' has any special characters  --> (/[\^£$%&*()}{@#~?<>,|=_+¬-]/) <--
 		if(!empty($_POST["username"]) && checkSpecial($_POST["username"]) == 'true'){
 			//(/[\^£$%&*()}{@#~?<>,|=_+¬-]/)
-			echo "<script type='text/javascript'>alert('Special characters (/[\^£$%&*()}{@#~?><>,|=_+¬-]/) are not allowed!!');</script>";
+			echo "<script type='text/javascript'>alert('Special characters (/[\^£$%&*()}{@#~?><>,|=_+¬-]/) are not allowed in your username!!');</script>";
 		}
 // < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
 
@@ -288,6 +288,10 @@
 		// if there are spaces in 'pass'
 		if(!empty($_POST["pass"]) && hasSpace($_POST["pass"]) == 'true'){
 			echo "<script type='text/javascript'>alert('There must be no spaces in your password!!');</script>";
+		}
+
+		if(!empty($_POST["pass"]) && checkSpecial($_POST["pass"]) == 'true'){
+			echo "<script type='text/javascript'>alert('Password must not contain any of the following special characters:(/[\^£$%&*()}{@#~?><>,|=_+¬-]/)');</script>";
 		}
 
 // < ------- ------- ------- CONFIRM PASSWORD------- ------- ------- ------- >
@@ -348,15 +352,15 @@
 		echo "<script type='text/javascript'>alert('------- Kilroy was here -------');</script>";
 
 		$tempr_username = null; // working
-		$tempr_pass = null;
+		$tempr_pass = null;		// working
 		$tempr_email = null;	// working
 		$tempr_fname = null;	// working
 		$tempr_lname = null;	// working
-		$temp_bdate = null;
+		$temp_bdate = null;		// working
 
 
 		// working
-		// saves 'username' input to tempr_username, IF all valid conditions were met
+		// saves 'username' input to tempr_username, IF all VALID conditions were met
 		if(!empty($_POST["username"]) && containsWord($_POST["username"]) == 'true' && validUserName($_POST["username"]) == 'true'
 			&& strlen($_POST["username"]) >= 8 && strlen($_POST["username"]) <= 16  && hasSpace($_POST["username"]) == 'false'
 			 && checkSpecial($_POST["username"]) == 'false'){
@@ -366,11 +370,16 @@
 		}
 
 
-
+		// working
+		// saves 'pass' input to tempr_pass, IF all VALID conditions were met
+		if(!empty($_POST["pass"]) && containsWord($_POST["pass"]) == 'true' && hasSpace($_POST["pass"]) == 'false' && checkSpecial($_POST["pass"]) == 'false' && !empty($_POST["repass"]) && containsWord($_POST["repass"]) == 'true' && $_POST["pass"]==$_POST["repass"]){
+			$tempr_pass = $_POST["pass"];
+			echo "<script type='text/javascript'>alert('VALID password: $tempr_pass');</script>";
+		}		
 
 
 		// working
-		// saves 'email' input to tempr_email, IF all valid conditions were met
+		// saves 'email' input to tempr_email, IF all VALID conditions were met
 		if(!empty($_POST["email"]) && containsWord($_POST["repass"]) == 'true' && validEmail($_POST["email"])=='true'){
 			$tempr_email = $_POST["email"];
 			echo "<script type='text/javascript'>alert('VALID e-mail: $tempr_email');</script>";
@@ -378,20 +387,39 @@
 
 
 		// working
-		// saves 'fname' input to tempr_email, IF all valid conditions were met
-		if(!empty($_POST["fname"])  || containsWord($_POST["fname"]) == 'true'){
+		// saves 'fname' input to tempr_email, IF all VALID conditions were met
+		if(!empty($_POST["fname"])  && containsWord($_POST["fname"]) == 'true'){
 			$tempr_fname = $_POST["fname"];
 			echo "<script type='text/javascript'>alert('VALID First Name: $tempr_fname');</script>";
 		}
 
 		// working
-		// saves 'lname' input to tempr_email, IF all valid conditions were met
-		if(!empty($_POST["lname"])  || containsWord($_POST["lname"]) == 'true'){
+		// saves 'lname' input to tempr_email, IF all VALID conditions were met
+		if(!empty($_POST["lname"])  && containsWord($_POST["lname"]) == 'true'){
 			$tempr_lname = $_POST["lname"];
 			echo "<script type='text/javascript'>alert('VALID Last Name: $tempr_lname');</script>";
 		}
 
 		
+		if(!empty($_POST["bdate"])  && containsWord($_POST["bdate"]) == 'true'){
+			$temp_bdate = $_POST["bdate"];
+			echo "<script type='text/javascript'>alert('VALID Birth Date: $temp_bdate');</script>";
+		}
+
+		/*
+		$tempr_username = null; // working
+		$tempr_pass = null;		// working
+		$tempr_email = null;	// working
+		$tempr_fname = null;	// working
+		$tempr_lname = null;	// working
+		$temp_bdate = null;
+		*/
+
+		if($tempr_username!=null && $tempr_pass!=null && $tempr_email!=null && $tempr_fname!=null && $tempr_lname!=null && $temp_bdate!=null ){
+			echo "<script type='text/javascript'>alert('New user was inserted into DB');</script>";
+		}
+
+
 	}
 
 ?>
