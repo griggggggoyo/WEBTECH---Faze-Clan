@@ -417,9 +417,11 @@
 
 		if($tempr_username!=null && $tempr_pass!=null && $tempr_email!=null && $tempr_fname!=null && $tempr_lname!=null && $temp_bdate!=null ){
 			echo "<script type='text/javascript'>alert('New user was inserted into DB');</script>";
+
+			insertUser($tempr_username, $tempr_pass, $tempr_lname,  $tempr_fname, $temp_bdate, $tempr_email);
 		}
 
-
+		//function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail)
 	}
 
 ?>
