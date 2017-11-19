@@ -13,6 +13,9 @@ if(isset($x)){
 	#print_r($_POST[$x]);
 
 }
+if(isset($_POST['searchBtn'])){
+	echo 'HEY';
+}
 
 
 
@@ -63,10 +66,10 @@ if(isset($x)){
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-
+			<form <?php echo $SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 190px;">
-					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
+				<div class="span65" style="padding-left: 180px;">
+					<input type="input" name="search" style="height: 15px;"><input type="submit" name="searchBtn" value="search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
 				</div>
 				<div class="span1">
 					<div id="profileNav">
@@ -84,6 +87,7 @@ if(isset($x)){
 
 
 			</div>
+		</form>
 
 
 

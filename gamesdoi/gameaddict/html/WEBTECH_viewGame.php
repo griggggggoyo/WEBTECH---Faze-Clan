@@ -1,9 +1,9 @@
 <?php
 session_start();
 require 'database.php';
-$_SESSION['gameID'] =1 ;
+#$_SESSION['gameID'] =1 ;
+$_SESSION['gameID'] = $_GET['value'];
 $game = $_SESSION['gameID'];
-
 ?>
 
 
@@ -114,7 +114,7 @@ $game = $_SESSION['gameID'];
 				<div style="padding-top: 20px;">
 						<p style="padding-left:20px;"><?php echo $row[8];?></p>
 					</div>
-				
+
 				<div style="padding-top: 20px;">
 					<br>
 					<br>
