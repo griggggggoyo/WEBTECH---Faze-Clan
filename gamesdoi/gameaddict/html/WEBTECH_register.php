@@ -341,24 +341,28 @@
 
 		// < ------- ------- ------- ------- ------- ------- ------- >
 
-
-
-		// if entered 'username' is still valid
-		if(!empty($_POST["username"]) && validUserName($_POST["username"]) == 'true' && containsWord($_POST["username"])=='true'
-			){
-			echo "<script type='text/javascript'>alert('Entered username is VALIDD');</script>";
-			// $_msg here
-		}
-
-		
-
-		
-
-
-		
+				
 
 		else{
 			echo "<script type='text/javascript'>alert('------- Kilroy was here -------');</script>";
+
+			$tempr_username = null;
+			$tempr_pass = null;
+			$tempr_email = null;
+			$tempr_fname = null;
+			$tempr_lname = null;
+			$temp_bdate = null;
+
+
+			if(!empty($_POST["username"]) && containsWord($_POST["username"]) == 'true' && validUserName($_POST["username"]) == 'true'
+				&& strlen($_POST["username"]) >= 8 && strlen($_POST["username"]) <= 16  && hasSpace($_POST["username"]) == 'false'
+				 && checkSpecial($_POST["username"]) == 'false'){
+
+				$tempr_username = $_POST["username"];
+				echo "<script type='text/javascript'>alert('VALID username: $tempr_username');</script>";
+			}
+
+
 		}
 	}
 
