@@ -128,43 +128,60 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
  					<div class="block span12 ">
 
+
 						<div>
 							<form method ="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
 								<?php
 												$displayGames= "SELECT * FROM GAME WHERE gameName LIKE 'tukan%'";
+
 												$result=mysqli_query($db,$displayGames);
-												echo '<table width="75%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
-												<tr>
-												<td width="15%"><div align="center"><b> NAME
-												</div></b></td>
-												<td width="20%"><div align="center"><b> description
-												</div></b></td>
-												<td width="10%"><div align="center"><b> genreID
-												</div></b></td>
-												</tr>';
 								?>
 								<?php
 											while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-											echo "<tr>
-											<td width=\"15%\"><div align=\"center\">{$row['gameName']}
-											</div></td>
-											<td width=\"10%\"><div align=\"center\">{$row['gameDescription']}
-											</div></td>
-											<td width=\"10%\"><div align=\"center\">{$row['genreID']}
-											</div></td>
-											</tr>
+											echo "<div class=\"widget\">
+												<div class=\"wcontainer\">
+													<ul class=\"clanwar-list\">
+														<li>
+
+
+														<h4><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">{$row['gameName']}</a></h4>
+														Developed by ** <br><br>
+														</li>
+														<li>
+															<br>Category: FPS
+															<br>Cost: $99,999
+															<br>Platform: PS3, XBOX 360, PC
+															<br>Date Released: XXX,99,9999
+
+														</li>
+														<li>
+															<h5><a href=\"\">Game Review for Bioshock</a></h5>
+															<p>
+																It's hard to believe, but it has been a little over a decade since BioShock first released for Xbox 360 and PC.
+															</p>
+														</li>
+														<li>
+															<input type=\"submit\" name=\"\" value=\"View Review\" style=\"width: 100%;\">
+														</li>
+
+
+													</ul>
+												</div>
+											</div>
 											";
-										}echo '</table>';?>
+										}
+										?>
 
 							</form>
 						</div>
-
 						<div class="widget">
 
 							<div class="wcontainer">
+
 								<ul class="clanwar-list">
 									<li>
-										<div class="span4"><img src="bioshock.jpeg"></div>
+
+
 										<div style="float: right; color: red; font-size: 15px;"><b>5.0</b></div>
 										<h4><a href="#"> Bioshock</a></h4>
 										Developed by 2K Games
