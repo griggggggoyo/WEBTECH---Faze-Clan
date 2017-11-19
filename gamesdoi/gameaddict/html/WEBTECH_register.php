@@ -119,7 +119,7 @@
 
 
 <?php
-
+	session_start();
 	//href="WEBTECH_index.html"
 
 	// for checking if entered username is valid
@@ -181,7 +181,6 @@
 		if($cmpr == 1){
 			$checker = 'true';
 		}
-
 
 		if($cmpr == 0){
 			$checker = 'false';
@@ -435,7 +434,7 @@
 			foreach($getUserID as $fetchUserID){
 				$temp_session = $fetchUserID['userID'];
 			}
-
+			session_start();
 			$_SESSION["userID"] = $temp_session;
 			echo "<script type='text/javascript'>alert('New CURRENT User ID: $temp_session ');</script>";
 			
