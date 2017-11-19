@@ -1,7 +1,27 @@
 <?php
 session_start();
 require 'database.php';
-$_SESSION['SEARCHEDGAME'] ="tukan";
+$_SESSION['search'];
+$search = $_SESSION['search'];
+if(isset($x)){
+
+
+	#header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_viewGame.php");
+	#$_SESSION['gameID']= $row['gameID'];
+	echo 'GAME ID:  '.$x;
+	#$x = $row['gameID'];
+	#print_r($_POST[$x]);
+
+}
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['search'])){
+		  $_SESSION['search'] =$_POST['search'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+}
+
+
+
 ?>
 
 <!DOCTYPE HTML>
@@ -49,10 +69,10 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-
+			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 190px;">
-					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
+				<div class="span65" style="padding-left: 180px;">
+					<input type="input" name="search" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn"  style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
 				</div>
 				<div class="span1">
 					<div id="profileNav">
@@ -70,6 +90,7 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 			</div>
+		</form>
 
 
 
@@ -80,59 +101,20 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 		<div class="page normal-page container">
-		<div style="padding-left:260px;"> <h1>Results for Bioshock</h1></div>
+		<div style="padding-left:260px;"> <h1>Results for <?php echo $search; ?></h1></div>
 
 
-				<!-- Sidebar -->
-				<div class="span3">
-				<div class="title-wrapper">
-					<h3 class="widget-title">Filter Results</h3>
-					<div class="clear"></div>
-				</div>
-					<div class="block span12 first sidebar">
-
-						<div class="widget">
-
-							<div class="wcontainer">
-								<ul class="clanwar-list">
-
-									<li >
-										<ul><h4>Sort by</h4></ul>
-											<li><a href="#">popularity</a></li>
-											<li><a href="#">rating</a></li>
-											<li><a href="#">cost</a></li>
-											<li><a href="#">new</a></li>
-									</li>
-									<li >
-										<ul><h4>Category</h4></ul>
-											<li><a href="#">FPS</a></li>
-											<li><a href="#">MOBA</a></li>
-											<li><a href="#">Adventure</a></li>
-											<li><a href="#">RPG</a></li>
-									</li>
-									<li >
-										<ul><h4>Platform</h4></ul>
-											<li><a href="#">PC</a></li>
-											<li><a href="#">PS4</a></li>
-											<li><a href="#">XBOX ONE</a></li>
-											<li><a href="#">Nintendo Switch</a></li>
-									</li>
-								</ul>
-							</div>
-						</div>
-
-					</div>
-					<!-- Sidebar -->
-				</div>
- 				<div class="span6">
+ 				<div class="span8">
 
  					<div class="block span12 ">
 
 
 						<div>
-							<form method ="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+							<form action="<?php echo $SERVER['PHP_SELF'];?>" method ="POST">
 								<?php
-												$displayGames= "SELECT * FROM GAME WHERE gameName LIKE 'tukan%'";
+												$displayGames= "SELECT *
+																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
+																				WHERE gameName LIKE '$search%'";
 
 												$result=mysqli_query($db,$displayGames);
 								?>
@@ -145,23 +127,20 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 														<h4><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">{$row['gameName']}</a></h4>
-														Developed by ** <br><br>
+														Developed by {$row['gameDeveloper']} <br><br>
 														</li>
 														<li>
-															<br>Category: FPS
-															<br>Cost: $99,999
-															<br>Platform: PS3, XBOX 360, PC
-															<br>Date Released: XXX,99,9999
+															<br>Category: {$row['genreName']}
+															<br>Cost: P{$row['gamePrice']}
+															<br>Platform:c{$row['gamePlatform']}
+															<br>Date Released: {$row['dateReleased']}
 
 														</li>
 														<li>
-															<h5><a href=\"\">Game Review for Bioshock</a></h5>
+															<h5><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">Game Review for {$row['gameName']}</a></h5>
+
 															<p>
-																It's hard to believe, but it has been a little over a decade since BioShock first released for Xbox 360 and PC.
 															</p>
-														</li>
-														<li>
-															<input type=\"submit\" name=\"\" value=\"View Review\" style=\"width: 100%;\">
 														</li>
 
 
@@ -174,95 +153,12 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 							</form>
 						</div>
-						<div class="widget">
 
-							<div class="wcontainer">
-
-								<ul class="clanwar-list">
-									<li>
-
-
-										<div style="float: right; color: red; font-size: 15px;"><b>5.0</b></div>
-										<h4><a href="#"> Bioshock</a></h4>
-										Developed by 2K Games
-										<br>
-										<br>
-										<br>
-
-									</li>
-									<li>
-										<br>Category: FPS
-										<br>Cost: $99,999
-										<br>Platform: PS3, XBOX 360, PC
-										<br>Date Released: XXX,99,9999
-
-									</li>
-									<li>
-										<h5><a href="#">Game Review for Bioshock</a></h5>
-										<p>
-											It's hard to believe, but it has been a little over a decade since BioShock first released for Xbox 360 and PC.
-										</p>
-									</li>
-									<li>
-										<input type="submit" name="" value="View Review" style="width: 100%;">
-									</li>
-
-
-
-								</ul>
-
-							</div>
-
-
-
-					</div>
-
-					<div class="widget">
-
-							<div class="wcontainer">
-								<ul class="clanwar-list">
-									<li>
-										<div class="span4"><img src="bioshock2.jpg"></div>
-										<div style="float: right; color: red; font-size: 15px;"><b>5.0</b></div>
-										<h4><a href="#"> Bioshock 2</a></h4>
-
-										Developed by 2K Games
-										<br>
-										<br>
-										<br>
-
-									</li>
-									<li>
-										<br>Category: FPS
-										<br>Cost: $99,999
-										<br>Platform: PS4, XBOX one, PC
-										<br>Date Released: XXX,99,9999
-
-									</li>
-									<li>
-										<h5><a href="#">Game Review for Bioshock 2</a></h5>
-										<p>
-											The new bioshock 2 is very amazing, it has so many improvements.
-										</p>
-									</li>
-									<li>
-										<input type="submit" name="" value="View Review" style="width: 100%;">
-									</li>
-
-
-
-								</ul>
-
-							</div>
-
-
-
-					</div>
 
  					</div>
  				</div>
 
- 				<div class="span3">
+ 				<div class="span4">
  					<div class="title-wrapper">
 					<h3 class="widget-title">Related Games</h3>
 					<div class="clear"></div>
