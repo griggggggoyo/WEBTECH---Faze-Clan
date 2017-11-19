@@ -346,15 +346,16 @@
 		
 		echo "<script type='text/javascript'>alert('------- Kilroy was here -------');</script>";
 
-		$tempr_username = null;
+		$tempr_username = null; // working
 		$tempr_pass = null;
-		$tempr_email = null;
+		$tempr_email = null;	// working
 		$tempr_fname = null;
 		$tempr_lname = null;
 		$temp_bdate = null;
 
 
 		// working
+		// saves 'username' input to tempr_username, IF all valid conditions were met
 		if(!empty($_POST["username"]) && containsWord($_POST["username"]) == 'true' && validUserName($_POST["username"]) == 'true'
 			&& strlen($_POST["username"]) >= 8 && strlen($_POST["username"]) <= 16  && hasSpace($_POST["username"]) == 'false'
 			 && checkSpecial($_POST["username"]) == 'false'){
@@ -363,6 +364,23 @@
 			echo "<script type='text/javascript'>alert('VALID username: $tempr_username');</script>";
 		}
 
+
+
+
+
+		// working
+		// saves 'email' input to tempr_email, IF all valid conditions were met
+		if(!empty($_POST["email"]) && containsWord($_POST["repass"]) == 'true' && validEmail($_POST["email"])=='true'){
+			$tempr_email = $_POST["email"];
+			echo "<script type='text/javascript'>alert('VALID e-mail: $tempr_email');</script>";
+		}
+
+
+
+		if(!empty($_POST["fname"])  || containsWord($_POST["fname"]) == 'true'){
+			$tempr_fname = $_POST["fname"];
+			echo "<script type='text/javascript'>alert('VALID First Name: $tempr_fname');</script>";
+		}
 
 		
 	}
