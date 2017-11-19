@@ -172,9 +172,9 @@
 	}
 
 
-	// checks if entered password has a SPACE
-	function hasSpace($Ppass){
-		$cmpr = preg_match('/\s/',$Ppass);
+	// checks if entered String has a SPACE
+	function hasSpace($Pstring){
+		$cmpr = preg_match('/\s/',$Pstring);
 		// 1 == HAS space -- > 'true';
 		// 0 == NO space -- > 'false';
 
@@ -219,6 +219,9 @@
 	}
 
 	
+
+
+	// if 'register' (CREATE AN ACCOUNT) button was pressed
 	if (isset($_POST['register'])){
 		//echo "<script type='text/javascript'>alert('T R I A L');</script>";
 		// variables for each line
@@ -245,6 +248,10 @@
 		// if 'username' has more than 16 characters
 		if(!empty($_POST["username"]) && strlen($_POST["username"]) > 16){
 			echo "<script type='text/javascript'>alert('Username must not have more than 16 characters!!');</script>";
+		}
+
+		if(!empty($_POST["username"]) && hasSpace($_POST["username"]) == 'true'){
+			echo "<script type='text/javascript'>alert('SPACES in your username are NOT allowed!!');</script>";
 		}
 // < ------- ------- ------- PASSWORD ------- ------- ------- ------- >
 
