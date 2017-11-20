@@ -62,9 +62,9 @@ if(isset($_POST['searchBtn'])){
 			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="gameNameFind" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn" value="" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
+					<input type="input" name="gameNameFind" style="height: 40px;" placeholder="  name of game"><button type="submit" name="searchBtn" style=""><i class="fa fa-search"></i></button>
 				</div>
-				<div class="span1">
+				<div class="span1" style="padding-left:20px; padding-top:20px;">
 					<div id="profileNav">
 					<ul >
 						<li ><a>Profile</a>
@@ -105,10 +105,15 @@ if(isset($_POST['searchBtn'])){
 												$displayGames= "SELECT *
 																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
 																				WHERE gameName LIKE '$search%' ";
+<<<<<<< HEAD
+												$dbc=mysqli_connect('localhost','root','12345','reviewschema');
+=======
 												$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+>>>>>>> 6ecd602ac03b7d7d5b8a19aebef52bac25f937a1
 												$result=mysqli_query($dbc,$displayGames);
 								?>
 								<?php
+											$_SESSION['$id'] = 0;
 											while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 											echo "<div class=\"widget\">
 												<div class=\"wcontainer\">
@@ -132,6 +137,7 @@ if(isset($_POST['searchBtn'])){
 												</div>
 											</div>
 											";
+											$_SESSION['$id'] = $row['gameID'];
 										}
 										?>
 
