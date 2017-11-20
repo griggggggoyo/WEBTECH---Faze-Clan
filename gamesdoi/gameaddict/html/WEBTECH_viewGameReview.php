@@ -158,7 +158,7 @@
 												</div>';
 							}
 
-							getComments(2);
+							getComments(1);
 						?>
 
 
@@ -278,7 +278,7 @@
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
-			insertComment($Pcomment, 2, 1);
+			insertComment($Pcomment, 1, 1);
 		}
 	}
 
