@@ -102,10 +102,8 @@ if(isset($_POST['searchBtn'])){
 						<div>
 							<form action="<?php echo $SERVER['PHP_SELF'];?>" method ="POST">
 								<?php
-												$displayGames= "SELECT *
-																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
-																				WHERE gameName LIKE '$search%' ";
-												$dbc=mysqli_connect('localhost','root','12345','reviewschema');
+												$displayGames= "SELECT * FROM GAME WHERE gameName LIKE '$search%'; ";
+												$dbc=mysqli_connect('localhost','root','','reviewschema');
 												$result=mysqli_query($dbc,$displayGames);
 								?>
 								<?php
@@ -119,7 +117,7 @@ if(isset($_POST['searchBtn'])){
 														Developed by {$row['gameDeveloper']} <br><br>
 														</li>
 														<li>
-															<br>Category: {$row['genreName']}
+															<br>Category: {$row['gameGenre']}
 															<br>Cost: P{$row['gamePrice']}
 															<br>Platform:c{$row['gamePlatform']}
 															<br>Date Released: {$row['dateReleased']}

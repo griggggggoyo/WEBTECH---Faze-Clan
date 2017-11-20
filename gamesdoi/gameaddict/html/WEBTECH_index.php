@@ -70,7 +70,6 @@ session_start();
 								<td align="center">
 
 									<h2>For gamers, by gamers. </h2>
-									<?php echo $_SESSION['userTypeID'];?>
 									<p><p>
 
 								</td>

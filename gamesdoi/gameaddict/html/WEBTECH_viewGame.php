@@ -18,7 +18,7 @@ $description = "";
 $view = "";
 $gameplay = "";
 $rating = 0;
-$dbc = mysqli_connect('localhost','root','12345','reviewschema');
+$dbc = mysqli_connect('localhost','root','','reviewschema');
 $query = "select * from reviewschema.game where gameID = {$gameid}";
 $result = mysqli_query($dbc,$query);
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -31,9 +31,9 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 	};
 //getting genre
-$query = "	select * from reviewschema.game_genre gg
-			join reviewschema.genre g
-			on g.genreID = gg.genreID
+$query = "	select genreName from genre g
+			join game gg
+			on gg.gameGenre = g.genreID
 			where gg.gameID = {$gameid}";
 $result = mysqli_query($dbc,$query);
 $count =0;
@@ -48,10 +48,10 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	};
 
 //getting platform
-$query = "	select * from reviewschema.game_platform gp
-			join reviewschema.platform p
-			on p.platformID = gp.platformID
-			where gp.gameID = {$gameid}";
+$query = "	select name from platform p
+			join game g
+			on g.gamePlatform = p.platformID
+			where g.gameID = {$gameid}";
 $result = mysqli_query($dbc,$query);
 $count =0;
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -76,29 +76,12 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 #$rating = round($rating/$count, 2);
 if (isset($_POST['upvote'])){
 
-	$query = " INSERT INTO `reviewschema`.`vote_list` (`reviewID`, `userID`, `upvote`, `downvote`) VALUES ('". $_POST['reviewid'] ."', '". $userid ."', '1', '0');";
-	$query = "UPDATE `reviewschema`.`vote_list` SET `upvote`='1', `downvote`='0' WHERE `reviewID`=" . $_POST['reviewid'] . " and `userID`=" . $userid;
-	$result = mysqli_query($dbc,$query);
-	$query3 = "UPDATE `reviewschema`.`review` SET `reviewUpvotes`=". ($_POST['upvotes']+1) . " WHERE `reviewID`=". $_POST['reviewid'];
-	$result2 = mysqli_query($dbc,$query3);
+	
+
 }
 if (isset($_POST['downvote'])){
 
-	$query = "SELECT * FROM reviewschema.vote_list where userID =" . $userid . "and reviewID =" . $_POST['reviewid'];
-	$result = mysqli_query($dbc,$query);
-	$sample = mysqli_fetch_array($result);
-	if(empty($sample)){
-		echo "no return";
-		$query = " INSERT INTO `reviewschema`.`vote_list` (`reviewID`, `userID`, `upvote`, `downvote`) VALUES ('". $_POST['reviewid'] ."', '". $userid ."', '0', '1');";
-		$result = mysqli_query($dbc,$query);
-	}
-	else{
-		$query = "UPDATE `reviewschema`.`vote_list` SET `upvote`='0', `downvote`='1' WHERE `reviewID`=" . $_POST['reviewid'] . " and `userID`=" . $userid;
-		$result = mysqli_query($dbc,$query);
-		echo "yes return";
-	}
-	$query3 = "UPDATE `reviewschema`.`review` SET `reviewDownvotes`=". ($_POST['downvotes']+1) . " WHERE `reviewID`=". $_POST['reviewid'];
-	$result2 = mysqli_query($dbc,$query3);
+	
 
 }
 
