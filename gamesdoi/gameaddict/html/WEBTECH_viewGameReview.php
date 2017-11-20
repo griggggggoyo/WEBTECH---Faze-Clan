@@ -189,54 +189,11 @@
 		</div>
 
 <?php
-	//submitcomment
-	//  href="WEBTECH_viewGame.html"
 	
-	$currentReviewID = 1;
-
-	/*
-	// queries for all the comments of this review
-	function getComments($reviewID){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
-		$getAllComments = $dbc->query("	SELECT * FROM comment
-										WHERE reviewID = $reviewID");
-		$fetchAllComments = mysqli_fetch_array($getAllComments);
-
-		foreach($getAllComments as $fetchAllComments){
-			$tempCommentText = $fetchAllComments['commentText'];
-		}
-	}
+	
+	//$currentReviewID = 1;
 
 	
-	function showComment($PcommentID){
-		echo '<div class="wcontainer">
-							<img src="icon.png">
-							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
-
-
-
-							<div class="ratereview">
-
-								<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="#"><i class="icon-thumbs-down m"></i></a>
-
-							</div>
-
-							<div style="padding-left: 50px;">
-								<p class="comment">'.$PcommentID.'</p>
-							</div><p>
-
-							<div class="reviewscore">
-
-								<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
-
-							</div>
-
-						</div>';
-	}
-	*/
-
 	// working
 	// function for inserting a comment
 	function insertComment($Ptext, $PreviewID, $PuserID){
@@ -272,18 +229,22 @@
 
 		//$check_commentBox = htmlspecialchars($_POST['comments']);
 		$Pcomment = $_POST['comments'];
-		echo "<script type='text/javascript'>alert('<<< $Pcomment >>>!!');</script>";
+		//echo "<script type='text/javascript'>alert('<<< $Pcomment >>>!!');</script>";
 
 		
 		// if comment CONTAINS something
 		if(containsWord($Pcomment) == 'false'){
-			echo "<script type='text/javascript'>alert('comment does not contain word!!');</script>";
+			echo "<script type='text/javascript'>alert('Comment box is empty!!');</script>";
 		}
 		
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
-			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
+			echo "<script type='text/javascript'>alert('added Comment!!');</script>";
 			// $Ptext, $PreviewID, $PuserID
+
+			// $_SESSION["userID"]
+			// $_SESSION["reviewID"]
+
 			insertComment($Pcomment, 1, $_SESSION["userID"]);
 		}
 	}
