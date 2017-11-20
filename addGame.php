@@ -81,42 +81,52 @@
 		</div>
 		<div class=span2></div>
 		<div style="padding-left:50px;" class="span8">
-			<form method ="POST">
+			<form action="addGameToDB.php" method ="POST">
 				<fieldset>
 		      <table >
 		      <tr>
-		      	<td><p><b>Name of Game</b><br><input type= "text" name="name" size="20" maxlength="20" style="width: 500px;"/>
+		      	<td><p><b>Name of Game</b><br><input type= "text" id="name" name="name" size="20" maxlength="20" style="width: 500px;"/>
 					</tr>
 					<tr>
 		      	<td><p><b>Genre </b><br>
-							<select style="width: 500px;">
-						  	<option value="">*query list of games*</option>
-							</select>
+							<?php 
+								$conn = new mysqli("localhost", "root", "marvin", "reviewschema");
+							
+								if ($conn->connect_error) {
+									die("Connection failed: " . $conn->connect_error);
+									echo "failed";
+								} 
+								
+								$sql = "SELECT genreID, genreName FROM genre";
+										$result = $conn->query($sql);
+										if ($result->num_rows > 0) {
+											// output data of each row
+											$select =  '<select name="select">';
+										  
+											while($row = $result->fetch_assoc()) {
+												$select.='<option value="'.$row['genreID'].'">'.$row['genreName'].'</option>';
+											}
+										}
+										else {
+											echo "0 results";
+										}
+										$select.='</select>';
+										echo $select;
+										$conn->close();
+										?>
 					</tr>
 					<tr>
-		      <td><p><b>Developer</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
+		      <td ><p><b>Game Description</b><br><textarea style="width: 500px;" name="description" id="description" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
 		      </tr>
 					<tr>
-		      <td><p><b>Cost</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td><p><b>Platform</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td><p><b>Date Released</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
-		      </tr>
-					<tr>
-		      <td ><p><b>Game Description</b><br><textarea style="width: 500px;" name="comments" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
-		      </tr>
-					<tr>
-		      <td><p><b>Game Video URL</b><br><input style="width: 500px;" type= "text" name="description" size="20" maxlength="140"/>
+		      <td><p><b>Game Video URL</b><br><input style="width: 500px;" type= "text" name="url"  id="url" size="20" maxlength="140"/>
 		      </tr>
 				</table>
 
 				</fieldset>
-			</form>
 			<div align = "center"><input type="submit" name="submit" value="Add Game">
 			<input type="submit" name="submit" value="Cancel"></div>
+                        </form>
 		</div>
 
 

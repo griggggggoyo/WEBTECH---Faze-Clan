@@ -178,6 +178,8 @@
 				$_SESSION["userID"] = $testUserID ;
 				$param = $_SESSION["userID"];
 				echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
+
+				header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
 			}
 
 

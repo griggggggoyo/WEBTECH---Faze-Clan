@@ -29,6 +29,44 @@
 	$PPass_2 = "asdf";
 
 
+	function validEmail($Pemail){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$getEmail = $dbc->query("SELECT * 
+								FROM user
+								WHERE  email = '$Pemail'");
+		$fetchEmail = mysqli_fetch_array($getEmail);
+
+		$tempEmail = null;
+
+		foreach($getEmail as $fetchEmail){
+			$tempEmail = $fetchEmail['email'];
+			//$temppass = $fetchUser['passWord'];
+		}
+
+		$checker = 'true';
+		if($tempEmail != null){
+			$checker = 'false' ;
+		}
+
+		//echo  $checker;
+		return $checker;
+	}
+
+	echo validEmail('rodimusss@yahoo.com').'<br>';
+
+
+	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
+		// $Ptype, $Pstatus; default -> 1, 1;
+
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
+									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', 1, 1)";
+		$insert_user = mysqli_query($dbc, $addUser_query);
+	}
+
+	//insertUser('meatpuppet', 'IM6ENINO8', 'Kenobi', 'Ben', '1977-05-25', 'aktz@yahoo.com');
+
+
 	function validUserName($Pusername){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
 		$getUser = $dbc->query("SELECT * 

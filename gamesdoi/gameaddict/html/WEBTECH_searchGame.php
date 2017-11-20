@@ -1,27 +1,16 @@
 <?php
 session_start();
-require 'database.php';
-$_SESSION['search'];
-$search = $_SESSION['search'];
-if(isset($x)){
 
-
-	#header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_viewGame.php");
-	#$_SESSION['gameID']= $row['gameID'];
-	echo 'GAME ID:  '.$x;
-	#$x = $row['gameID'];
-	#print_r($_POST[$x]);
-
-}
+$search = $_SESSION['gameNameFind'];
 if(isset($_POST['searchBtn'])){
-	if(!empty($_POST['search'])){
-		  $_SESSION['search'] =$_POST['search'];
+	if(!empty($_POST['gameNameFind'])){
+		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
 			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
 	}
+	else{
+		echo 'No results found';
+	}
 }
-
-
-
 ?>
 
 <!DOCTYPE HTML>
@@ -72,7 +61,7 @@ if(isset($_POST['searchBtn'])){
 			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="search" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn"  style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
+					<input type="input" name="gameNameFind" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn" value="" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
 				</div>
 				<div class="span1">
 					<div id="profileNav">
@@ -114,9 +103,9 @@ if(isset($_POST['searchBtn'])){
 								<?php
 												$displayGames= "SELECT *
 																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
-																				WHERE gameName LIKE '$search%'";
-
-												$result=mysqli_query($db,$displayGames);
+																				WHERE gameName LIKE '$search%' ";
+												$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+												$result=mysqli_query($dbc,$displayGames);
 								?>
 								<?php
 											while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -124,8 +113,6 @@ if(isset($_POST['searchBtn'])){
 												<div class=\"wcontainer\">
 													<ul class=\"clanwar-list\">
 														<li>
-
-
 														<h4><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">{$row['gameName']}</a></h4>
 														Developed by {$row['gameDeveloper']} <br><br>
 														</li>
@@ -134,16 +121,12 @@ if(isset($_POST['searchBtn'])){
 															<br>Cost: P{$row['gamePrice']}
 															<br>Platform:c{$row['gamePlatform']}
 															<br>Date Released: {$row['dateReleased']}
-
 														</li>
 														<li>
 															<h5><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">Game Review for {$row['gameName']}</a></h5>
-
 															<p>
 															</p>
 														</li>
-
-
 													</ul>
 												</div>
 											</div>
