@@ -168,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `reviewSchema`.`review` (
   `userID` INT NOT NULL,
   `reviewUpvotes` INT NULL,
   `reviewDownvotes` INT NULL,
+  `reviewTitle` VARCHAR(120) NULL,
   PRIMARY KEY (`reviewID`),
   INDEX `fk_review_game1_idx` (`gameID` ASC),
   INDEX `fk_review_user1_idx` (`userID` ASC),
