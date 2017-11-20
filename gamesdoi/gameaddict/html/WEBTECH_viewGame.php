@@ -3,11 +3,9 @@
 session_start();
 
 $userid = 1;
-$gameid = 1;
 
-$_SESSION['userid'] = 1;
-$_SESSION['gameid'] = 1;
-
+$gameid = $_GET['value'];
+echo $gameid;
 $name = "title";
 $developer = "dev";
 $category = "";
@@ -32,18 +30,16 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$name = $row['gameName'];
 	$developer = $row['gameDeveloper'];
 	$cost = $row['gamePrice'];
-	$date = $row['dateReleased'];	
+	$date = $row['dateReleased'];
 	$url = $row['gameVidURLHolder'];
 	$description = $row['gameDescription'];
-	$view = $row['gameImageView'];
-	$gameplay = $row['gameImageGameplay'];
+	//$view = $row['gameImageView'];
+	//$gameplay = $row['gameImageGameplay'];
 	};
 
 //getting genre
-$query = "	select * from reviewschema.game_genre gg
-			join reviewschema.genre g
-			on g.genreID = gg.genreID
-			where gg.gameID = {$gameid}";
+$query = "	SELECT * FROM GAME GG JOIN GENRE G ON G.GENREID=GG.GENREID
+WHERE GG.GAMEID = $gameid";
 $result = mysqli_query($dbc,$query);
 
 $count =0;
@@ -52,12 +48,12 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$count++;
 	$temp = $row['genreName'];
 	if ($count >1){
-		
+
 			$category = $category .", ". $temp;
 	}
 	else $category = $temp;
 	};
-	
+
 //getting platform
 $query = "	select * from reviewschema.game_platform gp
 			join reviewschema.platform p
@@ -71,7 +67,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$count++;
 	$temp = $row['name'];
 	if ($count >1){
-		
+
 			$platform = $platform .", ". $temp;
 
 
@@ -79,8 +75,8 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	else $platform = $temp;
 	};
 
-$count =0;	
-$query = "  SELECT	reviewRating	FROM reviewschema.review 
+$count =0;
+$query = "  SELECT	reviewRating	FROM reviewschema.review
 			 where gameID = {$gameid}";
 $result = mysqli_query($dbc,$query);
 
@@ -88,13 +84,13 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$count++;
 	$temp = $row['reviewRating'];
 	$rating += $temp;
-	
+
 };
 $rating = round($rating/$count, 2);
 
 ?>
 <html lang="en-US">
-	
+
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
@@ -120,7 +116,7 @@ $rating = round($rating/$count, 2);
           <!-- end picker styles -->
 		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
 		<!--
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		-->
 	</head>
 	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
@@ -136,7 +132,7 @@ $rating = round($rating/$count, 2);
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-			
+
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 190px;">
 					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
@@ -154,17 +150,17 @@ $rating = round($rating/$count, 2);
 					</ul>
 					</div>
 				</div>
-				
 
-			</div>	
-			
+
+			</div>
+
 
 
 			<!-- End Social logos -->
-			
+
 		</div>
 		<!-- NAVBAR -->
-		
+
 		<div class="page normal-page container">
 		<div >
 		<div class="span12" style=" border-bottom: 1px solid black; margin-bottom: 20px;">
@@ -182,17 +178,17 @@ $rating = round($rating/$count, 2);
 			<br>
 			</div>
 		</div>
-		
+
 			<br>
 
 		</div>
 
-			<div class="span12"> 
+			<div class="span12">
 				<div class="block span12">
-					
+
 				</div>
 				<div style="padding-top: 20px;">
-					
+
 					<img src="<?php echo $gameplay?>">
 				</div>
 				<div style="padding-top: 20px;">
@@ -217,10 +213,10 @@ $rating = round($rating/$count, 2);
 						<button class="button-small">VIEW ALL REVIEWS</button> &nbsp;&nbsp;&nbsp;
 						<button class="button-small">VIEW MOST UPVOTED</button>
 					</div>
-					
-					
+
+
 					<?php
-						$query = "	SELECT * FROM reviewschema.review r 
+						$query = "	SELECT * FROM reviewschema.review r
 									join reviewschema.user u
 									on r.userID = u.userID where gameID = {$gameid}";
 						$result = mysqli_query($dbc,$query);
@@ -228,13 +224,13 @@ $rating = round($rating/$count, 2);
 
 
 							while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-								
+
 								echo '<div class="wcontainer">';
-							
+
  								echo '<img src="icon.png">';
- 								echo '<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;'; echo "{$row['userName']}</b></a>&nbsp;"; 
+ 								echo '<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;'; echo "{$row['userName']}</b></a>&nbsp;";
 								echo "<i> rated it {$row['reviewRating']} out of 5 </i> <br>";
- 								
+
 
 
  								echo '<div class="ratereview">';
@@ -246,7 +242,7 @@ $rating = round($rating/$count, 2);
  								echo '</div>';
 
  								echo '<div style="padding-left: 50px;">';
-								
+
  									echo '<p class="comment">'; echo "{$row['reviewText']}</p>";
  								echo'</div><p>
 
@@ -255,19 +251,19 @@ $rating = round($rating/$count, 2);
  									echo '<p><i>Review Score:&nbsp; <b class="posi">+'; echo $row['reviewUpvotes']; echo '</b>&nbsp; | &nbsp;<b class="nega">-'; echo $row['reviewDownvotes']; echo'</b></i></p>
 
  								</div>
- 								
+
  							</div>';
 							};
-							
+
 							?>
-							
- 									
+
+
  			</div>
- 						
-			
+
+
 		</div>
 
-		
+
 		<!-- JavaScript -->
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.pack.js"></script>
@@ -302,7 +298,7 @@ $rating = round($rating/$count, 2);
 		<script type="text/javascript" src="js/layerslider.kreaturamedia.jquery.js"></script>
 		<script type="text/javascript" src="js/tabs.js"></script>
 		<script type="text/javascript" src="js/ticker.js"></script>
-		
+
    		<!--
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
