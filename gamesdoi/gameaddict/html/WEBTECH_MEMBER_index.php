@@ -59,18 +59,16 @@ if(isset($_POST['searchBtn'])){
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_MEMBER_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
 			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="gameNameFind" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn" value="" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
-				</div>
-				<div class="span1">
-					<div id="profileNav">
+
+				<div class="span11">
+					<div id="profileNav" >
 					<ul >
 						<li ><a>Profile</a>
 							<ul>
