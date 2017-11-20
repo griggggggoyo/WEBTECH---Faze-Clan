@@ -113,6 +113,55 @@
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactForm" class="contact" method="post" novalidate="novalidate">
 					<ul class="contactform controls">
 						<li class="input-prepend">
+
+						<?php
+
+							// queries for all the comments of this review
+							function getComments($reviewID){
+								$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+								$getAllComments = $dbc->query("	SELECT * FROM comment
+																WHERE reviewID = $reviewID");
+								$fetchAllComments = mysqli_fetch_array($getAllComments);
+
+								foreach($getAllComments as $fetchAllComments){
+									$tempCommentText = $fetchAllComments['commentText'];
+									showComment($tempCommentText);
+								}
+							}
+
+
+							function showComment($PcommentID){
+								echo '<div class="wcontainer">
+													<img src="icon.png">
+													<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
+
+
+
+													<div class="ratereview">
+
+														<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+													</div>
+
+													<div style="padding-left: 50px;">
+														<p class="comment">'.$PcommentID.'</p>
+													</div><p>
+
+													<div class="reviewscore">
+
+														<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+
+													</div>
+
+												</div>';
+							}
+
+							getComments(1);
+						?>
+
+
 						<div class="wcontainer">
 							<img src="icon.png">
 							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
@@ -164,7 +213,7 @@
 	
 	$currentReviewID = 1;
 
-
+	/*
 	// queries for all the comments of this review
 	function getComments($reviewID){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
@@ -177,6 +226,7 @@
 		}
 	}
 
+	
 	function showComment($PcommentID){
 		echo '<div class="wcontainer">
 							<img src="icon.png">
@@ -204,6 +254,7 @@
 
 						</div>';
 	}
+	*/
 
 	// working
 	// function for inserting a comment
@@ -251,7 +302,7 @@
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
-			insertComment($Pcomment, 1, 1);
+			insertComment($Pcomment, 2, 1);
 		}
 	}
 
