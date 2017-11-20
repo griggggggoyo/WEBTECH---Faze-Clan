@@ -92,6 +92,35 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 };
 $rating = round($rating/$count, 2);
 
+if (isset($_POST['upvote'])){
+	
+	$query = " INSERT INTO `reviewschema`.`vote_list` (`reviewID`, `userID`, `upvote`, `downvote`) VALUES ('". $_POST['reviewid'] ."', '". $userid ."', '1', '0');";
+	$query = "UPDATE `reviewschema`.`vote_list` SET `upvote`='1', `downvote`='0' WHERE `reviewID`=" . $_POST['reviewid'] . " and `userID`=" . $userid;
+	$result = mysqli_query($dbc,$query);
+	$query3 = "UPDATE `reviewschema`.`review` SET `reviewUpvotes`=". ($_POST['upvotes']+1) . " WHERE `reviewID`=". $_POST['reviewid'];
+	$result2 = mysqli_query($dbc,$query3);
+
+}
+
+if (isset($_POST['downvote'])){
+	
+	$query = "SELECT * FROM reviewschema.vote_list where userID =" . $userid . "and reviewID =" . $_POST['reviewid'];
+	$result = mysqli_query($dbc,$query);
+	$sample = mysqli_fetch_array($result);
+	if(empty($sample)){
+		echo "no return";
+		$query = " INSERT INTO `reviewschema`.`vote_list` (`reviewID`, `userID`, `upvote`, `downvote`) VALUES ('". $_POST['reviewid'] ."', '". $userid ."', '0', '1');";
+		$result = mysqli_query($dbc,$query);
+	}
+	else{
+		$query = "UPDATE `reviewschema`.`vote_list` SET `upvote`='0', `downvote`='1' WHERE `reviewID`=" . $_POST['reviewid'] . " and `userID`=" . $userid;
+		$result = mysqli_query($dbc,$query);
+		echo "yes return";
+	}
+	$query3 = "UPDATE `reviewschema`.`review` SET `reviewDownvotes`=". ($_POST['downvotes']+1) . " WHERE `reviewID`=". $_POST['reviewid'];
+	$result2 = mysqli_query($dbc,$query3);
+	
+}
 ?>
 <html lang="en-US">
 	
@@ -229,19 +258,28 @@ $rating = round($rating/$count, 2);
 
 							while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 								
+								
+								
 								echo '<div class="wcontainer">';
 							
  								echo '<img src="icon.png">';
  								echo '<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;'; echo "{$row['userName']}</b></a>&nbsp;"; 
 								echo "<i> rated it {$row['reviewRating']} out of 5 </i> <br>";
  								
-
+								$reviewid = $row['reviewID'];
+								$upvotes = $row['reviewUpvotes'];
+								$downvotes = $row['reviewDownvotes'];
 
  								echo '<div class="ratereview">';
-
-								echo '<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+								
+								//upvote downvote
+								echo '<form method="POST" action="'; $_SERVER['PHP_SELF']; echo '">';
+								echo '<input type="hidden" name="reviewid" value="' . $reviewid . '"/>';
+								echo '<input type="hidden" name="upvotes" value="' . $upvotes . '"/>';
+								echo '<input type="hidden" name="downvotes" value="' . $downvotes . '"/>';
+								echo '<button type="submit" name="upvote"><i class="icon-thumbs-up m"></i></button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="#"><i class="icon-thumbs-down m"></i></a>';
+								<button type="submit" name="downvote"><i class="icon-thumbs-down m"></i></button></form>';
 
  								echo '</div>';
 
@@ -252,7 +290,7 @@ $rating = round($rating/$count, 2);
 
  								<div class="reviewscore">';
 
- 									echo '<p><i>Review Score:&nbsp; <b class="posi">+'; echo $row['reviewUpvotes']; echo '</b>&nbsp; | &nbsp;<b class="nega">-'; echo $row['reviewDownvotes']; echo'</b></i></p>
+ 									echo '<p><i>Review Score:&nbsp; <b class="posi">+'. $upvotes .'</b>&nbsp; | &nbsp;<b class="nega">-' . $downvotes .'</b></i></p>
 
  								</div>
  								
