@@ -1,3 +1,8 @@
+<?php
+
+	session_start();
+?>
+
 <!doctype html>
 <html lang="en-US">
 <!--up-->
@@ -278,7 +283,8 @@
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
-			insertComment($Pcomment, 1, 1);
+			// $Ptext, $PreviewID, $PuserID
+			insertComment($Pcomment, 1, $_SESSION["userID"]);
 		}
 	}
 
