@@ -1,6 +1,23 @@
+<?php
+session_start();
+
+//
+$_SESSION['gameNameFind']= NULL;
+$search = $_SESSION['gameNameFind'];
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['gameNameFind'])){
+		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+	else{
+		echo 'No results found';
+	}
+}
+?>
+
 <!doctype html>
 <html lang="en-US">
-	
+
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
@@ -27,20 +44,18 @@
 		<link href="css/menubar.css" rel="stylesheet">
 	</head>
 
-	<?php 
+	<?php
 
-		session_start();
-
-		if ($_SESSION['userTypeID'] != 1) {
+		if ($_SESSION['userTypeID'] != 2) {
 
 			header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
-			
+
 		}
 
 	?>
 
 	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
-		
+
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
@@ -112,11 +127,10 @@
 
 										<label>
 										<i class="icon-search"></i>&nbsp;&nbsp;
-										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gamesearch" class="input" type="text">
+										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gameNameFind" class="input" type="input">
 										&nbsp;
-										<input type="submit" class="button-small" name="search" value="Search">
+										<button type="submit" name="searchBtn" >Search</button>
 										</label>
-
 									</form>
 
 								</td>
@@ -127,11 +141,11 @@
 
 					</table>
 
-				
+
 
 				<!-- BREAK top is search, bottom is genres !-->
 
-				
+
 
 					<table cellpadding="0" cellspacing="0" width="100%">
 
@@ -152,7 +166,7 @@
 
 					</table>
 
-				
+
 
 					<ul class="newsbh">
 
@@ -362,7 +376,7 @@
 				</div>
 
 				<div class="wcontainer block">
-					
+
 					<a class="normal" href="WEBTECH_userProfile.html">
 					<div class="block block-four_block span4  cf">
 						<div class="text-container centered bgpattern charblock maxed">
@@ -448,9 +462,9 @@
 			</div>
 					<!-- End Latest News -->
 					<!-- Adventure News -->
-					
-					
-					
+
+
+
 					<!-- End Tabs -->
 				</div>
 				</div>
@@ -466,10 +480,10 @@
 							<div class="clear"></div>
 						</div>
 						<div class="latest-twitter-tweet"></div>
-						
+
 					</div>
 
-				
+
 			</div>
 			<div class="copyright span12">
 				<p>© &nbsp;Made by Skywarrior Themes.&nbsp;</p>
@@ -547,7 +561,7 @@
 	function containsWord($input_string) {
 	  // return false when letters/characters are absen
 	  // return true when a character/letter is found
- 
+
 	  foreach (explode(' ', $input_string) as $word) {
 	    if (!empty($word)) {
 	      return 'true';
@@ -557,7 +571,7 @@
 
 	  return 'false';
 	}
-	
+
 
 	if (isset($_POST['search'])){
 		//echo "<script type='text/javascript'>alert('Please put something in hte textbox!!!');</script>";

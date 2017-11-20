@@ -1,6 +1,23 @@
+<?php
+session_start();
+
+//
+$_SESSION['gameNameFind']= NULL;
+$search = $_SESSION['gameNameFind'];
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['gameNameFind'])){
+		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+	else{
+		echo 'No results found';
+	}
+}
+?>
+
 <!doctype html>
 <html lang="en-US">
-	
+
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
@@ -27,33 +44,28 @@
 		<link href="css/menubar.css" rel="stylesheet">
 	</head>
 
-	<?php 
-
-		session_start();
+	<?php
 
 		if ($_SESSION['userTypeID'] != 1) {
 
 			header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
-			
+
 		}
 
 	?>
 
 	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
-		
+
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_ADMIN_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
 			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="gameNameFind" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn" value="" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
-				</div>
 				<div class="span1">
 					<div id="profileNav">
 					<ul >
@@ -112,9 +124,9 @@
 
 										<label>
 										<i class="icon-search"></i>&nbsp;&nbsp;
-										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gamesearch" class="input" type="text">
+										<input placeholder="Search a game you're thinking of..." id="gamesearch" name="gameNameFind" class="input" type="input">
 										&nbsp;
-										<input type="submit" class="button-small" name="search" value="Search">
+										<button type="submit" name="searchBtn" >Search</button>
 										</label>
 
 									</form>
@@ -127,11 +139,11 @@
 
 					</table>
 
-				
+
 
 				<!-- BREAK top is search, bottom is genres !-->
 
-				
+
 
 					<table cellpadding="0" cellspacing="0" width="100%">
 
@@ -152,7 +164,7 @@
 
 					</table>
 
-				
+
 
 					<ul class="newsbh">
 
@@ -374,7 +386,7 @@
 				</div>
 
 				<div class="wcontainer block">
-					
+
 					<a class="normal" href="WEBTECH_userProfile.html">
 					<div class="block block-four_block span4  cf">
 						<div class="text-container centered bgpattern charblock maxed">
@@ -460,9 +472,9 @@
 			</div>
 					<!-- End Latest News -->
 					<!-- Adventure News -->
-					
-					
-					
+
+
+
 					<!-- End Tabs -->
 				</div>
 				</div>
@@ -478,10 +490,10 @@
 							<div class="clear"></div>
 						</div>
 						<div class="latest-twitter-tweet"></div>
-						
+
 					</div>
 
-				
+
 			</div>
 			<div class="copyright span12">
 				<p>© &nbsp;Made by Skywarrior Themes.&nbsp;</p>
@@ -559,7 +571,7 @@
 	function containsWord($input_string) {
 	  // return false when letters/characters are absen
 	  // return true when a character/letter is found
- 
+
 	  foreach (explode(' ', $input_string) as $word) {
 	    if (!empty($word)) {
 	      return 'true';
@@ -569,24 +581,7 @@
 
 	  return 'false';
 	}
-	
-
-	if (isset($_POST['search'])){
-		//echo "<script type='text/javascript'>alert('Please put something in hte textbox!!!');</script>";
-
-		if(empty($_POST["gamesearch"]) || containsWord($_POST["gamesearch"]) == 'false'){
-			echo "<script type='text/javascript'>alert('Please put something in hte textbox!!!');</script>";
-		}
-
-		if(!empty($_POST["gamesearch"]) && containsWord($_POST["gamesearch"]) == 'true'){
-			echo "<script type='text/javascript'>alert('You re making progress,Goyo!!!');</script>";
-
-			// SESSION variable that saves inputted
-			$_SESSION["searchName"] = $_POST["gamesearch"];
 
 
-			$temp = $_SESSION["searchName"];
-			echo "<script type='text/javascript'>alert('You are now searching for:  $temp');</script>";
-		}
-	}
+
 ?>

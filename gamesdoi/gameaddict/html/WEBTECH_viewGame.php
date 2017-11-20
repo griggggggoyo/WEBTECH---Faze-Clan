@@ -1,10 +1,12 @@
 <!doctype html>
 <?php
 session_start();
+
+$gameid = $_GET['value'];
+echo $gameid;
+$_SESSION['gameid']=$gameid;
 $userid = 1;
-$gameid = 1;
 $_SESSION['userid'] = 1;
-$_SESSION['gameid'] = 1;
 $name = "title";
 $developer = "dev";
 $category = "";
@@ -26,8 +28,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$date = $row['dateReleased'];
 	$url = $row['gameVidURLHolder'];
 	$description = $row['gameDescription'];
-	$view = $row['gameImageView'];
-	$gameplay = $row['gameImageGameplay'];
+
 	};
 //getting genre
 $query = "	select * from reviewschema.game_genre gg
@@ -72,7 +73,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$rating += $temp;
 
 };
-$rating = round($rating/$count, 2);
+#$rating = round($rating/$count, 2);
 if (isset($_POST['upvote'])){
 
 	$query = " INSERT INTO `reviewschema`.`vote_list` (`reviewID`, `userID`, `upvote`, `downvote`) VALUES ('". $_POST['reviewid'] ."', '". $userid ."', '1', '0');";
@@ -100,6 +101,17 @@ if (isset($_POST['downvote'])){
 	$result2 = mysqli_query($dbc,$query3);
 
 }
+
+$search = $_SESSION['gameNameFind'];
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['gameNameFind'])){
+		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+	else{
+		echo 'No results found';
+	}
+}
 ?>
 <html lang="en-US">
 
@@ -108,7 +120,7 @@ if (isset($_POST['downvote'])){
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>GAMESDOI | Bioshock</title>
+		<title>GAMESDOI | </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="keywords" content="">
@@ -145,26 +157,28 @@ if (isset($_POST['downvote'])){
 			<!-- End Logo -->
 			<!-- Social logos -->
 
+			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 190px;">
-					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
+				<div class="span65" style="padding-left: 180px;">
+					<input type="input" name="gameNameFind" style="height: 40px;" placeholder="  name of game"><button type="submit" name="searchBtn" style=""><i class="fa fa-search"></i></button>
 				</div>
-				<div class="span1">
+				<div class="span1" style="padding-left:20px; padding-top:20px;">
 					<div id="profileNav">
-					<ul>
+					<ul >
 						<li ><a>Profile</a>
 							<ul>
 								<li><a href="WEBTECH_userProfile.html">Profile</a></li>
-								<li><a href="WEBTECH_index.html">Log-out</a></li>
-								<li><a href="WEBTECH_aboutUs.html">About Us</a></li>
+								<li><a>Log-out</a></li>
+								<li><a>About Us</a></li>
 							</ul>
 						</li>
 					</ul>
-					</div>
+			</div>
 				</div>
 
 
 			</div>
+		</form>
 
 
 
@@ -206,11 +220,10 @@ if (isset($_POST['downvote'])){
 				<div style="padding-top: 20px;">
 					<p><?php echo $description?></p>
 				</div>
+				<!--
 				<div style="padding-left: 250px;"><iframe width="560" height="315" src="<?php echo $url?>" frameborder="0" allowfullscreen></iframe></div><br><br>
-
-
 			</div>
-
+		-->
 			<div class="block span12 first cf">
 					<div class="title-wrapper">
 							<h3 class="widget-title">Reviews </h3>
@@ -218,7 +231,7 @@ if (isset($_POST['downvote'])){
 					</div>
 
 					<div id="makereviewbutton">
-						<a class="button-small" href="WEBTECH_addReview.html"> CREATE REVIEW </a>
+						<a class="button-small" href="addReview.php"> CREATE REVIEW </a>
 					</div>
 
 					<div id="reviewfilter">

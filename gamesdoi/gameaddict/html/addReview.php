@@ -141,7 +141,7 @@ $row=mysqli_fetch_row($result);
 
 						<li>
 							<input type="submit" class="button-green button-small" value="Submit Review" href="addReviewtoDB.php">
-							<a type="button" class="button-small" href="WEBTECH_viewGame.html" style="position: relative; top: 1px; left: 73%">Go Back</a>
+							<a type="button" class="button-small" style="position: relative; top: 1px; left: 73%" href="WEBTECH_viewGame.php?value=<?php echo $gameid; ?>">Go Back</a>
 						</li>
 
 					</ul>

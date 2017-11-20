@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en-US">
-	
+
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
@@ -26,11 +26,11 @@
           <!-- end picker styles -->
 		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
 		<!--
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		-->
 	</head>
 
-	<?php 
+	<?php
 
 		session_start();
 
@@ -101,7 +101,7 @@
 
 					$message = "The username or password is invalid, or the account is not registered.";
 
-				}				
+				}
 
 			}
 
@@ -122,16 +122,16 @@
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-			
+
 			<div class="social">
 				<h3 class="normal"><a href="WEBTECH_login.php">LOGIN</a> |<a href="WEBTECH_register.php">REGISTER</a></h3>
 			</div>
 
 			<!-- End Social logos -->
-			
+
 		</div>
 		<!-- NAVBAR -->
-		
+
 		<div class="page normal-page container">
 
 		<div class="block block-contactform_block span12 first cf">
@@ -161,7 +161,7 @@
 
 							<a href="WEBTECH_index.php" type="button" class="button-small"  style="position: relative; top: 1px; left: 40%">Go Back</a>
 						</li>
-						
+
 
 					</ul>
 

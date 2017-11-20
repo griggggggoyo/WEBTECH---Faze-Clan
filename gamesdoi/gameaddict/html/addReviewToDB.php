@@ -7,8 +7,8 @@ $gameid = $_SESSION['gameid'];
 $title = $_POST['title'];
 
 if($rating == '' || $review == '' || $title == ''){
-    echo "<script type='text/javascript'>alert('Please Enter All Fields');</script>";
     header("Location:addReview.php");
+    echo "<script type='text/javascript'>alert('Please Enter All Fields');</script>";
 }
 
 else{
@@ -20,7 +20,7 @@ else{
         }
         echo "Connected successfully";
 
-    $sql = "INSERT INTO review (title, reviewRating, reviewText, gameID, userID)
+    $sql = "INSERT INTO review (reviewTitle, reviewRating, reviewText, gameID, userID)
     VALUES ('$title', $rating, '$review', $gameid, $userID)";
 
     if ($conn->query($sql) === TRUE) {
