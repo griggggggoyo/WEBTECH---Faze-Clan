@@ -1,7 +1,6 @@
 <?php
 session_start();
-//require 'database.php';
-//$_SESSION['search'] =null;
+
 $search = $_SESSION['gameNameFind'];
 if(isset($_POST['searchBtn'])){
 	if(!empty($_POST['gameNameFind'])){
