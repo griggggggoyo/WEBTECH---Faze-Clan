@@ -1,8 +1,8 @@
 <?php
 session_start();
-require 'database.php';
-$_SESSION['search'] =null;
-$search = $_SESSION['search'];
+//require 'database.php';
+//$_SESSION['search'] =null;
+$search = $_SESSION['gameNameFind'];
 if(isset($_POST['searchBtn'])){
 	if(!empty($_POST['gameNameFind'])){
 		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
@@ -104,8 +104,9 @@ if(isset($_POST['searchBtn'])){
 								<?php
 												$displayGames= "SELECT *
 																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
-																				WHERE gameName LIKE 'counter%' ";
-												$result=mysqli_query($db,$displayGames);
+																				WHERE gameName LIKE '$search%' ";
+												$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+												$result=mysqli_query($dbc,$displayGames);
 								?>
 								<?php
 											while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
