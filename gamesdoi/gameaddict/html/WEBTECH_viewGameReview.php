@@ -165,6 +165,18 @@
 	$currentReviewID = 1;
 
 
+	// queries for all the comments of this review
+	function getComments($reviewID){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+		$getAllComments = $dbc->query("	SELECT * FROM comment
+										WHERE reviewID = $reviewID");
+		$fetchAllComments = mysqli_fetch_array($getAllComments);
+
+		foreach($getAllComments as $fetchAllComments){
+			$tempCommentText = $fetchAllComments['commentText'];
+		}
+	}
+
 	function showComment($PcommentID){
 		echo '<div class="wcontainer">
 							<img src="icon.png">
