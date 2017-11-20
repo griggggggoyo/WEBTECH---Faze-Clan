@@ -1,22 +1,106 @@
+<!doctype html>
 <?php
 session_start();
-require 'database.php';
-#$_SESSION['gameID'] =1 ;
-$_SESSION['gameID'] = $_GET['value'];
-$game = $_SESSION['gameID'];
+
+$userid = 1;
+$gameid = 1;
+
+$_SESSION['userid'] = 1;
+$_SESSION['gameid'] = 1;
+
+$name = "title";
+$developer = "dev";
+$category = "";
+$cost = "0";
+$platform = "";
+$date = "2000-1-1";
+$url = "youtube";
+$description = "";
+$view = "";
+$gameplay = "";
+$rating = 0;
+
+$dbc = mysqli_connect('localhost','root','12345','reviewschema');
+
+$query = "select * from reviewschema.game where gameID = {$gameid}";
+$result = mysqli_query($dbc,$query);
+
+
+
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+
+	$name = $row['gameName'];
+	$developer = $row['gameDeveloper'];
+	$cost = $row['gamePrice'];
+	$date = $row['dateReleased'];	
+	$url = $row['gameVidURLHolder'];
+	$description = $row['gameDescription'];
+	$view = $row['gameImageView'];
+	$gameplay = $row['gameImageGameplay'];
+	};
+
+//getting genre
+$query = "	select * from reviewschema.game_genre gg
+			join reviewschema.genre g
+			on g.genreID = gg.genreID
+			where gg.gameID = {$gameid}";
+$result = mysqli_query($dbc,$query);
+
+$count =0;
+
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+	$count++;
+	$temp = $row['genreName'];
+	if ($count >1){
+		
+			$category = $category .", ". $temp;
+	}
+	else $category = $temp;
+	};
+	
+//getting platform
+$query = "	select * from reviewschema.game_platform gp
+			join reviewschema.platform p
+			on p.platformID = gp.platformID
+			where gp.gameID = {$gameid}";
+$result = mysqli_query($dbc,$query);
+
+$count =0;
+
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+	$count++;
+	$temp = $row['name'];
+	if ($count >1){
+		
+			$platform = $platform .", ". $temp;
+
+
+	}
+	else $platform = $temp;
+	};
+
+$count =0;	
+$query = "  SELECT	reviewRating	FROM reviewschema.review 
+			 where gameID = {$gameid}";
+$result = mysqli_query($dbc,$query);
+
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+	$count++;
+	$temp = $row['reviewRating'];
+	$rating += $temp;
+	
+};
+$rating = round($rating/$count, 2);
+
 ?>
-
-
-
-<!doctype html>
 <html lang="en-US">
-
+	
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>GAMESDOI</title>
+		<title>GAMESDOI | Bioshock</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="keywords" content="">
@@ -36,7 +120,7 @@ $game = $_SESSION['gameID'];
           <!-- end picker styles -->
 		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
 		<!--
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
 		-->
 	</head>
 	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
@@ -52,7 +136,7 @@ $game = $_SESSION['gameID'];
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-
+			
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 190px;">
 					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
@@ -70,56 +154,51 @@ $game = $_SESSION['gameID'];
 					</ul>
 					</div>
 				</div>
+				
 
-
-			</div>
-
+			</div>	
+			
 
 
 			<!-- End Social logos -->
-
+			
 		</div>
 		<!-- NAVBAR -->
-
+		
 		<div class="page normal-page container">
 		<div >
 		<div class="span12" style=" border-bottom: 1px solid black; margin-bottom: 20px;">
-			<div  style="margin-bottom: 20px;">
-				<img src="">
+			<div class="span6" style="margin-bottom: 20px;">
+				<img src="<?php echo $view?>">
 			</div>
-			<?php
-
-			$displayGames= "SELECT *
-											FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
-											WHERE gameID = $game";
-
-			$result=mysqli_query($db,$displayGames);
-			$row = mysqli_fetch_row($result); ?>
-			<h1><?php echo $row[1]; ?></h1>
-			<p style="padding-left:20px;"><b>by <?php echo $row[6];?></b></p>
-			<p style="padding-left:20px;">Category <?php echo $row[10];?></p>
-			<p style="padding-left:20px;">Cost <?php echo $row[3];?></p>
-			<p style="padding-left:20px;">Platform <?php echo $row[4];?></p>
-			<p style="padding-left:20px;">Date Released <?php echo $row[5];?></p>
+			<div style="font-weight: bold; font-size: 28px; float: right; padding-right: 40px; padding-top: 20px; font-family: Open Sans;"><?php echo $rating;?></div>
+			<div class="span4">
+			<h1 style="margin: 0;"><?php echo $name?></h1>
+			<b>by <?php echo $developer?></b> <br>
+			Category: <?php echo $category?> <br>
+			Cost: <?php echo $cost?> <br>
+			Platform: <?php echo $platform?> <br>
+			Date Released: <?php echo $date?> <br>
+			<br>
+			</div>
 		</div>
-
+		
 			<br>
 
 		</div>
 
-			<div class="span12">
+			<div class="span12"> 
 				<div class="block span12">
-					<?php  echo $_SESSION['gameID']; ?>
+					
 				</div>
 				<div style="padding-top: 20px;">
-						<p style="padding-left:20px;"><?php echo $row[8];?></p>
-					</div>
-
+					
+					<img src="<?php echo $gameplay?>">
+				</div>
 				<div style="padding-top: 20px;">
-					<br>
-					<br>
-
-
+					<p><?php echo $description?></p>
+				</div>
+				<div style="padding-left: 250px;"><iframe width="560" height="315" src="<?php echo $url?>" frameborder="0" allowfullscreen></iframe></div><br><br>
 
 
 			</div>
@@ -138,79 +217,57 @@ $game = $_SESSION['gameID'];
 						<button class="button-small">VIEW ALL REVIEWS</button> &nbsp;&nbsp;&nbsp;
 						<button class="button-small">VIEW MOST UPVOTED</button>
 					</div>
+					
+					
+					<?php
+						$query = "	SELECT * FROM reviewschema.review r 
+									join reviewschema.user u
+									on r.userID = u.userID where gameID = {$gameid}";
+						$result = mysqli_query($dbc,$query);
 
- 							<div class="wcontainer">
- 								<img src="icon.png">
- 								<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
 
 
+							while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+								
+								echo '<div class="wcontainer">';
+							
+ 								echo '<img src="icon.png">';
+ 								echo '<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;'; echo "{$row['userName']}</b></a>&nbsp;"; 
+								echo "<i> rated it {$row['reviewRating']} out of 5 </i> <br>";
+ 								
 
- 								<div class="ratereview">
 
- 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
- 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 									<a href="#"><i class="icon-thumbs-down m"></i></a>
+ 								echo '<div class="ratereview">';
 
- 								</div>
+								echo '<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#"><i class="icon-thumbs-down m"></i></a>';
 
- 								<div style="padding-left: 50px;">
- 									<p class="comment">NICE GAME!!!!</p>
- 								</div><p>
+ 								echo '</div>';
 
- 								<div class="reviewscore">
+ 								echo '<div style="padding-left: 50px;">';
+								
+ 									echo '<p class="comment">'; echo "{$row['reviewText']}</p>";
+ 								echo'</div><p>
 
- 									<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+ 								<div class="reviewscore">';
 
- 								</div>
-
- 							</div>
- 							<div class="wcontainer">
- 								<img src="icon.png">
- 								<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;P4t4R</b></a>&nbsp; <i> rated it 2 out of 5 </i> <br>
- 								<div class="ratereview">
-
- 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
- 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 									<a href="#"><i class="icon-thumbs-down m"></i></a>
-
- 								</div>
- 								<div  style="padding-left: 50px;"><p class="comment">2/10 lmao</p></div><p>
-
- 								<div class="reviewscore">
-
- 									<p><i>Review Score:&nbsp; <b class="posi">+3</b>&nbsp; | &nbsp;<b class="nega">-16</b></i></p>
+ 									echo '<p><i>Review Score:&nbsp; <b class="posi">+'; echo $row['reviewUpvotes']; echo '</b>&nbsp; | &nbsp;<b class="nega">-'; echo $row['reviewDownvotes']; echo'</b></i></p>
 
  								</div>
-
- 							</div>
-
- 							<div class="wcontainer">
- 								<img src="icon.png">
- 								<a href="WEBTECH_userProfile.html"><b class="namereview">&nbsp;&nbsp;&nbsp;Gregory Petrola</b></a>&nbsp; <i> rated it 4 out of 5 </i> <br>
- 								<div class="ratereview">
-
- 									<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
- 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 									<a href="#"><i class="icon-thumbs-down m"></i></a>
-
- 								</div>
- 								<div  style="padding-left: 50px; width: 80%"><p class="comment">In spite of some technical issues, BioShock creates an amazing world that you'll want to explore and a compelling mystery that slowly comes together as you play.</p></div><p>
-
- 								<div class="reviewscore">
-
- 									<p><i>Review Score:&nbsp; <b class="posi">+43</b>&nbsp; | &nbsp;<b class="nega">-12</b></i></p>
-
- 								</div>
-
- 							</div>
-
-
+ 								
+ 							</div>';
+							};
+							
+							?>
+							
+ 									
  			</div>
-
-
+ 						
+			
 		</div>
 
-
+		
 		<!-- JavaScript -->
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.pack.js"></script>
@@ -245,7 +302,7 @@ $game = $_SESSION['gameID'];
 		<script type="text/javascript" src="js/layerslider.kreaturamedia.jquery.js"></script>
 		<script type="text/javascript" src="js/tabs.js"></script>
 		<script type="text/javascript" src="js/ticker.js"></script>
-
+		
    		<!--
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
