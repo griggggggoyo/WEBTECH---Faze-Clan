@@ -99,7 +99,7 @@
 	
 	// returns User ID (can return null if '$PuserName' was not found in DB)
 	function getUserID($PuserName){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 
 		$getUser = $dbc->query("SELECT * 
 								FROM user
@@ -120,7 +120,7 @@
 
 	// retruns password based on User ID
 	function getPassword($PuserID){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 
 		$getPass =  $dbc->query("SELECT *
 								 FROM user
