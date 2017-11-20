@@ -29,6 +29,86 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
 		-->
 	</head>
+
+	<?php 
+
+		session_start();
+
+		$message = NULL;
+
+		if (isset($_POST['login'])) {
+
+			if (empty($_POST['username'])) {
+
+				$_SESSION['username'] = FALSE;
+				$message = "You forgot to enter a username!";
+
+			}
+
+			else {
+
+				$_SESSION['username'] = $_POST['username'];
+
+			}
+
+			if (empty($_POST['password'])) {
+
+				$_SESSION['password'] = FALSE;
+				$message = "You forgot to enter a password!";
+
+			}
+
+			else {
+
+				$_SESSION['password'] = $_POST['password'];
+
+			}
+
+			if (!isset($message)) {
+
+				$username = $_SESSION['username'];
+				$password = $_SESSION['password'];
+
+				require_once("database.php");
+
+				$queryMem = "SELECT userID, userTypeID, userName FROM USER WHERE userName = '{$username}' AND passWord = '{$password}'";
+				$resultMem = mysqli_query($db, $queryMem);
+				$rowMem = mysqli_fetch_array($resultMem);
+
+				if ($rowMem['userName'] == $_SESSION['username']) {
+
+					if ($rowMem['userTypeID'] == 2) { /* MEMBER */
+
+						$_SESSION['userTypeID'] = $rowMem['userTypeID'];
+						$_SESSION['userID'] = $rowMem['userID'];
+
+						header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/WEBTECH_MEMBER_index.php");
+
+					}
+
+					else if ($rowMem['userTypeID'] == 1) { /* ADMIN */
+
+						$_SESSION['userTypeID'] = $rowMem['userTypeID'];
+						$_SESSION['userID'] = $rowMem['userID'];
+
+						header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/WEBTECH_ADMIN_index.php");
+
+					}
+
+				}
+
+				else {
+
+					$message = "The username or password is invalid, or the account is not registered.";
+
+				}				
+
+			}
+
+		}
+
+	?>
+
 	<body class="home page page-id-26 page-template page-template-tmp-no-title-php">
 		<div id="main_wrapper">
 		          <!--start picker -->
@@ -62,16 +142,18 @@
 					<div class="mcontainer">
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactForm" class="contact" method="POST">
 
+					<font color="red"><b><?php echo $message ?></b></font>
+
 					<ul class="contactform controls">
 
                        	<li class="input-prepend">
 							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Username</label></span>
-							<input type="text" placeholder="Username" name="username" value="" class="reg_fields">
+							<input type="text" placeholder="Username" name="username" class="reg_fields">
                         </li><p>
 
                         <li class="input-prepend">
 							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Password</label></span>
-							<input type="password" placeholder="Password" name="pass" value="" class="reg_fields">
+							<input type="password" placeholder="Password" name="password" class="reg_fields">
                         </li><p>
 
 						<li>
@@ -92,98 +174,3 @@
 	</body>
 
 </html>
-
-<?php
-	// href="WEBTECH_index.html"
-	session_start();
-	
-	// returns User ID (can return null if '$PuserName' was not found in DB)
-	function getUserID($PuserName){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
-
-		$getUser = $dbc->query("SELECT * 
-								FROM user
-								WHERE  userName = '$PuserName'");
-		$fetchUser = mysqli_fetch_array($getUser);
-
-
-		$tempuserID = null;
-
-
-		foreach($getUser as $fetchUser){
-			$tempuserID = $fetchUser['userID'];
-			$temppass = $fetchUser['passWord'];
-		}
-		return $tempuserID;
-	}
-		
-
-	// retruns password based on User ID
-	function getPassword($PuserID){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
-
-		$getPass =  $dbc->query("SELECT *
-								 FROM user
-								 WHERE userID=$PuserID");
-		$fetchPass = mysqli_fetch_array($getPass);
-
-		$tempPass = null;
-		foreach($getPass as $fetchPass){
-			$tempPass = $fetchPass['passWord'];
-		}
-		return $tempPass;
-	}
-
-
-	if (isset($_POST['login'])){
-		
-		// if 'Username' field is empty
-		if(empty($_POST["username"])){
-			echo "<script type='text/javascript'>alert('Please enter a username.');</script>";
-		}
-
-		// if 'Password' field is empty
-		if(empty($_POST["pass"])){
-			echo "<script type='text/javascript'>alert('Please enter your password.');</script>";
-		}
-
-
-
-		// variable for attempting to find the userID of inputted 'Username';
-		$testUserID = getUserID($_POST["username"]);		
-		
-
-		// 'Username' field username was NOT found!!!
-		if(!empty($_POST["username"]) && $testUserID == null){
-			echo "<script type='text/javascript'>alert('User account does not exist!!');</script>";
-		}
-
-		// 'Username' field username exists in the DB!!!
-		if(!empty($_POST["username"]) && $testUserID != null){
-			echo "<script type='text/javascript'>alert('account exists!! --> $testUserID');</script>";
-
-			$testUserPass = $_POST["pass"];
-
-			// if password is CORRECT
-			if(!empty($_POST["pass"]) && $testUserPass != getPassword($testUserID)){
-				echo "<script type='text/javascript'>alert('Not a  match!!');</script>";
-			}
-
-
-			// if password is NOT correct
-			if(!empty($_POST["pass"]) && $testUserPass == getPassword($testUserID)){
-
-				echo "<script type='text/javascript'>alert('Password matches!!');</script>";
-
-				$_SESSION["userID"] = $testUserID ;
-				$param = $_SESSION["userID"];
-				echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
-
-				header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
-			}
-
-
-		}
-
-	}
-?>

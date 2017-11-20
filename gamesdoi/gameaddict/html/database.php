@@ -1,5 +1,5 @@
 <?php
- $db = mysqli_connect("localhost:3306", "root", "12345", "reviewschema");
+ $db = mysqli_connect("localhost", "root", "", "reviewschema");
 
  if(!$db){
    die("MySql: Connection Failed");
