@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-//
 $search = $_SESSION['gameNameFind'];
 if(isset($_POST['searchBtn'])){
 	if(!empty($_POST['gameNameFind'])){
@@ -70,7 +68,7 @@ if(isset($_POST['searchBtn'])){
 						<li ><a>Profile</a>
 							<ul>
 								<li><a href="WEBTECH_userProfile.html">Profile</a></li>
-								<li><a>Log-out</a></li>
+								<li><a href="logout.php">Log-out</a></li>
 								<li><a>About Us</a></li>
 							</ul>
 						</li>
