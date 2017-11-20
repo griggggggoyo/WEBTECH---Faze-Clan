@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS `reviewschema`.`game` (
   `dateReleased` DATE NOT NULL,
   `gameDeveloper` LONGTEXT NOT NULL,
   `gameVidURLHolder` LONGTEXT NULL DEFAULT NULL,
+  `gameImageView` LONGTEXT NULL,
+  `gameImageGameplay` LONGTEXT NULL,
   PRIMARY KEY (`gameID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
