@@ -151,7 +151,7 @@ if(isset($_POST['searchBtn'])){
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_MEMBER_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
