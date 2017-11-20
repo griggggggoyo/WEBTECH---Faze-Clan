@@ -110,7 +110,7 @@
 					<div class="clear"></div>
 				</div>
 					<div class="mcontainer">
-				<form action="WEBTECH_viewGame.html" id="contactForm" class="contact" method="post" novalidate="novalidate">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactForm" class="contact" method="post" novalidate="novalidate">
 					<ul class="contactform controls">
 						<li class="input-prepend">
 						<div class="wcontainer">
@@ -141,12 +141,13 @@
 					</li>
 			   		<li class="input-prepend">
 							<span class="add-on"><i class="icon-align-justify"></i></span>
-							<textarea name="comments" placeholder="comment something" id="commentsText" rows="7" cols="30" class="required requiredField"></textarea>
+							<textarea name="comments" placeholder="comment something" id="commentsText" rows="2" cols="30" class="required requiredField"></textarea>
+							
 						</li>
 
 						<li>
-							<input type="submit" class="button-green button-small" value="Submit Review">
-							<a type="button" class="button-small" href="WEBTECH_viewGame.html" style="position: relative; top: 1px; left: 73%">Go Back</a>
+							<input type="submit" class="button-green button-small" name="submitcomment" value="Submit Comment">
+							<a type="button" class="button-small" style="position: relative; top: 1px; left: 73%">Go Back</a>
 						</li>
 
 					</ul>
@@ -156,3 +157,89 @@
 				</form>
 			</div>
 		</div>
+
+<?php
+	//submitcomment
+	//  href="WEBTECH_viewGame.html"
+	
+	$currentReviewID = 1;
+
+
+	// queries for all the comments of this review
+	function getComments($reviewID){
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+		$getAllComments = $dbc->query("	SELECT * FROM comment
+										WHERE reviewID = $reviewID");
+		$fetchAllComments = mysqli_fetch_array($getAllComments);
+
+		foreach($getAllComments as $fetchAllComments){
+			$tempCommentText = $fetchAllComments['commentText'];
+		}
+	}
+
+	function showComment($PcommentID){
+		echo '<div class="wcontainer">
+							<img src="icon.png">
+							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
+
+
+
+							<div class="ratereview">
+
+								<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+							</div>
+
+							<div style="padding-left: 50px;">
+								<p class="comment">'.$PcommentID.'</p>
+							</div><p>
+
+							<div class="reviewscore">
+
+								<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+
+							</div>
+
+						</div>';
+	}
+
+
+	// checks if string from fields has contains at least one non-space
+	function containsWord($input_string) {
+	  // return false when letters/characters are absen
+	  // return true when a character/letter is found
+ 
+	  foreach (explode(' ', $input_string) as $word) {
+	    if (!empty($word)) {
+	      return 'true';
+	    }
+
+	  }
+
+	  return 'false';
+	}
+
+
+	if(isset($_POST['submitcomment'])){
+		echo "<script type='text/javascript'>alert('You are attempting to submit a comment!');</script>";
+
+		//$check_commentBox = htmlspecialchars($_POST['comments']);
+		$Pcomment = $_POST['comments'];
+		echo "<script type='text/javascript'>alert('<<< $Pcomment >>>!!');</script>";
+
+		
+		// if comment CONTAINS something
+		if(containsWord($Pcomment) == 'false'){
+			echo "<script type='text/javascript'>alert('comment does not contain word!!');</script>";
+		}
+		
+		// if comment DOES NOT contain any text (or if it contains only spaces)
+		if(containsWord($Pcomment) == 'true'){
+			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
+		}
+	}
+
+	showComment(1);
+?>

@@ -1,0 +1,446 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema reviewSchema
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `reviewSchema` ;
+
+-- -----------------------------------------------------
+-- Schema reviewSchema
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `reviewSchema` DEFAULT CHARACTER SET utf8 ;
+USE `reviewSchema` ;
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`userType`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`userType` (
+  `userTypeID` INT NOT NULL AUTO_INCREMENT,
+  `userTypeName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`userTypeID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`platform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewSchema`.`platform` ;
+
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`platform` (
+  `platformID` INT(11) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`platformID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reviewschema`.`game`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewschema`.`game` ;
+
+CREATE TABLE IF NOT EXISTS `reviewschema`.`game` (
+  `gameID` INT(11) NOT NULL AUTO_INCREMENT,
+  `gameName` VARCHAR(100) NOT NULL,
+  `gameDescription` LONGTEXT NOT NULL,
+  `gamePrice` DECIMAL(8,2) NOT NULL,
+  `dateReleased` DATE NOT NULL,
+  `gameDeveloper` LONGTEXT NOT NULL,
+  `gameVidURLHolder` LONGTEXT NULL DEFAULT NULL,
+  `gameImageView` LONGTEXT NULL,
+  `gameImageGameplay` LONGTEXT NULL,
+  PRIMARY KEY (`gameID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`game_platform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewSchema`.`game_platform` ;
+
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`game_platform` (
+  `platformID` INT(11) NOT NULL,
+  `gameID` INT(11) NOT NULL,
+  PRIMARY KEY (`platformID`, `gameID`),
+  INDEX `fk_game_platform_game1_idx` (`gameID` ASC),
+  CONSTRAINT `fk_game_platform_platform1`
+    FOREIGN KEY (`platformID`)
+    REFERENCES `reviewSchema`.`platform` (`platformID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_game_platform_game1`
+    FOREIGN KEY (`gameID`)
+    REFERENCES `reviewschema`.`game` (`gameID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reviewschema`.`genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewschema`.`genre` ;
+
+CREATE TABLE IF NOT EXISTS `reviewschema`.`genre` (
+  `genreID` INT(11) NOT NULL,
+  `genreName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`genreID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`game_genre`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewSchema`.`game_genre` ;
+
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`game_genre` (
+  `gameID` INT(11) NOT NULL,
+  `genreID` INT(11) NOT NULL,
+  PRIMARY KEY (`gameID`, `genreID`),
+  INDEX `fk_game_genre_genre_idx` (`genreID` ASC),
+  CONSTRAINT `fk_game_genre_genre`
+    FOREIGN KEY (`genreID`)
+    REFERENCES `reviewschema`.`genre` (`genreID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_game_genre_game1`
+    FOREIGN KEY (`gameID`)
+    REFERENCES `reviewschema`.`game` (`gameID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `reviewschema` ;
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`userStatus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`userStatus` (
+  `userStatusID` INT NOT NULL AUTO_INCREMENT,
+  `userStatusName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`userStatusID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`user` (
+  `userID` INT NOT NULL AUTO_INCREMENT,
+  `userName` VARCHAR(13) NOT NULL,
+  `passWord` VARCHAR(20) NOT NULL,
+  `lastName` VARCHAR(45) NOT NULL,
+  `firstName` VARCHAR(45) NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `userTypeID` INT NOT NULL,
+  `userStatusID` INT NOT NULL,
+  `userRating` INT NULL,
+  PRIMARY KEY (`userID`),
+  INDEX `fk_user_userType1_idx` (`userTypeID` ASC),
+  INDEX `fk_user_status1_idx` (`userStatusID` ASC),
+  CONSTRAINT `fk_user_userType1`
+    FOREIGN KEY (`userTypeID`)
+    REFERENCES `reviewSchema`.`userType` (`userTypeID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_status1`
+    FOREIGN KEY (`userStatusID`)
+    REFERENCES `reviewSchema`.`userStatus` (`userStatusID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`follow_list`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewSchema`.`follow_list` ;
+
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`follow_list` (
+  `followerID` INT(11) NOT NULL,
+  `followingID` INT(11) NOT NULL,
+  PRIMARY KEY (`followerID`, `followingID`),
+  INDEX `fk_follow_list_user1_idx` (`followingID` ASC),
+  CONSTRAINT `fk_follow_list_user`
+    FOREIGN KEY (`followerID`)
+    REFERENCES `reviewschema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_follow_list_user1`
+    FOREIGN KEY (`followingID`)
+    REFERENCES `reviewschema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`review`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`review` (
+  `reviewID` INT NOT NULL AUTO_INCREMENT,
+  `reviewRating` INT NOT NULL,
+  `reviewText` LONGTEXT NOT NULL,
+  `gameID` INT NOT NULL,
+  `userID` INT NOT NULL,
+  `reviewUpvotes` INT NULL,
+  `reviewDownvotes` INT NULL,
+  `reviewTitle` VARCHAR(120) NULL,
+  PRIMARY KEY (`reviewID`),
+  INDEX `fk_review_game1_idx` (`gameID` ASC),
+  INDEX `fk_review_user1_idx` (`userID` ASC),
+  CONSTRAINT `fk_review_game1`
+    FOREIGN KEY (`gameID`)
+    REFERENCES `reviewSchema`.`game` (`gameID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_user1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `reviewSchema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `reviewschema`.`comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewschema`.`comment` ;
+
+CREATE TABLE IF NOT EXISTS `reviewschema`.`comment` (
+  `commentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `commentText` LONGTEXT NOT NULL,
+  `reviewID` INT(11) NOT NULL,
+  `userID` INT(11) NOT NULL,
+  PRIMARY KEY (`commentID`),
+  INDEX `fk_comment_review1_idx` (`reviewID` ASC),
+  INDEX `fk_comment_user1_idx` (`userID` ASC),
+  CONSTRAINT `fk_comment_review1`
+    FOREIGN KEY (`reviewID`)
+    REFERENCES `reviewschema`.`review` (`reviewID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_user1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `reviewschema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`userReport`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`userReport` (
+  `userReportID` INT NOT NULL AUTO_INCREMENT,
+  `userReportReason` LONGTEXT NOT NULL,
+  `userID` INT NOT NULL,
+  PRIMARY KEY (`userReportID`),
+  INDEX `fk_userReport_user1_idx` (`userID` ASC),
+  CONSTRAINT `fk_userReport_user1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `reviewSchema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Table `reviewSchema`.`vote_list`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reviewSchema`.`vote_list` ;
+
+CREATE TABLE IF NOT EXISTS `reviewSchema`.`vote_list` (
+  `reviewID` INT(11) NOT NULL,
+  `userID` INT(11) NOT NULL,
+  `upvote` INT NULL,
+  `downvote` INT NULL,
+  PRIMARY KEY (`reviewID`, `userID`),
+  INDEX `fk_vote_list_user1_idx` (`userID` ASC),
+  CONSTRAINT `fk_vote_list_review`
+    FOREIGN KEY (`reviewID`)
+    REFERENCES `reviewschema`.`review` (`reviewID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_vote_list_user1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `reviewschema`.`user` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Inserting values onto genre table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('1', '2D Fighting');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('2', '3D Fighting');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('3', '4X Strategy');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('4', 'Action');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('5', 'Action-Adventure');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('6', 'Adventure');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('7', 'Air Combat');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('8', 'Arena Brawler');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('9', 'Arena Combat');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('10', 'Arena Shooter');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('11', 'Artillery');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('12', 'Atmospheric');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('13', 'Beat-\'em-Up');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('14', 'Board Game');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('15', 'Bullet Hell');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('16', 'Card Game');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('17', 'Casual');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('18', 'Character Action');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('19', 'CMS');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('20', 'Collect-a-thon Platform');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('21', 'Combat');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('22', 'Dating Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('23', 'Dungeon Crawler');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('24', 'Edutainment');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('25', 'Endless Runner');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('26', 'Escape the room');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('27', 'FPS');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('28', 'Grand Strategy');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('29', 'Hack-n-Slash');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('30', 'Incremental');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('31', 'Interactive Fiction');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('32', 'Interactive Movie');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('33', 'JRPG');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('34', 'Kart Racing');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('35', 'Kusoge');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('36', 'Light Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('37', 'Light Gun');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('38', 'Matching Puzzle');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('39', 'Maze');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('40', 'Mech Combat');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('41', 'Metroidvania');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('42', 'Military Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('43', 'Mini-games');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('44', 'MMO');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('45', 'MOBA');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('46', 'Monster Collection');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('47', 'Musou');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('48', 'Open World');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('49', 'Paddle');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('50', 'Party');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('51', 'Physics Puzzle');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('52', 'Platform');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('53', 'Puzzle');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('54', 'Programming');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('55', 'Pro Wrestling');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('56', 'Racing');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('57', 'Rail Shooter');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('58', 'Raising Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('59', 'Rythym');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('60', 'Rougelike');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('61', 'RPG');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('62', 'RTS');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('63', 'Run-n-Gun');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('64', 'Shoot \'em up');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('65', 'Shooting');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('66', 'Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('67', 'Sports');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('68', 'SRPG');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('69', 'Stealth');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('70', 'Strategy');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('71', 'Survival');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('72', 'Survival Horror');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('73', 'TBS');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('74', 'TCG');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('75', 'Time Management');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('76', 'Tower Defense');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('77', 'TPS');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('78', 'Vehecular Combat');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('79', 'Vehecular Sim');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('80', 'Visual Novel');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('81', 'Walking Simulator');
+INSERT INTO `reviewschema`.`genre` (`genreID`, `genreName`) VALUES ('82', 'WRPG');
+
+-- -----------------------------------------------------
+-- Inserting values onto platform table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('1', 'PS4');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('2', 'PS3');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('3', 'PS2');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('4', 'PS1');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('5', 'XBOX');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('6', 'XBOX 360');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('7', 'XBOX ONE');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('8', 'Wii');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('9', 'Wii U');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('10', 'Nintendo Switch');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('11', 'PC');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('12', 'Android');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('13', 'iOS');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('14', 'Atari');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('15', 'SNES');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('16', 'PSP');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('17', 'Nintendo DS');
+INSERT INTO `reviewschema`.`platform` (`platformID`, `name`) VALUES ('18', 'SEGA');
+
+-- -----------------------------------------------------
+-- Inserting values onto usertype table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`usertype` (`userTypeID`, `userTypeName`) VALUES ('1', 'Admin');
+INSERT INTO `reviewschema`.`usertype` (`userTypeID`, `userTypeName`) VALUES ('2', 'User');
+INSERT INTO `reviewschema`.`usertype` (`userTypeID`, `userTypeName`) VALUES ('3', 'God User');
+
+-- -----------------------------------------------------
+-- Inserting values onto userstatus table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`userstatus` (`userStatusID`, `userStatusName`) VALUES ('1', 'Active');
+INSERT INTO `reviewschema`.`userstatus` (`userStatusID`, `userStatusName`) VALUES ('2', 'Inactive');
+
+-- -----------------------------------------------------
+-- Inserting values onto game table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`game` (`gameID`, `gameName`, `gameDescription`, `gamePrice`, `dateReleased`, `gameDeveloper`, `gameVidURLHolder`) VALUES ('1', 'Bioshock', 'BioShock is a first-person shooter video game developed by 2K Boston (later Irrational Games) and 2K Australia, and published by 2K Games.The game was released for Microsoft Windows and Xbox 360 platforms in August 2007; a PlayStation 3 port by Irrational, 2K Marin, 2K Australia and Digital Extremes was released in October 2008, and an OS X port by Feral Interactive in October 2009. A mobile version was developed by IG Fun. The game\'s concept was developed by Irrational\'s creative lead, Ken Levine, and was based on the ideas of Objectivism as promulgated by Ayn Rand, while incorporating influences from other authors such as George Orwell. The game is considered a spiritual successor to the System Shock series, on which many of Irrational\'s team including Levine had worked previously.BioShock is set in 1960. The player guides the protagonist, Jack, after his airplane crashes in the ocean near the bathysphere terminus that leads to the underwater city of Rapture. Built by the business magnate Andrew Ryan, the city was intended to be an isolated utopia, but the discovery of ADAM, a genetic material which can be used to grant superhuman powers, initiated the city\'s turbulent decline. Jack tries to find a way to escape, fighting through hordes of ADAM-obsessed enemies, and the iconic, deadly Big Daddies, while engaging with the few sane humans that remain and eventually learning of Rapture\'s past. The player, as Jack, is able to defeat foes in a number of ways by using weapons, utilizing plasmids that give unique powers, and by turning Rapture\'s own defenses against them. BioShock includes elements of role-playing games, giving the player different approaches in engaging enemies such as by stealth, as well as moral choices of saving or killing characters; additionally, the game and biopunk theme borrow concepts from the survival horror genre.', '99999.00', '2009-12-20', '2K Games', 'https://www.youtube.com/embed/Lmw78t8NgIE');
+
+-- -----------------------------------------------------
+-- Inserting values onto game_genre table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`game_genre` (`gameID`, `genreID`) VALUES ('1', '27');
+
+-- -----------------------------------------------------
+-- Inserting values onto game_platform table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('2', '1');
+INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('6', '1');
+INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('11', '1');
+
+-- -----------------------------------------------------
+-- Inserting values onto user table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`user` (`userID`, `userName`, `passWord`, `lastName`, `firstName`, `dateOfBirth`, `email`, `userTypeID`, `userStatusID`) VALUES ('1', 'MarvinLao', '12345', 'Lao', 'Marvin', '1997-12-23', 'marvin_lao@dlsu.edu.ph', '2', '1');
+INSERT INTO `reviewschema`.`user` (`userID`, `userName`, `passWord`, `lastName`, `firstName`, `dateOfBirth`, `email`, `userTypeID`, `userStatusID`) VALUES ('2', 'p4t4r', '12345', 'Mijares', 'Patrick', '1997-01-01', 'patrick_mijares@dlsu.edu.ph', '2', '1');
+INSERT INTO `reviewschema`.`user` (`userID`, `userName`, `passWord`, `lastName`, `firstName`, `dateOfBirth`, `email`, `userTypeID`, `userStatusID`) VALUES ('3', 'GregPetrola', '12345', 'Petrola', 'Gregory', '1998-02-02', 'gregory_petrola@dlsu.edu.ph', '2', '1');
+INSERT INTO `reviewschema`.`user` (`userID`, `userName`, `passWord`, `lastName`, `firstName`, `dateOfBirth`, `email`, `userTypeID`, `userStatusID`) VALUES ('4', 'Panda', '12345', 'Pimentel', 'Jan Austin', '1997-08-30', 'jan_pimentel@dlsu.edu.ph', '2', '1');
+
+-- -----------------------------------------------------
+-- Inserting values onto review table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`review` (`reviewID`, `reviewRating`, `reviewText`, `gameID`, `userID`, `reviewUpvotes`, `reviewDownvotes`) VALUES ('1', '5', 'NICE GAME!!!', '1', '1', '2', '0');
+INSERT INTO `reviewschema`.`review` (`reviewID`, `reviewRating`, `reviewText`, `gameID`, `userID`, `reviewUpvotes`, `reviewDownvotes`) VALUES ('2', '2', '2/10 lmao', '1', '2', '3', '16');
+INSERT INTO `reviewschema`.`review` (`reviewID`, `reviewRating`, `reviewText`, `gameID`, `userID`, `reviewUpvotes`, `reviewDownvotes`) VALUES ('3', '4', 'In spite of some technical issues, BioShock creates an amazing world that you\'ll want to explore and a compelling mystery that slowly comes together as you play.', '1', '3', '43', '12');
+
+-- -----------------------------------------------------
+-- Inserting values onto follow_list table
+-- -----------------------------------------------------
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('4', '1');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('4', '3');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('3', '1');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('3', '2');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('3', '4');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('1', '2');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('1', '3');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('2', '1');
+INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('2', '3');

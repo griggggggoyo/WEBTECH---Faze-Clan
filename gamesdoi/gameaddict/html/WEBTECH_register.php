@@ -124,7 +124,7 @@
 
 	// for checking if entered username is valid
 	function validUserName($Pusername){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 		$getUser = $dbc->query("SELECT * 
 								FROM user
 								WHERE  userName = '$Pusername'");
@@ -149,7 +149,7 @@
 
 	// for checking if 
 	function validEmail($Pemail){
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 		$getEmail = $dbc->query("SELECT * 
 								FROM user
 								WHERE  email = '$Pemail'");
@@ -228,7 +228,7 @@
 	function insertUser($PuserName, $Ppass, $Plast, $Pfirst, $Pbday, $Pemail){
 		// $Ptype, $Pstatus; default -> 1, 1;
 
-		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 		$addUser_query = "INSERT INTO user(userName, passWord, lastName, firstName, dateofBirth, email, userTypeID, userStatusID)
 									VALUES('$PuserName', '$Ppass', '$Plast', '$Pfirst', '$Pbday', '$Pemail', 1, 1)";
 		$insert_user = mysqli_query($dbc, $addUser_query);
@@ -433,7 +433,7 @@
 			echo "<script type='text/javascript'>alert('Current User ID Session: $param');</script>";
 			*/
 
-			$dbc=mysqli_connect('localhost','root','DBlifeAF_1','gamesdoi');
+			$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
 			$getUserID = $dbc->query("	SELECT *
 										FROM user
 										WHERE userName='$tempr_username'");
