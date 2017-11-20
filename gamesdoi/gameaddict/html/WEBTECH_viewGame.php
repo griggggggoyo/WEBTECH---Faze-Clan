@@ -73,15 +73,71 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 	$rating += $temp;
 
 };
-#$rating = round($rating/$count, 2);
+$rating = round($rating/$count, 2);
+
+if (isset($_POST['upvote']) || isset($_POST['downvote'])) {
+
+$queryVote = "SELECT v.upvote, v.downvote FROM vote_list v
+			  JOIN review r ON v.reviewID = r.reviewID
+			  WHERE r.gameID = '{$_SESSION['gameid']}' AND v.userID = '{$_SESSION['userID']}' AND v.reviewID = '{$_POST['reviewID']}'";
+
+$resultVote = mysqli_query($dbc, $queryVote);
+$rowVote = mysqli_fetch_array($resultVote);
+
+}
+
 if (isset($_POST['upvote'])){
 
-	
+	if (empty($rowVote['upvote']) && empty($rowVote['downvote'])) {
+
+		$queryNewvote = "INSERT INTO vote_list (reviewID, userID, upvote, downvote) VALUES ('{$_POST['reviewID']}', '{$_SESSION['userID']}', 1, 0)";
+
+		$resultNewvote = mysqli_query($dbc, $queryNewvote);
+
+		$queryReviewScore = "UPDATE review r JOIN vote_list v ON r.reviewID = v.reviewID SET r.reviewUpvotes = r.reviewUpvotes + 1 WHERE r.gameID = '{$_SESSION['gameid']}' AND v.userID = '{$_SESSION['userID']}' AND v.reviewID = '{$_POST['reviewID']}';";
+
+		$resultReviewScore = mysqli_query ($dbc, $queryReviewScore);
+		
+	}
+
+	else if ($rowVote['upvote'] == 0 && $rowVote['downvote'] == 1) {
+
+		$queryReviewScore = "UPDATE review r JOIN vote_list v ON r.reviewID = v.reviewID SET r.reviewUpvotes = r.reviewUpvotes + 1, r.reviewDownvotes = r.reviewDownvotes - 1 WHERE r.gameID = '{$_SESSION['gameid']}' AND v.userID = '{$_SESSION['userID']}' AND v.reviewID = '{$_POST['reviewID']}';";
+
+		$resultReviewScore = mysqli_query ($dbc, $queryReviewScore);
+
+		$queryUpvote = "UPDATE vote_list SET upvote = 1, downvote = 0 WHERE userID = '{$_SESSION['userID']}' AND reviewID = '{$_POST['reviewID']}'";
+
+		$resultUpvote = mysqli_query($dbc, $queryUpvote);
+
+	}
 
 }
 if (isset($_POST['downvote'])){
 
-	
+	if (empty($rowVote['upvote']) && empty($rowVote['downvote'])) {
+
+		$queryNewvote = "INSERT INTO vote_list (reviewID, userID, upvote, downvote) VALUES ('{$_POST['reviewID']}', '{$_SESSION['userID']}', 0, 1)";
+
+		$resultNewvote = mysqli_query($dbc, $queryNewvote);
+
+		$queryReviewScore = "UPDATE review r JOIN vote_list v ON r.reviewID = v.reviewID SET r.reviewDownvotes = r.reviewDownvotes + 1 WHERE r.gameID = '{$_SESSION['gameid']}' AND v.userID = '{$_SESSION['userID']}' AND v.reviewID = '{$_POST['reviewID']}';";
+
+		$resultReviewScore = mysqli_query ($dbc, $queryReviewScore);
+		
+	}
+
+	else if ($rowVote['downvote'] == 0 && $rowVote['upvote'] == 1) {
+
+		$queryReviewScore = "UPDATE review r JOIN vote_list v ON r.reviewID = v.reviewID SET r.reviewDownvotes = r.reviewDownvotes + 1, r.reviewUpvotes = r.reviewUpvotes - 1 WHERE r.gameID = '{$_SESSION['gameid']}' AND v.userID = '{$_SESSION['userID']}' AND v.reviewID = '{$_POST['reviewID']}';";
+
+		$resultReviewScore = mysqli_query ($dbc, $queryReviewScore);
+
+		$queryDownVote = "UPDATE vote_list SET upvote = 0, downvote = 1 WHERE userID = '{$_SESSION['userID']}' AND reviewID = '{$_POST['reviewID']}'";
+
+		$resultDownvote = mysqli_query($dbc, $queryDownVote);
+
+	}
 
 }
 
@@ -95,6 +151,13 @@ if(isset($_POST['searchBtn'])){
 		echo 'No results found';
 	}
 }
+
+$queryReviews = "SELECT * FROM review r
+				 join user u
+				 on r.userID = u.userID where gameID = '{$_SESSION['gameid']}'";
+
+$resultReviews = mysqli_query($dbc, $queryReviews);
+
 ?>
 <html lang="en-US">
 
@@ -222,48 +285,40 @@ if(isset($_POST['searchBtn'])){
 						<button class="button-small">VIEW MOST UPVOTED</button>
 					</div>
 
+					<?php if ($resultReviews) { ?>
 
-					<?php
-						$query = "	SELECT * FROM reviewschema.review r
-									join reviewschema.user u
-									on r.userID = u.userID where gameID = {$gameid}";
-						$result = mysqli_query($dbc,$query);
-							while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+					<?php foreach ($resultReviews as $row) { ?>
 
+					<div class="wcontainer">
 
+ 						<img src="icon.png">
+ 						<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;<?php echo $row['userName']; ?></b></a>&nbsp; <i> rated it <?php echo $row['reviewRating'] ?> out of 5 </i> <br>
+ 						<div class="ratereview">
 
-								echo '<div class="wcontainer">';
+ 							<form method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
 
- 								echo '<img src="icon.png">';
- 								echo '<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;'; echo "{$row['userName']}</b></a>&nbsp;";
-								echo "<i> rated it {$row['reviewRating']} out of 5 </i> <br>";
+							<input type="hidden" name="reviewID" value="<?php echo $row['reviewID'] ?>">
 
-								$reviewid = $row['reviewID'];
-								$upvotes = $row['reviewUpvotes'];
-								$downvotes = $row['reviewDownvotes'];
- 								echo '<div class="ratereview">';
+ 							<button type="submit" name="upvote"><i class="icon-thumbs-up m"></i></button>
+ 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="submit" name="downvote"><i class="icon-thumbs-down m"></i></button>
 
-								//upvote downvote
-								echo '<form method="POST" action="'; $_SERVER['PHP_SELF']; echo '">';
-								echo '<input type="hidden" name="reviewid" value="' . $reviewid . '"/>';
-								echo '<input type="hidden" name="upvotes" value="' . $upvotes . '"/>';
-								echo '<input type="hidden" name="downvotes" value="' . $downvotes . '"/>';
-								echo '<button type="submit" name="upvote"><i class="icon-thumbs-up m"></i></button>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="submit" name="downvote"><i class="icon-thumbs-down m"></i></button></form>';
- 								echo '</div>';
- 								echo '<div style="padding-left: 50px;">';
+							</form>
 
- 									echo '<p class="comment">'; echo "{$row['reviewText']}</p>";
- 								echo'</div><p>
- 								<div class="reviewscore">';
- 									echo '<p><i>Review Score:&nbsp; <b class="posi">+'. $upvotes .'</b>&nbsp; | &nbsp;<b class="nega">-' . $downvotes .'</b></i></p>
- 								</div>
+ 						</div>
+ 						<div  style="padding-left: 50px;"><p class="comment"><?php echo $row['reviewText'] ?></p></div><p>
 
- 							</div>';
-							};
+ 						<div class="reviewscore">
 
-							?>
+ 							<p><i>Review Score:&nbsp; <b class="posi"><?php echo "+" . $row['reviewUpvotes'] ?></b>&nbsp; | &nbsp;<b class="nega"><?php echo "-" . $row['reviewDownvotes'] ?></b></i></p>
+
+ 						</div>
+
+ 					</div>
+
+ 					<?php } ?>
+
+ 					<?php } ?>
 
 
  			</div>
