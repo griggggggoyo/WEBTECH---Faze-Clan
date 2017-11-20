@@ -162,6 +162,38 @@
 	//submitcomment
 	//  href="WEBTECH_viewGame.html"
 	
+	$currentReviewID = 1;
+
+
+	function showComment($PcommentID){
+		echo '<div class="wcontainer">
+							<img src="icon.png">
+							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
+
+
+
+							<div class="ratereview">
+
+								<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#"><i class="icon-thumbs-down m"></i></a>
+
+							</div>
+
+							<div style="padding-left: 50px;">
+								<p class="comment">'.$PcommentID.'</p>
+							</div><p>
+
+							<div class="reviewscore">
+
+								<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+
+							</div>
+
+						</div>';
+	}
+
+
 	// checks if string from fields has contains at least one non-space
 	function containsWord($input_string) {
 	  // return false when letters/characters are absen
@@ -196,4 +228,6 @@
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
 		}
 	}
+
+	showComment(1);
 ?>
