@@ -89,20 +89,20 @@
 					</tr>
 					<tr>
 		      	<td><p><b>Genre </b><br>
-							<?php 
-								$conn = new mysqli("localhost", "root", "marvin", "reviewschema");
-							
+							<?php
+								$conn = new mysqli("localhost", "root", "12345", "reviewschema");
+
 								if ($conn->connect_error) {
 									die("Connection failed: " . $conn->connect_error);
 									echo "failed";
-								} 
-								
+								}
+
 								$sql = "SELECT genreID, genreName FROM genre";
 										$result = $conn->query($sql);
 										if ($result->num_rows > 0) {
 											// output data of each row
 											$select =  '<select name="select">';
-										  
+
 											while($row = $result->fetch_assoc()) {
 												$select.='<option value="'.$row['genreID'].'">'.$row['genreName'].'</option>';
 											}
@@ -115,11 +115,21 @@
 										$conn->close();
 										?>
 					</tr>
+					<td><p><b>Developer</b><br><input placeholder="Game Developer" style="width: 500px;" type= "text" name="developer" id="developer" size="20" maxlength="140"/>
+				 </tr>
+				 <tr>
+				 <td><p><b>Cost</b><br><input placeholder="P" style="width: 500px;" type= "number" name="cost" id="cost" size="20" maxlength="140"/>
+				 </tr>
+				 <tr>
+					 <td><p><b>Date Released</b><br><input style="width: 500px;" type= "date" name="date" id="date" size="20" maxlength="140"/>
+				 </tr>
+				 <tr>
+				 <td><p><b>Platform</b><br><input placeholder="i.e. PS4, Xbox 360, PC, etc." style="width: 500px;" type= "text" name="platform" id="platform" size="20" maxlength="140"/>
 					<tr>
-		      <td ><p><b>Game Description</b><br><textarea style="width: 500px;" name="description" id="description" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
+		      <td ><p><b>Game Description</b><br><textarea placeholder="i.e. Description, Gameplay, etc." style="width: 500px;" name="description" id="description" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
 		      </tr>
 					<tr>
-		      <td><p><b>Game Video URL</b><br><input style="width: 500px;" type= "text" name="url"  id="url" size="20" maxlength="140"/>
+		      <td><p><b>Game Video URL</b><br><input placeholder="url" style="width: 500px;" type= "text" name="url"  id="url" size="20" maxlength="140"/>
 		      </tr>
 				</table>
 

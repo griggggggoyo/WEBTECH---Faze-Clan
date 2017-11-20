@@ -12,16 +12,16 @@ if($rating == '' || $review == '' || $title == ''){
 }
 
 else{
-    $conn = new mysqli("localhost", "webtech", "", "reviewschema");
+    $conn = new mysqli("localhost", "root", "12345", "reviewschema");
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
             echo "failed";
-        } 
+        }
         echo "Connected successfully";
 
-    $sql = "INSERT INTO review (gameTitle, reviewRating, reviewText, gameID, userID)
-    VALUES ('$title', $rating, '$review', gameid, userID)";
+    $sql = "INSERT INTO review (title, reviewRating, reviewText, gameID, userID)
+    VALUES ('$title', $rating, '$review', $gameid, $userID)";
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
