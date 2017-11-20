@@ -414,6 +414,8 @@ INSERT INTO `reviewschema`.`game_genre` (`gameID`, `genreID`) VALUES ('1', '27')
 -- Inserting values onto game_platform table
 -- -----------------------------------------------------
 INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('2', '1');
+
+
 INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('6', '1');
 INSERT INTO `reviewschema`.`game_platform` (`platformID`, `gameID`) VALUES ('11', '1');
 
@@ -435,6 +437,12 @@ INSERT INTO `reviewschema`.`review` (`reviewID`, `reviewRating`, `reviewText`, `
 -- -----------------------------------------------------
 -- Inserting values onto follow_list table
 -- -----------------------------------------------------
+
+
+ALTER TABLE `reviewschema`.`game` 
+DROP COLUMN `gameImageGameplay`,
+DROP COLUMN `gameImageView`;
+
 INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('4', '1');
 INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('4', '3');
 INSERT INTO `reviewschema`.`follow_list` (`followerID`, `followingID`) VALUES ('3', '1');
