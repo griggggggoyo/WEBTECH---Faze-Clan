@@ -135,7 +135,7 @@
 							}
 
 
-							function showComment($PcommentID){
+							function showComment($Pcomment){
 								echo '<div class="wcontainer">
 													<img src="icon.png">
 													<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
@@ -151,7 +151,7 @@
 													</div>
 
 													<div style="padding-left: 50px;">
-														<p class="comment">'.$PcommentID.'</p>
+														<p class="comment">'.$Pcomment.'</p>
 													</div><p>
 
 													<div class="reviewscore">
