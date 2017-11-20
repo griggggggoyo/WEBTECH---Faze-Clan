@@ -8,6 +8,17 @@ $displayGames= "SELECT *
 $dbc=mysqli_connect('localhost','root','12345','reviewschema');
 $result=mysqli_query($dbc,$displayGames);
 $row=mysqli_fetch_row($result);
+
+$search = $_SESSION['gameNameFind'];
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['gameNameFind'])){
+		  $_SESSION['gameNameFind'] =$_POST['gameNameFind'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+	else{
+		echo 'No results found';
+	}
+}
 ?>
 <!doctype html>
 <html lang="en-US">
@@ -48,33 +59,34 @@ $row=mysqli_fetch_row($result);
 <!--end picker -->
 		<div class="container logo">
 			<!-- Logo -->
-			<a class="brand" href="WEBTECH_index.html">
+			<a class="brand" href="WEBTECH_MEMBER_index.php">
 			<img src="img/logo.png" alt="logo"  />
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
 
+			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
-				<div class="span65" style="padding-left: 190px;">
-					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
+				<div class="span65" style="padding-left: 180px;">
+					<input type="input" name="gameNameFind" style="height: 40px;" placeholder="  name of game"><button type="submit" name="searchBtn" style=""><i class="fa fa-search"></i></button>
 				</div>
-				<div class="span1">
+				<div class="span1" style="padding-left:20px; padding-top:20px;">
 					<div id="profileNav">
-					<ul>
+					<ul >
 						<li ><a>Profile</a>
 							<ul>
 								<li><a href="WEBTECH_userProfile.html">Profile</a></li>
-								<li><a href="WEBTECH_index.html">Log-out</a></li>
-								<li><a href="WEBTECH_aboutUs.html">About Us</a></li>
+								<li><a>Log-out</a></li>
+								<li><a>About Us</a></li>
 							</ul>
 						</li>
 					</ul>
-					</div>
+			</div>
 				</div>
 
 
 			</div>
-
+		</form>
 
 
 			<!-- End Social logos -->
