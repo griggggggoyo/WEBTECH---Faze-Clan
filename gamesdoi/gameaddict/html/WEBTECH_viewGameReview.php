@@ -205,6 +205,19 @@
 						</div>';
 	}
 
+	// working
+	// function for inserting a comment
+	function insertComment($Ptext, $PreviewID, $PuserID){
+		// db connection
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+
+		// db query vvv
+		$addComment_query = "	INSERT INTO comment(commentText, reviewID, userID)
+											VALUES('$Ptext', $PreviewID, $PuserID)";
+		$insert_Newcomment = mysqli_query($dbc, $addComment_query);
+		// db query ^^^
+	}
+
 
 	// checks if string from fields has contains at least one non-space
 	function containsWord($input_string) {
@@ -238,8 +251,9 @@
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
+			insertComment($Pcomment, 1, 1);
 		}
 	}
 
-	showComment(1);
+	// showComment(1);
 ?>
