@@ -158,35 +158,11 @@
 												</div>';
 							}
 
-							getComments(1);
+							getComments(2);
 						?>
 
 
-						<div class="wcontainer">
-							<img src="icon.png">
-							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
-
-
-
-							<div class="ratereview">
-
-								<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="#"><i class="icon-thumbs-down m"></i></a>
-
-							</div>
-
-							<div style="padding-left: 50px;">
-								<p class="comment">NICE GAME!!!!</p>
-							</div><p>
-
-							<div class="reviewscore">
-
-								<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
-
-							</div>
-
-						</div>
+	
 					</li>
 			   		<li class="input-prepend">
 							<span class="add-on"><i class="icon-align-justify"></i></span>
