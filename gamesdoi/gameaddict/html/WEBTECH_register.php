@@ -293,6 +293,14 @@
 			echo "<script type='text/javascript'>alert('Password must not contain any of the following special characters:(/[\^£$%&*()}{@#~?><>,|=_+¬-]/)');</script>";
 		}
 
+		if(!empty($_POST["pass"]) && strlen($_POST["pass"]) < 8){
+			echo "<script type='text/javascript'>alert('Password must have be least 8 characters long!!');</script>";
+		}
+
+		if(!empty($_POST["pass"]) && strlen($_POST["pass"]) > 20){
+			echo "<script type='text/javascript'>alert('Password must not be longer than 20 characters!!');</script>";
+		}
+
 // < ------- ------- ------- CONFIRM PASSWORD------- ------- ------- ------- >
 
 		// if 'repass' is empty OR contains only spaces
@@ -371,7 +379,7 @@
 
 		// working
 		// saves 'pass' input to tempr_pass, IF all VALID conditions were met
-		if(!empty($_POST["pass"]) && containsWord($_POST["pass"]) == 'true' && hasSpace($_POST["pass"]) == 'false' && checkSpecial($_POST["pass"]) == 'false' && !empty($_POST["repass"]) && containsWord($_POST["repass"]) == 'true' && $_POST["pass"]==$_POST["repass"]){
+		if(!empty($_POST["pass"]) && containsWord($_POST["pass"]) == 'true' && hasSpace($_POST["pass"]) == 'false' && checkSpecial($_POST["pass"]) == 'false' && !empty($_POST["repass"]) && containsWord($_POST["repass"]) == 'true' && $_POST["pass"]==$_POST["repass"] && !empty($_POST["pass"]) && strlen($_POST["pass"]) >= 8 && !empty($_POST["pass"]) && strlen($_POST["pass"]) <= 20){
 			$tempr_pass = $_POST["pass"];
 			echo "<script type='text/javascript'>alert('VALID password: $tempr_pass');</script>";
 		}		
@@ -438,6 +446,7 @@
 			$_SESSION["userID"] = $temp_session;
 			echo "<script type='text/javascript'>alert('New CURRENT User ID: $temp_session ');</script>";
 			
+			header("Location: http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/WEBTECH_index.php");
 
 		}
 

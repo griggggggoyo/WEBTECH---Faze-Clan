@@ -1,7 +1,37 @@
 <?php
 session_start();
+/*
 require 'database.php';
+<<<<<<< HEAD
 $_SESSION['SEARCHEDGAME'] ="tukan";
+*/
+=======
+$_SESSION['search'];
+$search = $_SESSION['search'];
+if(isset($x)){
+
+
+	#header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_viewGame.php");
+	#$_SESSION['gameID']= $row['gameID'];
+	echo 'GAME ID:  '.$x;
+	#$x = $row['gameID'];
+	#print_r($_POST[$x]);
+
+}
+if(isset($_POST['searchBtn'])){
+	if(!empty($_POST['search'])){
+		  $_SESSION['search'] =$_POST['search'];
+			header("Location: http://".$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF'])."/WEBTECH_searchGame.php");
+	}
+}
+>>>>>>> 3c53646aa30de9c8759a2879e2aeade10234fc8e
+
+
+// $_SESSION["searchName"] 
+	$_SESSION["searchName"] = 'Crashing Cars'; 
+	$tempo = $_SESSION["searchName"];
+
+	echo "<script type='text/javascript'>alert('You are now searching for:  $tempo');</script>";
 ?>
 
 <!DOCTYPE HTML>
@@ -49,10 +79,17 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
+<<<<<<< HEAD
 
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 190px;">
 					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
+=======
+			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
+			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
+				<div class="span65" style="padding-left: 180px;">
+					<input type="input" name="search" style="height: 15px;" placeholder="name of game"><input type="submit" name="searchBtn"  style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;height: 20px; width:10%;">
+>>>>>>> 3c53646aa30de9c8759a2879e2aeade10234fc8e
 				</div>
 				<div class="span1">
 					<div id="profileNav">
@@ -80,8 +117,13 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 		<div class="page normal-page container">
-		<div style="padding-left:260px;"> <h1>Results for Bioshock</h1></div>
+		<div style="padding-left:260px;"> <h1>Results for <?php echo $tempo;?></h1></div>
+		<?php
 
+			function showSearchResults(){
+
+			}
+		?>
 
 				<!-- Sidebar -->
 				<div class="span3">
@@ -130,7 +172,11 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 
 						<div>
+<<<<<<< HEAD
 							<form method ="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+=======
+							<form action="<?php echo $SERVER['PHP_SELF'];?>" method ="POST">
+>>>>>>> 3c53646aa30de9c8759a2879e2aeade10234fc8e
 								<?php
 												$displayGames= "SELECT * FROM GAME WHERE gameName LIKE 'tukan%'";
 
@@ -155,14 +201,22 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 														</li>
 														<li>
+<<<<<<< HEAD
 															<h5><a href=\"\">Game Review for Bioshock</a></h5>
+=======
+															<h5><a href=\"WEBTECH_viewGame.php?value={$row['gameID']}\">Game Review for {$row['gameName']}</a></h5>
+
+>>>>>>> 3c53646aa30de9c8759a2879e2aeade10234fc8e
 															<p>
 																It's hard to believe, but it has been a little over a decade since BioShock first released for Xbox 360 and PC.
 															</p>
 														</li>
+<<<<<<< HEAD
 														<li>
 															<input type=\"submit\" name=\"\" value=\"View Review\" style=\"width: 100%;\">
 														</li>
+=======
+>>>>>>> 3c53646aa30de9c8759a2879e2aeade10234fc8e
 
 
 													</ul>
@@ -365,3 +419,8 @@ $_SESSION['SEARCHEDGAME'] ="tukan";
 
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:37:00 GMT -->
 </html>
+
+
+<?php
+	
+?>

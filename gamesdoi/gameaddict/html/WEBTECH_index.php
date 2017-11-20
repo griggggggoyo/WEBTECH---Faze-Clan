@@ -537,7 +537,7 @@
 		if(!empty($_POST["gamesearch"]) && containsWord($_POST["gamesearch"]) == 'true'){
 			echo "<script type='text/javascript'>alert('You re making progress,Goyo!!!');</script>";
 
-			// SESSION variable that serves as user input for search
+			// SESSION variable that saves inputted
 			$_SESSION["searchName"] = $_POST["gamesearch"];
 
 
