@@ -113,31 +113,56 @@
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="contactForm" class="contact" method="post" novalidate="novalidate">
 					<ul class="contactform controls">
 						<li class="input-prepend">
-						<div class="wcontainer">
-							<img src="icon.png">
-							<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
+
+						<?php
+
+							// queries for all the comments of this review
+							function getComments($reviewID){
+								$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+								$getAllComments = $dbc->query("	SELECT * FROM comment
+																WHERE reviewID = $reviewID");
+								$fetchAllComments = mysqli_fetch_array($getAllComments);
+
+								foreach($getAllComments as $fetchAllComments){
+									$tempCommentText = $fetchAllComments['commentText'];
+									showComment($tempCommentText);
+								}
+							}
+
+
+							function showComment($PcommentID){
+								echo '<div class="wcontainer">
+													<img src="icon.png">
+													<a href="WEBTECH_userProfile.html"><b class="namereview"> &nbsp;&nbsp;&nbsp;MarvinLA0</b></a>&nbsp; <i> rated it 5 out of 5 </i> <br>
 
 
 
-							<div class="ratereview">
+													<div class="ratereview">
 
-								<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="#"><i class="icon-thumbs-down m"></i></a>
+														<a class="ups" href="#"><i class="icon-thumbs-up m"></i></a>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<a href="#"><i class="icon-thumbs-down m"></i></a>
 
-							</div>
+													</div>
 
-							<div style="padding-left: 50px;">
-								<p class="comment">NICE GAME!!!!</p>
-							</div><p>
+													<div style="padding-left: 50px;">
+														<p class="comment">'.$PcommentID.'</p>
+													</div><p>
 
-							<div class="reviewscore">
+													<div class="reviewscore">
 
-								<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
+														<p><i>Review Score:&nbsp; <b class="posi">+2</b>&nbsp; | &nbsp;<b class="nega">-0</b></i></p>
 
-							</div>
+													</div>
 
-						</div>
+												</div>';
+							}
+
+							getComments(1);
+						?>
+
+
+	
 					</li>
 			   		<li class="input-prepend">
 							<span class="add-on"><i class="icon-align-justify"></i></span>
@@ -164,7 +189,7 @@
 	
 	$currentReviewID = 1;
 
-
+	/*
 	// queries for all the comments of this review
 	function getComments($reviewID){
 		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
@@ -177,6 +202,7 @@
 		}
 	}
 
+	
 	function showComment($PcommentID){
 		echo '<div class="wcontainer">
 							<img src="icon.png">
@@ -203,6 +229,20 @@
 							</div>
 
 						</div>';
+	}
+	*/
+
+	// working
+	// function for inserting a comment
+	function insertComment($Ptext, $PreviewID, $PuserID){
+		// db connection
+		$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+
+		// db query vvv
+		$addComment_query = "	INSERT INTO comment(commentText, reviewID, userID)
+											VALUES('$Ptext', $PreviewID, $PuserID)";
+		$insert_Newcomment = mysqli_query($dbc, $addComment_query);
+		// db query ^^^
 	}
 
 
@@ -238,8 +278,9 @@
 		// if comment DOES NOT contain any text (or if it contains only spaces)
 		if(containsWord($Pcomment) == 'true'){
 			echo "<script type='text/javascript'>alert('COMMENT contains word!!');</script>";
+			insertComment($Pcomment, 1, 1);
 		}
 	}
 
-	showComment(1);
+	// showComment(1);
 ?>

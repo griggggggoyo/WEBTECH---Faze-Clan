@@ -105,7 +105,11 @@ if(isset($_POST['searchBtn'])){
 												$displayGames= "SELECT *
 																				FROM GAME G JOIN GENRE GE ON G.genreID=GE.genreID
 																				WHERE gameName LIKE '$search%' ";
+<<<<<<< HEAD
 												$dbc=mysqli_connect('localhost','root','12345','reviewschema');
+=======
+												$dbc=mysqli_connect('localhost','root','DBlifeAF_1','reviewschema');
+>>>>>>> 6ecd602ac03b7d7d5b8a19aebef52bac25f937a1
 												$result=mysqli_query($dbc,$displayGames);
 								?>
 								<?php
