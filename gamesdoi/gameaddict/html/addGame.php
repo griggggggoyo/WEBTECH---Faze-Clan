@@ -123,12 +123,13 @@
 		      <td ><label style="font-size: 11px;">Game Description<br><iron-autogrow-textarea ></iron-autogrow-textarea><br>
 		      </tr>
 
-					
+
 				</table>
 
 				</fieldset>
-			<div align = "center"><input type="submit" name="submit" value="Add Game">
-			<input type="submit" name="submit" value="Cancel"></div>
+					<paper-button  id="submit" raised class="green" on-click="">Create Account</paper-button>
+					<paper-button  id="back" raised class="green" on-click="">GO BACK </paper-button>
+
                         </form>
 		</div>
 

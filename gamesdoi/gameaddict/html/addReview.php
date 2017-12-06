@@ -34,6 +34,8 @@ if(isset($_POST['searchBtn'])){
 		<link rel="import" href="../bower_components//paper-search-bar/paper-search-bar.html">
 		<link rel="import" href="../bower_components/paper-input/paper-input.html">
 		<link rel="import" href="../bower_components/paper-button/paper-button.html">
+		<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+		<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 		<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 		<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 		<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
@@ -144,22 +146,22 @@ if(isset($_POST['searchBtn'])){
 
 					<ul class="contactform controls">
 						<li class="input-prepend" style="padding-left:60px;">
-							<label><b>Title</b></label>
-						<input style="width: 50%; height:auto;" type= "text" name="title" id="title" placeholder="Title of Review" maxlength="140"/>
+								<paper-input name='title' always-float-label label='Title' ></paper-input>
 						</li >
 						<li style="padding-left:60px;">
 						<label><b>Rating</b></label>
-						<i style="position: relative; bottom: 10px; font-family: Open Sans; font-size: 15px;"></i>
+
 						</li>
 						<li class="input-prepend"  style="padding-left:60px;">
+							<paper-radio-group selected="1">
+								<paper-radio-button name="1"></paper-radio-button>
+								<paper-radio-button name="2"></paper-radio-button>
+								<paper-radio-button name="3"></paper-radio-button>
+								<paper-radio-button name="4"></paper-radio-button>
+								<paper-radio-button name="5"></paper-radio-button>
+							</paper-radio-group>
 
-							<fieldset class="rating" >
-    						<input type="radio" id="star5" name="rating" value="1" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-    						<input type="radio" id="star4" name="rating" value="2" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-    						<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-    						<input type="radio" id="star2" name="rating" value="4" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-   							<input type="radio" id="star1" name="rating" value="5" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-							</fieldset>
+
 
 						</li>
 
@@ -167,8 +169,8 @@ if(isset($_POST['searchBtn'])){
 							<label><b>Review</b></label>
 						</li>
 						<li>
-							<span class="add-on"><i class="icon-align-justify"></i></span>
-							<textarea name="comments" placeholder="Write your review..." id="comments" rows="7" cols="30" class="required requiredField"></textarea>
+							<span class="add-on"></span>
+							<iron-autogrow-textarea ></iron-autogrow-textarea><br>
 						</li>
 
 						<li>
