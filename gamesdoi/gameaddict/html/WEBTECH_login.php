@@ -169,7 +169,7 @@
               </li><p>
 
 						<li>
-							<input type="submit" class="button-green button-small" name="login" value="Login">
+							  <paper-button toggles id="submit" raised class="green" on-click="">Log-in</paper-button>
 
 							<a href="WEBTECH_index.php" type="button" class="button-small"  style="position: relative; top: 1px; left: 40%">Go Back</a>
 						</li>

@@ -1,9 +1,23 @@
 <!doctype html>
 <html lang="en-US">
-	
+
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
+	<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../bower_components/polymer/polymer-element.html">
+	<link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+	<link rel="import" href="../bower_components/paper-item/paper-item.html">
+	<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+	<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+	<link rel="import" href="../bower_components/vaadin-valo-theme/vaadin-grid.html">
+	<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+	<link rel="import" href="shared-styles.html">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<title>GAMESDOI | Register</title>
@@ -26,11 +40,11 @@
           <!-- end picker styles -->
 		<link rel="stylesheet" id="custom-style-css"  href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic" type="text/css" media="all" />
 		<!--
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		-->
 	</head>
 
-	<?php 
+	<?php
 
 		session_start();
 
@@ -115,16 +129,16 @@
 			</a>
 			<!-- End Logo -->
 			<!-- Social logos -->
-			
+
 			<div class="social">
 				<h3 class="normal"><a href="WEBTECH_login.php">LOGIN</a> |<a href="WEBTECH_register.php">REGISTER</a></h3>
 			</div>
 
 			<!-- End Social logos -->
-			
+
 		</div>
 		<!-- NAVBAR -->
-		
+
 		<div class="page normal-page container">
 
 		<div class="block block-contactform_block span12 first cf">
@@ -139,45 +153,38 @@
 
 					<ul class="contactform controls">
 
-                       	<li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Username</label></span>
-							<input type="text" placeholder="Username" name="username" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='username' always-float-label label='Username' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Password</label></span>
-							<input type="password" placeholder="Password" name="pass" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='password' always-float-label label='Password' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Confirm Password</label></span>
-							<input type="password" placeholder="Password" name="repass" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='confirmPassword' always-float-label label='Confirm Password' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">E-mail</label></span>
-							<input type="text" placeholder="example@example.com" name="email" class="reg_fields"> 
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='email' always-float-label label='e-mail' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">First Name</label></span>
-							<input type="text" placeholder="First Name" name="fname" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='fname' always-float-label label='First Name' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Last Name</label></span>
-							<input type="text" placeholder="Last Name" name="lname" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='lname' always-float-label label='Last name' ></paper-input>
+							</li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Birth Date</label></span>
-							<input type="text" placeholder="YYYY-MM-DD" name="bdate" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='bdate' always-float-label label='birth date' ></paper-input>
+							</li><p>
 
 						<li>
-							<input type="submit" class="button-green button-small" name="register" value="Create an Account">
-							<a href="WEBTECH_index.php" type="button" class="button-small"  style="position: relative; top: 1px; left: 31.5%">Go Back</a>
-						</li>
+							<paper-button  id="submit" raised class="green" on-click="">Create Account</paper-button>
+							<paper-button  id="back" raised class="green" on-click="">GO BACK </paper-button>
+							</li>
 
 					</ul>
 
@@ -190,4 +197,3 @@
 	</body>
 
 </html>
-
