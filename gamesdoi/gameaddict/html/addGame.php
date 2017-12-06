@@ -4,6 +4,25 @@
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
+	<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../bower_components/polymer/polymer-element.html">
+	<link rel="import" href="../bower_components/paper-search/paper-search.html">
+	<link rel="import" href="../bower_components/paper-search-panel/paper-search-panel.html">
+	<link rel="import" href="../bower_components//paper-search-bar/paper-search-bar.html">
+	<link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+	<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+	<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+	<link rel="import" href="../bower_components/paper-item/paper-item.html">
+	<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+	<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+	<link rel="import" href="../bower_components/vaadin-valo-theme/vaadin-grid.html">
+	<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+	<link rel="import" href="shared-styles.html">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<title>GAMESDOI | Create Review</title>
@@ -45,8 +64,8 @@
 
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 190px;">
-					<input type="input" name="search" style="height: 15px;"><i class="icon-search" style="background-color: #FF5B5B; padding : 5px 5px 5px 5px;"></i>
-				</div>
+					<paper-search-panel></paper-search-panel>
+					</div>
 				<div class="span1">
 					<div id="profileNav">
 					<ul>
@@ -85,52 +104,26 @@
 				<fieldset>
 		      <table >
 		      <tr>
-		      	<td><p><b>Name of Game</b><br><input type= "text" id="name" name="name" size="20" maxlength="20" style="width: 500px;"/>
+		      	<td>
+							<paper-input name='name' always-float-label label='Name of Game' ></paper-input>
+						</td>
 					</tr>
-					<tr>
-		      	<td><p><b>Genre </b><br>
-							<?php
-								$conn = new mysqli("localhost", "root", "12345", "reviewschema");
 
-								if ($conn->connect_error) {
-									die("Connection failed: " . $conn->connect_error);
-									echo "failed";
-								}
-
-								$sql = "SELECT genreID, genreName FROM genre";
-										$result = $conn->query($sql);
-										if ($result->num_rows > 0) {
-											// output data of each row
-											$select =  '<select name="select">';
-
-											while($row = $result->fetch_assoc()) {
-												$select.='<option value="'.$row['genreID'].'">'.$row['genreName'].'</option>';
-											}
-										}
-										else {
-											echo "0 results";
-										}
-										$select.='</select>';
-										echo $select;
-										$conn->close();
-										?>
-					</tr>
-					<td><p><b>Developer</b><br><input placeholder="Game Developer" style="width: 500px;" type= "text" name="developer" id="developer" size="20" maxlength="140"/>
+					<td><paper-input name='genre' always-float-label label='Genre' ></paper-input>
 				 </tr>
 				 <tr>
-				 <td><p><b>Cost</b><br><input placeholder="P" style="width: 500px;" type= "number" name="cost" id="cost" size="20" maxlength="140"/>
+				 <td>
+					 	<paper-input name='developer' always-float-label label='Developer' ></paper-input>
+				 </td>
 				 </tr>
 				 <tr>
-					 <td><p><b>Date Released</b><br><input style="width: 500px;" type= "date" name="date" id="date" size="20" maxlength="140"/>
+					 <td><label style="font-size: 11px;">Date Developed</label><vaadin-date-picker></vaadin-date-picker></td>
 				 </tr>
-				 <tr>
-				 <td><p><b>Platform</b><br><input placeholder="i.e. PS4, Xbox 360, PC, etc." style="width: 500px;" type= "text" name="platform" id="platform" size="20" maxlength="140"/>
-					<tr>
-		      <td ><p><b>Game Description</b><br><textarea placeholder="i.e. Description, Gameplay, etc." style="width: 500px;" name="description" id="description" placeholder="Description of the Game"rows="5" cols="20" class="required requiredField"></textarea><br>
+
+		      <td ><label style="font-size: 11px;">Game Description<br><iron-autogrow-textarea ></iron-autogrow-textarea><br>
 		      </tr>
-					<tr>
-		      <td><p><b>Game Video URL</b><br><input placeholder="url" style="width: 500px;" type= "text" name="url"  id="url" size="20" maxlength="140"/>
-		      </tr>
+
+					
 				</table>
 
 				</fieldset>

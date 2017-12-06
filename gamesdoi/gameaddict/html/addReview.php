@@ -26,6 +26,26 @@ if(isset($_POST['searchBtn'])){
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
+
+		<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../bower_components/polymer/polymer-element.html">
+		<link rel="import" href="../bower_components/paper-search/paper-search.html">
+		<link rel="import" href="../bower_components/paper-search-panel/paper-search-panel.html">
+		<link rel="import" href="../bower_components//paper-search-bar/paper-search-bar.html">
+		<link rel="import" href="../bower_components/paper-input/paper-input.html">
+		<link rel="import" href="../bower_components/paper-button/paper-button.html">
+		<link rel="import" href="../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+		<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+		<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+		<link rel="import" href="../bower_components/paper-item/paper-item.html">
+		<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+		<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+		<link rel="import" href="../bower_components/vaadin-valo-theme/vaadin-grid.html">
+		<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+		<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+		<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+		<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+		<link rel="import" href="shared-styles.html">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<title>GAMESDOI | Create Review</title>
@@ -68,8 +88,8 @@ if(isset($_POST['searchBtn'])){
 			<form <?php echo $_SERVER['PHP_SELF'];?> method="POST">
 			<div class="span65" style="padding-top: 20px; padding-left: 280px;">
 				<div class="span65" style="padding-left: 180px;">
-					<input type="input" name="gameNameFind" style="height: 40px;" placeholder="  name of game"><button type="submit" name="searchBtn" style=""><i class="fa fa-search"></i></button>
-				</div>
+						<paper-search-panel></paper-search-panel>
+					</div>
 				<div class="span1" style="padding-left:20px; padding-top:20px;">
 					<div id="profileNav">
 					<ul >
