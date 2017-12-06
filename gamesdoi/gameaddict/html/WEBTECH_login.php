@@ -4,6 +4,20 @@
 <!-- Mirrored from skywarriorthemes.com/gameaddict/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Oct 2017 09:33:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
+	<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../bower_components/polymer/polymer-element.html">
+	<link rel="import" href="../bower_components/paper-input/paper-input.html">
+	<link rel="import" href="../bower_components/paper-button/paper-button.html">
+	<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+	<link rel="import" href="../bower_components/paper-item/paper-item.html">
+	<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+	<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+	<link rel="import" href="../bower_components/vaadin-valo-theme/vaadin-grid.html">
+	<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+	<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+	<link rel="import" href="shared-styles.html">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<title>GAMESDOI | Login</title>
@@ -146,15 +160,13 @@
 
 					<ul class="contactform controls">
 
-                       	<li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Username</label></span>
-							<input type="text" placeholder="Username" name="username" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='username' always-float-label label='Username' ></paper-input>
+              </li><p>
 
-                        <li class="input-prepend">
-							<span class="add-on reg"><label style="font-family: Open Sans; font-size: 15px;">Password</label></span>
-							<input type="password" placeholder="Password" name="password" class="reg_fields">
-                        </li><p>
+              <li class="input-prepend">
+							<paper-input name='password' always-float-label label='Password' ></paper-input>
+              </li><p>
 
 						<li>
 							<input type="submit" class="button-green button-small" name="login" value="Login">
